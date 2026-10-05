@@ -1,0 +1,7 @@
+{
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/:doc", "destination": "/docs.html" },
+    { "source": "/:doc/:version", "destination": "/docs.html" }
+  ]
+}

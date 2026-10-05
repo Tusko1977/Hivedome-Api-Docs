@@ -1,0 +1,769 @@
+openapi: 3.0.3
+info:
+  title: ITAS Invoicing
+  version: '1.0'
+  description: Converted from the supplied API Blueprint. Release notes dated 01 May 2023.
+servers:
+- url: http://itas.apiary.io
+tags:
+- name: Manual
+- name: Trade Invoicing
+- name: Trade Locking
+- name: Reference Data
+paths:
+  /Invoicing/{TradingEntityId}/Manual/Invoice:
+    post:
+      tags:
+      - Manual
+      summary: Create Manual Invoice
+      parameters:
+      - &id001
+        name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: JT
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/InvoiceRefResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateManualInvoice'
+  /Invoicing/{TradingEntityId}/Manual/Journal:
+    post:
+      tags:
+      - Manual
+      summary: Create Manual Journal
+      parameters:
+      - *id001
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/JournalRefResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateManualJournal'
+  /Invoicing/{TradingEntityId}/Trade/Sales:
+    post:
+      tags:
+      - Trade Invoicing
+      summary: Create Sales Invoice
+      parameters:
+      - *id001
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/InvoiceRefResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvSales'
+  /Locking/{TradingEntityId}/Trade/Lock:
+    post:
+      tags:
+      - Trade Locking
+      summary: Create Trade Lock
+      parameters:
+      - *id001
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/LockResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LockCreateBody'
+  /Locking/{TradingEntityId}/Trade/Refresh/{LockId}:
+    put:
+      tags:
+      - Trade Locking
+      summary: Refresh Trade Lock
+      parameters:
+      - *id001
+      - &id002
+        name: LockId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: jt_TRAD_P00001
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/LockResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+  /Locking/{TradingEntityId}/Trade/Remove/{LockId}:
+    put:
+      tags:
+      - Trade Locking
+      summary: Remove Trade Lock
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/LockRemoveResponse'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+  /Invoicing/{TradingEntityId}/ReferenceData/VatSequencees/{VatCode}/{PaymentTermsCode}/{InvoiceType}/{InvoiceDate}:
+    get:
+      tags:
+      - Reference Data
+      summary: List Vat Sequences
+      parameters:
+      - *id001
+      - name: VatCode
+        in: path
+        required: true
+        schema:
+          type: string
+          example: H
+      - name: PaymentTermsCode
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 10 DAYS
+      - name: InvoiceType
+        in: path
+        required: true
+        schema:
+          type: string
+          example: PI
+      - name: InvoiceDate
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2023-01-31'
+          format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VatSequenceList'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  Response:
+                    $ref: '#/components/schemas/StatusResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - AccessToken: []
+components:
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: AccessToken
+      description: 'Bearer token. Send as: Bearer <token>'
+  schemas:
+    AccountDetails:
+      type: object
+      properties:
+        AccountCode:
+          type: string
+          maxLength: 11
+          example: POSTEIT.P
+        AccountLedgerType:
+          type: string
+          maxLength: 1
+          enum:
+          - C
+          - N
+          - K
+          example: C
+        ExpenseCode:
+          type: string
+          maxLength: 7
+          example: MISC
+        DepartmentCode:
+          type: string
+          maxLength: 4
+          example: GEN
+        AssociateClientCode:
+          type: string
+          maxLength: 10
+          example: ASSOCCLI.P
+        AmountInDocumentCurrency:
+          type: number
+          format: double
+          example: -1.02
+        AmountInFunctionalCurrency:
+          type: number
+          format: double
+          example: -1.02
+        VatCode:
+          type: string
+          maxLength: 2
+          example: '22'
+        Narrative:
+          type: string
+          maxLength: 30
+          example: STAMPA POSTA 4ONLINE GIU22
+        SecondaryReference:
+          type: string
+          maxLength: 10
+          example: '3220336229'
+        Memo:
+          type: string
+          maxLength: 100
+          example: Add Memo Here
+        FreeField:
+          type: string
+          maxLength: 10
+          example: 0123456789
+        PersonalInits:
+          type: string
+          maxLength: 3
+          example: RDG
+      required:
+      - AccountCode
+      - AccountLedgerType
+      - ExpenseCode
+      - DepartmentCode
+      - AmountInDocumentCurrency
+    Cost:
+      type: object
+      properties:
+        CostCode:
+          type: string
+          maxLength: 8
+          example: QUALITY
+        ExpenseCode:
+          type: string
+          maxLength: 7
+          example: STOCK
+        CostValueInvoiceCcy:
+          type: number
+          format: double
+          example: 316.25
+      required:
+      - CostCode
+      - ExpenseCode
+      - CostValueInvoiceCcy
+    InvoiceDocumentBody:
+      type: object
+      properties:
+        InvoiceType:
+          type: string
+          maxLength: 2
+          enum:
+          - PI
+          - SI
+          - CN
+          - DN
+          example: PI
+        DocumentDate:
+          type: string
+          format: date-time
+          example: '2022-08-10T00:00:00Z'
+        ValueDate:
+          type: string
+          format: date-time
+          example: '2022-08-10T00:00:00Z'
+        DocumentCurrencyCode:
+          type: string
+          maxLength: 3
+          example: EUR
+        FunctionalCurrencyCode:
+          type: string
+          maxLength: 3
+          example: EUR
+        ReceivedDate:
+          type: string
+          format: date-time
+          example: '2022-08-10T00:00:00Z'
+        SecondaryReference:
+          type: string
+          maxLength: 10
+          example: '3220336229'
+        DepartmentCode:
+          type: string
+          maxLength: 4
+          example: GEN
+        ClientReference:
+          type: string
+          maxLength: 30
+          example: '3220336229'
+        PaymentTermsCode:
+          type: string
+          maxLength: 8
+          example: 30DFBB
+        PaymentModeCode:
+          type: string
+          maxLength: 1
+          example: P
+      required:
+      - InvoiceType
+      - DocumentDate
+      - ValueDate
+      - DocumentCurrencyCode
+    JournalDocumentBody:
+      type: object
+      properties:
+        JournalType:
+          type: string
+          maxLength: 2
+          enum:
+          - JL
+          example: JL
+        DocumentDate:
+          type: string
+          format: date-time
+          example: '2022-08-10T00:00:00Z'
+        ValueDate:
+          type: string
+          format: date-time
+          example: '2022-08-10T00:00:00Z'
+        DocumentCurrencyCode:
+          type: string
+          maxLength: 3
+          example: EUR
+        FunctionalCurrencyCode:
+          type: string
+          maxLength: 3
+          example: EUR
+        SecondaryReference:
+          type: string
+          maxLength: 10
+          example: '3220336229'
+      required:
+      - JournalType
+      - DocumentDate
+      - ValueDate
+      - DocumentCurrencyCode
+    CreateManualInvoice:
+      type: object
+      properties:
+        DocumentBody:
+          $ref: '#/components/schemas/InvoiceDocumentBody'
+        AccountDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDetails'
+      required:
+      - DocumentBody
+      - AccountDetails
+    CreateManualJournal:
+      type: object
+      properties:
+        DocumentBody:
+          $ref: '#/components/schemas/JournalDocumentBody'
+        AccountDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountDetails'
+      required:
+      - DocumentBody
+      - AccountDetails
+    CreateInvSales:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          maxLength: 10
+          example: S00001.000
+        InvoiceDate:
+          type: string
+          format: date-time
+          example: '2022-06-22T00:00:00Z'
+        ValueDate:
+          type: string
+          format: date-time
+          example: '2022-06-22T00:00:00Z'
+        Quantity:
+          type: number
+          format: double
+          example: 700
+        InvoiceCurrencyCode:
+          type: string
+          maxLength: 3
+          example: GBP
+        ProceedsOfGoods:
+          type: number
+          format: double
+          example: 7000
+        VatRateCode:
+          type: string
+          maxLength: 2
+          example: Z
+        ProceedsOfGoodsVatValue:
+          type: number
+          format: double
+          example: 140
+        InvoiceAccountCode:
+          type: string
+          maxLength: 10
+          example: CLIENT.S
+        IsSecure:
+          type: boolean
+          example: true
+        PaymentModeCode:
+          type: string
+          maxLength: 1
+          example: P
+        PaymentTermsCode:
+          type: string
+          maxLength: 8
+          example: INV 7D
+        ClientReference:
+          type: string
+          maxLength: 25
+          example: 123B
+        Narrative:
+          type: string
+          maxLength: 30
+          example: 22881 205 per metric ton
+        AuthoriseForPosting:
+          type: boolean
+          example: true
+        Costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+      required:
+      - ContractId
+      - InvoiceDate
+      - ValueDate
+      - Quantity
+      - InvoiceCurrencyCode
+      - ProceedsOfGoods
+      - VatRateCode
+      - ProceedsOfGoodsVatValue
+      - InvoiceAccountCode
+    LockCreateBody:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          maxLength: 10
+          example: P00001.000
+        UserName:
+          type: string
+          maxLength: 255
+          example: JSMITH
+        PCName:
+          type: string
+          maxLength: 50
+          example: JSMITH-PC
+      required:
+      - ContractId
+      - UserName
+      - PCName
+    LockResponse:
+      type: object
+      properties:
+        Locked:
+          type: boolean
+          example: true
+        LockId:
+          type: string
+          example: jt_TRAD_P00001
+        LockExpiryTime:
+          type: string
+          format: date-time
+          example: '2023-01-16T17:47:31Z'
+    LockRemoveResponse:
+      type: object
+      properties:
+        Locked:
+          type: boolean
+          example: false
+        LockId:
+          type: string
+          example: jt_TRAD_P00001
+        LockExpiryTime:
+          type: string
+          format: date-time
+          example: '1900-01-01T00:00:00Z'
+    InvoiceRefResponse:
+      type: object
+      properties:
+        InvoiceReference:
+          type: string
+          example: SI2200001
+    JournalRefResponse:
+      type: object
+      properties:
+        JournalReference:
+          type: string
+          example: JL2200001
+    VatSequenceList:
+      type: object
+      properties:
+        VatSequenceId:
+          type: number
+          example: 2
+        VatSequenceDescription:
+          type: string
+          maxLength: 255
+          example: British CN-DN
+        CountryCode:
+          type: string
+          maxLength: 3
+          example: GB
+        CashCreditStyle:
+          type: string
+          maxLength: 6
+          enum:
+          - Cash
+          - Credit
+          - All
+          example: All
+        InvoiceTypes:
+          type: string
+          maxLength: 255
+          example: CN,DN
+        StartDate:
+          type: string
+          format: date-time
+          example: '2023-01-02T00:00:00Z'
+        EndDate:
+          type: string
+          format: date-time
+          example: '2023-06-02T00:00:00Z'
+    Pagination:
+      type: object
+      properties:
+        Total:
+          type: integer
+          example: 547
+        Top:
+          type: integer
+          example: 200
+        Skip:
+          type: integer
+          example: 400
+        Returned:
+          type: integer
+          example: 146
+    StatusResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    MessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    ErrorResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageDetail'

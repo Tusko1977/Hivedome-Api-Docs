@@ -1,0 +1,541 @@
+openapi: 3.0.3
+info:
+  title: COFCO Custom API
+  version: '1.1'
+  description: |
+    Converted from the supplied API Blueprint.
+    Original API metadata version: 1.0.
+    Release notes dated 4 September 2026.
+servers:
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+  - bearerAuth: []
+tags:
+  - name: Audit Data
+  - name: Payment Requests
+paths:
+  /Audit/{TradingEntityId}/CreatedRecord/{AuditDate}/{DataType}:
+    get:
+      tags: [Audit Data]
+      summary: List Create Audit Data
+      description: Audit Data records of action type Create.
+      operationId: listCreateAuditData
+      parameters:
+        - $ref: '#/components/parameters/TradingEntityId'
+        - $ref: '#/components/parameters/AuditDate'
+        - $ref: '#/components/parameters/DataType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreatedDeletedAuditData'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadReadResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+  /Audit/{TradingEntityId}/UpdatedRecord/{AuditDate}/{DataType}:
+    get:
+      tags: [Audit Data]
+      summary: List Update Audit Data
+      description: Audit Data records of action type Update.
+      operationId: listUpdateAuditData
+      parameters:
+        - $ref: '#/components/parameters/TradingEntityId'
+        - $ref: '#/components/parameters/AuditDate'
+        - $ref: '#/components/parameters/DataType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UpdatedAuditData'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadReadResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+  /Audit/{TradingEntityId}/DeletedRecord/{AuditDate}/{DataType}:
+    get:
+      tags: [Audit Data]
+      summary: List Delete Audit Data
+      description: Audit Data records of action type Delete.
+      operationId: listDeleteAuditData
+      parameters:
+        - $ref: '#/components/parameters/TradingEntityId'
+        - $ref: '#/components/parameters/AuditDate'
+        - $ref: '#/components/parameters/DataType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CreatedDeletedAuditData'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadReadResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+  /PaymentRequests/{TradingEntityId}/ApprovePaymentRequest/{PaymentRequestId}:
+    patch:
+      tags: [Payment Requests]
+      summary: Update Approve Payment Request
+      operationId: approvePaymentRequest
+      parameters:
+        - $ref: '#/components/parameters/TradingEntityId'
+        - $ref: '#/components/parameters/PaymentRequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovePaymentRequestUpdate'
+      responses:
+        '201':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+  /PaymentRequests/{TradingEntityId}/CancelPaymentRequest/{PaymentRequestId}:
+    patch:
+      tags: [Payment Requests]
+      summary: Update Cancel Payment Request
+      operationId: cancelPaymentRequest
+      parameters:
+        - $ref: '#/components/parameters/TradingEntityId'
+        - $ref: '#/components/parameters/PaymentRequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelPaymentRequestUpdate'
+      responses:
+        '201':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    TradingEntityId:
+      name: TradingEntityId
+      in: path
+      required: true
+      description: Identify specific trading entity.
+      schema:
+        type: string
+      example: JT
+    AuditDate:
+      name: AuditDate
+      in: path
+      required: true
+      description: Audit Date of records.
+      schema:
+        type: integer
+      example: 20250908
+    DataType:
+      name: DataType
+      in: path
+      required: true
+      description: Data Type group of records.
+      schema:
+        type: string
+      example: All Phys01
+    PaymentRequestId:
+      name: PaymentRequestId
+      in: path
+      required: true
+      description: Id of Payment Request.
+      schema:
+        type: integer
+      example: 1
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundResponse'
+    MethodNotAllowed:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MethodNotAllowedResponse'
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    DeletedResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Deleted
+    AuthoriseResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Authorised
+    CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    CreateMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateErrorMessageDetail'
+    CreateErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - API : {fieldName} has a {fieldName} of {value}.'
+    CreateBllMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorBllMessageDetail'
+    ErrorBllMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - API : {fieldName} has a {fieldName} of {value}.'
+    ResponseValue:
+      type: object
+      properties:
+        Value:
+          type: string
+    ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    BadRequestResponse:
+      type: object
+      properties:
+        Response:
+          allOf:
+            - $ref: '#/components/schemas/ResponseValue'
+          example:
+            Value: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessageDetail'
+    BadPropertyErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5074 - API : The value sent in the querystring variable {Property} is not allowed.'
+    BadPropertyResponse:
+      type: object
+      properties:
+        Response:
+          allOf:
+            - $ref: '#/components/schemas/ResponseValue'
+          example:
+            Value: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/BadPropertyErrorMessageDetail'
+    BadReadErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5075 - API : The value sent in the querystring is not allowed.'
+    BadReadResponse:
+      type: object
+      properties:
+        Response:
+          allOf:
+            - $ref: '#/components/schemas/ResponseValue'
+          example:
+            Value: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/BadReadErrorMessageDetail'
+    WarningMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API50xx - Data : The field {fieldName} was not found.'
+    InfoMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Information
+        Message:
+          type: string
+          example: 'API50xx - Data : Now create xyz.'
+    NotFoundErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5068 - Data : No records found.'
+    NotFoundResponse:
+      type: object
+      properties:
+        Response:
+          allOf:
+            - $ref: '#/components/schemas/ResponseValue'
+          example:
+            Value: 404 Not Found
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotFoundErrorMessageDetail'
+    MethodNotAllowedMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5077 - API : That method is not supported, please check the ITAS API documentation.'
+    MethodNotAllowedResponse:
+      type: object
+      properties:
+        Response:
+          allOf:
+            - $ref: '#/components/schemas/ResponseValue'
+          example:
+            Value: 405 Method Not Allowed
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MethodNotAllowedMessage'
+    ApprovePaymentRequestUpdate:
+      type: object
+      required: [PaymentRequestId, IsSuccess]
+      properties:
+        PaymentRequestId:
+          type: integer
+          example: 1
+        IsSuccess:
+          type: boolean
+          example: false
+        FailureText:
+          type: string
+          maxLength: 4000
+          example: SAP Error 1234
+    CancelPaymentRequestUpdate:
+      type: object
+      required: [PaymentRequestId, IsSuccess]
+      properties:
+        PaymentRequestId:
+          type: integer
+          example: 1
+        IsSuccess:
+          type: boolean
+          example: false
+        FailureText:
+          type: string
+          maxLength: 4000
+          example: SAP Error 1234
+        DocumentReference:
+          type: string
+          maxLength: 9
+          example: P00001.000
+    CreatedDeletedAuditData:
+      type: object
+      properties:
+        UserInitials:
+          type: string
+          maxLength: 3
+          example: DT
+        DataType:
+          type: string
+          maxLength: 30
+          example: All Phys01
+        AssetReference:
+          type: string
+          maxLength: 4000
+          example: P00001.000
+        AuditDate:
+          type: integer
+          example: 20250908
+    UpdatedAuditData:
+      type: object
+      properties:
+        Column:
+          type: string
+          maxLength: 30
+          example: phys01_portorig
+        OldValue:
+          type: string
+          maxLength: 255
+          example: COLOMB
+        NewValue:
+          type: string
+          maxLength: 255
+          example: COSTA
+        UserInitials:
+          type: string
+          maxLength: 3
+          example: DT
+        DataType:
+          type: string
+          maxLength: 30
+          example: All Phys01
+        AssetReference:
+          type: string
+          maxLength: 4000
+          example: P00001.000
+        AuditDate:
+          type: integer
+          example: 20250908
+    Pagination:
+      type: object
+      properties:
+        Total:
+          type: integer
+          description: Total number of records available.
+          example: 547
+        Top:
+          type: integer
+          description: Max number returned per message.
+          example: 200
+        Skip:
+          type: integer
+          description: Number of records skipped.
+          example: 400
+        Returned:
+          type: integer
+          description: Actual number returned.
+          example: 147
+    PaymentRequestUpdateResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            PaymentRequestId:
+              type: integer
+              example: 1
+        Response:
+          $ref: '#/components/schemas/UpdateResponse'

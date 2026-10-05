@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>API Docs</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script src="/specs.js"></script>
+  <script>
+    window.onload = () => {
+	  // e.g. "/cofco/v1.1/" -> "cofco/v1.1"
+	  const key = location.pathname.replace(/^\/+|\/+$/g, "");
+	  const spec = SPECS[key];
+
+	  if (!spec) {
+		document.getElementById("swagger-ui").innerHTML =
+		  "<p style='font-family:sans-serif;padding:2rem'>No API docs found at this URL. <a href='/'>See all docs</a></p>";
+		return;
+	  }
+
+	  document.title = spec.title;
+
+	  const ui = SwaggerUIBundle({
+		url: spec.url,
+		dom_id: "#swagger-ui",
+		defaultModelsExpandDepth: -1,
+		deepLinking: true,
+	  });
+
+	  // Scroll expanded operation to top of viewport
+	  document.addEventListener("click", (e) => {
+		const summary = e.target.closest(".opblock-summary");
+		if (summary) {
+		  const opblock = summary.closest(".opblock");
+		  setTimeout(() => {
+			opblock.scrollIntoView({ behavior: "smooth", block: "start" });
+		  }, 100); // wait for expand animation/render
+		}
+	  });
+	};
+  </script>
+</body>
+</html>
