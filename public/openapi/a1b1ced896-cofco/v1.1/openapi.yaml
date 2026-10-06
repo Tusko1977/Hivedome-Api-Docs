@@ -5,6 +5,7 @@ info:
   description: Release notes dated 4 September 2026.
 servers:
   - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
