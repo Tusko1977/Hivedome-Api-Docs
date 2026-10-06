@@ -15,7 +15,7 @@ servers:
         default: localhost
         description: Hostname or IP address of the ITAS server
 security:
-  - bearerAuth: []
+  - BearerAuth: []
 paths:
   /Contracts/{TradingEntityId}/Traffic/NetAndGrossWeights/{PhysicalTradeId}:
     patch:
@@ -28,7 +28,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/NetGrossWeight UpdateResult'
         '400':
           description: '400'
           content:
@@ -63,7 +63,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NetGrossWeight Update'
+              $ref: '#/components/schemas/NetGrossWeightUpdate'
   /ElectronicOrderBook/BrokerData:
     post:
       tags:
@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BrokerData CreateResult'
         '400':
           description: '400'
           content:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/OrderId UpdateResult'
         '400':
           description: '400'
           content:
@@ -152,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/OrderId DeleteResult'
         '400':
           description: '400'
           content:
@@ -188,7 +188,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/WebIceData CreateResult'
         '400':
           description: '400'
           content:
@@ -224,7 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/OrderId UpdateResult'
         '400':
           description: '400'
           content:
@@ -265,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/OrderId DeleteResult'
         '400':
           description: '400'
           content:
@@ -301,13 +301,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/DischargeWeights CreateResult'
         '200':
           description: '200'
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/DischargeWeights UpdateResult'
         '400':
           description: '400'
           content:
@@ -349,7 +349,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/InvoiceStage CreateResult'
         '400':
           description: '400'
           content:
@@ -391,7 +391,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BaleGrouping CreateResult'
         '400':
           description: '400'
           content:
@@ -433,7 +433,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BaleGrouping UpdateResult'
         '400':
           description: '400'
           content:
@@ -480,7 +480,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BaleGrouping DeleteResult'
         '400':
           description: '400'
           content:
@@ -521,7 +521,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/LogisticsMovement UpdateResult'
         '400':
           description: '400'
           content:
@@ -615,7 +615,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Lots CreateResult'
         '400':
           description: '400'
           content:
@@ -657,7 +657,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Lots UpdateResult'
         '400':
           description: '400'
           content:
@@ -699,7 +699,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/Lots DeleteResult'
         '400':
           description: '400'
           content:
@@ -735,7 +735,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/InstructionSheet UpdateResult'
         '400':
           description: '400'
           content:
@@ -781,7 +781,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/InstructionSheet DeleteResult'
         '400':
           description: '400'
           content:
@@ -839,7 +839,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DischargeWeightsResponse'
+                $ref: '#/components/schemas/DischargeWeightsResponse1'
   /InvoiceStageLeg:
     get:
       tags:
@@ -1473,13 +1473,14 @@ components:
           type: string
           example: CONTROL01
         FirstController:
-          type: object
+          $ref: '#/components/schemas/ControllerInput1'
         SecondController:
-          type: object
+          $ref: '#/components/schemas/ControllerInput2'
       required:
       - PhysicalTradeId
       - LandingReportDate
       - ControllerReference
+      - FirstController
     DischargeWeightsResponse1:
       type: object
       properties:
@@ -1513,20 +1514,21 @@ components:
     DischargeWeightsResponse:
       type: object
       properties:
-        PhysicalTradeId:
-          type: string
-          example: S00001.001
-        LandingReportDate:
-          type: string
-          format: date-time
-        example: '2026-08-28T00:00:00Z'
-        ControllerReference:
-          type: string
-          example: CONTROL001
-        FirstController:
-          $ref: '#/components/schemas/DischargeWeightsResponse1'
-        SecondController:
-          $ref: '#/components/schemas/DischargeWeightsResponse2'
+        DischargeWeights:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DischargeWeightsResponse1'
+            - $ref: '#/components/schemas/DischargeWeightsResponse2'
+          example:
+            - PhysicalTradeId: S00001.001
+              WeightCode: LBS
+              GrossWeight: 1100
+              RecordType: Discharge
+            - PhysicalTradeId: S00001.001
+              WeightCode: LBS
+              GrossWeight: 1000
+              RecordType: NetLandedTwo
     InvoiceStageLeg:
       type: object
       properties:
@@ -1620,6 +1622,25 @@ components:
             oneOf:
             - $ref: '#/components/schemas/InvoiceStageLeg'
             - $ref: '#/components/schemas/InvoiceStageLeg2'
+          example:
+            - GroupNumber: 1
+              HaulId: 101
+              CostCode: CC-100
+              PercentActualised: 100
+              InvoiceValue: 110
+              VatCode: S1
+              NominalAccountCode: NOM-100
+              ExpenseCode: EXP- 10
+              Narrative: Invoice Leg 1
+            - GroupNumber: 2
+              HaulId: 102
+              CostCode: CC-200
+              PercentActualised: 100
+              InvoiceValue: 120
+              VatCode: S1
+              NominalAccountCode: NOM-200
+              ExpenseCode: EXP- 20
+              Narrative: Invoice Leg 2
       required:
       - DocumentDate
       - ValueDate
@@ -1743,7 +1764,7 @@ components:
           type: number
           example: 41
         Shipping:
-          type: object
+          $ref: '#/components/schemas/Shipping'
     LotRequest:
       type: object
       properties:
@@ -1820,3 +1841,205 @@ components:
         EstimatedShipmentDate:
           type: string
           example: '2026-09-30T00:00:00Z'
+    NetGrossWeight UpdateResult:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/NetGrossWeightResponseP'
+            - $ref: '#/components/schemas/NetGrossWeightResponseS'
+          example:
+            - PhysicalTradeId: P00001.000
+              UnitOfMeasurementCode: MT
+              Quantity: 20
+            - PhysicalTradeId: S00001.000
+              UnitOfMeasurementCode: MT
+              Quantity: 20
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    BrokerData CreateResult:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            BrokerDataId:
+              type: number
+              example: 1
+            OrderId:
+              type: number
+              example: 1
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    WebIceData CreateResult:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            WebIceDataId:
+              type: number
+              example: 1
+            OrderId:
+              type: number
+              example: 1
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    OrderIdData:
+      type: object
+      properties:
+        OrderId:
+          type: number
+          example: 1
+    OrderId UpdateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/OrderIdData'
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    OrderId DeleteResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/OrderIdData'
+        Response:
+          $ref: '#/components/schemas/200 DeletedResponse'
+    DischargeWeights CreateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/DischargeWeightsResponse'
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    DischargeWeights UpdateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/DischargeWeightsResponse'
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    InvoiceStage CreateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/InvoiceStageResponse'
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    BaleGrouping CreateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/BaleGroupingResponse'
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    BaleGrouping UpdateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/BaleGroupingResponse'
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    BaleGrouping DeleteResult:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            GroupId:
+              type: number
+              example: 150
+        Response:
+          $ref: '#/components/schemas/200 DeletedResponse'
+    LogisticsMovement UpdateResult:
+      type: object
+      properties:
+        Data:
+          type: object
+          properties:
+            GroupId:
+              type: number
+              example: 1515
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    LotsResponseData:
+      type: object
+      properties:
+        GroupingId:
+          type: number
+          example: 1
+        ContractSplits:
+          type: array
+          items:
+            type: string
+          example:
+            - P00001.001
+            - P00001.002
+        InventoryIds:
+          type: array
+          items:
+            type: number
+          example:
+            - 123
+            - 234
+    Lots CreateResult:
+      type: object
+      properties:
+        GroupingId:
+          type: number
+          example: 1
+        ContractSplits:
+          type: array
+          items:
+            type: string
+          example:
+            - P00001.001
+            - P00001.002
+        InventoryIds:
+          type: array
+          items:
+            type: number
+          example:
+            - 123
+            - 234
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
+    Lots UpdateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/LotsResponseData'
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    Lots DeleteResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/LotsResponseData'
+        Response:
+          $ref: '#/components/schemas/200 DeletedResponse'
+    InstructionSheetData:
+      type: object
+      properties:
+        PhyscialTradeId:
+          type: string
+          example: P00001.001
+        ReleaseId:
+          type: number
+          example: 123
+    InstructionSheet UpdateResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/InstructionSheetData'
+        Response:
+          $ref: '#/components/schemas/200 UpdateResponse'
+    InstructionSheet DeleteResult:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/InstructionSheetData'
+        Response:
+          $ref: '#/components/schemas/200 DeletedResponse'
