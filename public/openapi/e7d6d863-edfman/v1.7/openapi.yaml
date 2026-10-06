@@ -839,7 +839,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DischargeWeightsResponse1'
+                $ref: '#/components/schemas/DischargeWeightsResponse'
   /InvoiceStageLeg:
     get:
       tags:
@@ -1513,12 +1513,20 @@ components:
     DischargeWeightsResponse:
       type: object
       properties:
-        DischargeWeights:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/DischargeWeightsResponse1'
-            - $ref: '#/components/schemas/DischargeWeightsResponse2'
+        PhysicalTradeId:
+        type: string
+        example: S00001.001
+        LandingReportDate:
+        type: string
+        format: date-time
+        example: '2026-08-28T00:00:00Z'
+        ControllerReference:
+        type: string
+        example: CONTROL001
+        FirstController:
+        $ref: '#/components/schemas/DischargeWeightsResponse1'
+        SecondController:
+        $ref: '#/components/schemas/DischargeWeightsResponse2'
     InvoiceStageLeg:
       type: object
       properties:
@@ -1749,7 +1757,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Lot'
-    NetGrossWeight ResponseP:
+    NetGrossWeightResponseP:
       type: object
       properties:
         PhysicalTradeId:
@@ -1761,7 +1769,7 @@ components:
         Quantity:
           type: number
           example: 20
-    NetGrossWeight ResponseS:
+    NetGrossWeightResponseS:
       type: object
       properties:
         PhysicalTradeId:
@@ -1773,7 +1781,7 @@ components:
         Quantity:
           type: number
           example: 20
-    NetGrossWeight Update:
+    NetGrossWeightUpdate:
       type: object
       properties:
         PhysicalTradeId:
