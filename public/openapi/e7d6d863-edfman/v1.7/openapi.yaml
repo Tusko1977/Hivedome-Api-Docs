@@ -1049,6 +1049,13 @@ components:
         IsStopWeights:
           type: boolean
           example: true
+        InventoryIds:
+          type: array
+          items:
+            type: integer
+          example:
+            - 150
+            - 151
         AllocatedSaleCode:
           type: string
           example: ''
