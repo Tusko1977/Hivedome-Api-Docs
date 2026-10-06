@@ -2,9 +2,9 @@ openapi: 3.0.3
 info:
   title: ITAS Invoicing
   version: '1.0'
-  description: Converted from the supplied API Blueprint. Release notes dated 01 May 2023.
+  description: Release Notes 01 May 2023.
 servers:
-- url: http://itas.apiary.io
+- url: http://{yourServer}:4720
 tags:
 - name: Manual
 - name: Trade Invoicing

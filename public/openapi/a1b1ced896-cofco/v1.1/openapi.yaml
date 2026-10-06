@@ -2,12 +2,9 @@ openapi: 3.0.3
 info:
   title: COFCO Custom API
   version: '1.1'
-  description: |
-    Converted from the supplied API Blueprint.
-    Original API metadata version: 1.0.
-    Release notes dated 4 September 2026.
+  description: Release notes dated 4 September 2026.
 servers:
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
