@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: e-Invoicing Custom API
   version: '1.4'
-  description: 'Release Notes 21 September 2019'
+  description: 'Release notes: 5 August 2026.'
 servers:
   - url: http://{yourServer}:4720
     variables:
@@ -68,6 +68,141 @@ paths:
                     $ref: '#/components/schemas/Pagination'
                   Response:
                     $ref: '#/components/schemas/SuccessResponse'
+              example:
+                Data:
+                - InvoiceRecordId: 1
+                  AccountCode: ABCDEFG.P
+                  ClientReference: '5879101647'
+                  CurrencyCode: EUR
+                  DocumentDate: '2025-07-14T00:00:00Z'
+                  ValueDate: '2025-08-14T00:00:00Z'
+                  Name: Coolblue N.V.
+                  VatRegistrationNo: NL823619357Z08
+                  EInvoiceId: 0478493179
+                  TotalInvoiceAmount: 729.17
+                  TotalInvoiceLinesExVatAmount: 745.91
+                  TotalVatAmount: 16.74
+                  InvoicePayableAmount: 719.27
+                  IBAN: UKBMGB22
+                  BIC: HBUKGB4B
+                  OrderNumber: Order 1
+                  IsProcessed: false
+                  TaxScheme: VAT
+                  SchemeId: '9944'
+                  DocumentType: '123'
+                  Notes: Received ready for processing
+                  InvoiceType: Contract
+                  BuyerOrderNo: BuyOrder1
+                  BuyerSwiftAddress: SWFTBUY123
+                  BuyerVatRegistrationNo: VATBUY4546
+                  ClientAddress1: 1 Downer Road
+                  ClientAddress3: Southend
+                  ClientAddress4: Essex
+                  ClientCountryCode: GB
+                  ClientFiscalRegistrationNo: CLIFIS789
+                  ClientPaymentTerms: 10 Days
+                  ClientTitle: I AM CLIENT
+                  ClientVatRegistrationNo: CLIVAT753
+                  ClientZipCode: SS2 3FF
+                  DeliveryClientAddress1: 16 Del Road
+                  DeliveryClientAddress3: Highgate
+                  DeliveryClientAddress4: London
+                  DeliveryClientCountryCode: GB
+                  DeliveryClientTitle: I AM DEL CLIENT
+                  DeliveryClientZipCode: N16 1JJ
+                  DeliveryDate: '2025-07-30T00:00:00Z'
+                  PaymentMethod: PAYMENT
+                  PaymentModeDescription: TRANSFER
+                  SupplierAddress3: 22 Supplier Ave
+                  SupplierAddress4: Dudley
+                  SupplierCountryCode: GB
+                  SupplierFiscalRegistrationNo: SUPPFIS951
+                  SupplierSwiftAddress: SUPSWFT357
+                  SupplierTitle: I AM SUPPLIER
+                  SupplierZipCode: MI7 9UU
+                  Source: eInvoice
+                  IncomingOrOutgoing: Incoming
+                  InvoiceRecordLegs:
+                  - InvoiceRecordId: 1
+                    InvoiceRecordLegId: 1
+                    Quantity: 440
+                    WeightCode: MT
+                    Value: 22000
+                    Price: 50
+                    VatRatePercentage: 21
+                    InvoiceRecordLegDescription: SGR 1234
+                    VatRateCode: E
+                    RateTypeCode: A
+                    PriceTypeCode: PKG
+                    PaymentModeCode: I
+                    PaymentId: Payment 1
+                    BuyerOrderIdentifier: XX01
+                    StartPeriod: '2025-07-14T00:00:00Z'
+                    EndPeriod: '2025-07-28T00:00:00Z'
+                    FreeFormatNote: Notes section
+                    BaseQuantity: 300
+                    ValueType: Contract
+                    CostHeadingCode: CSP
+                    DocumentReference: SI2600001
+                    InvoiceCurrencyCode: GBP
+                    PhysicalTradeId: S00001.001
+                    CostUniqueId: 1
+                    VatAmount: 441
+                  - InvoiceRecordId: 1
+                    InvoiceRecordLegId: 2
+                    Quantity: 400
+                    WeightCode: MT
+                    Value: 24000
+                    Price: 60
+                    VatRatePercentage: 21
+                    InvoiceRecordLegDescription: MLS 8523
+                    VatRateCode: E
+                    RateTypeCode: A
+                    PriceTypeCode: PKG
+                    PaymentModeCode: I
+                    PaymentId: Payment 1
+                    BuyerOrderIdentifier: XX01
+                    StartPeriod: '2025-07-14T00:00:00Z'
+                    EndPeriod: '2025-07-28T00:00:00Z'
+                    FreeFormatNote: Notes section
+                    BaseQuantity: 100
+                    ValueType: Cost
+                    CostHeadingCode: CSP
+                    DocumentReference: SI2600001
+                    InvoiceCurrencyCode: GBP
+                    PhysicalTradeId: S00001.001
+                    CostUniqueId: 2
+                    VatAmount: 4800
+                  InvoiceVatRecords:
+                  - InvoiceRecordId: 1
+                    InvoiceVatRecordId: 1
+                    ExternalVatCode: S
+                    VatPercentage: 5
+                    VatableAmount: 500
+                    VatAmount: 25
+                    ItasVatCode: B
+                    ExemptionReasonCode: EX02
+                    ExemptionReasonDescription: Exempt for internal
+                    InvoiceAmount: 525
+                    VatCurrencyCode: GBP
+                  - InvoiceRecordId: 1
+                    InvoiceVatRecordId: 2
+                    ExternalVatCode: T
+                    VatPercentage: 21
+                    VatableAmount: 400
+                    VatAmount: 84
+                    ItasVatCode: C
+                    ExemptionReasonCode: EX02
+                    ExemptionReasonDescription: Exempt for internal
+                    InvoiceAmount: 484
+                    VatCurrencyCode: GBP
+                Pagination:
+                  Total: 1
+                  Top: 200
+                  Skip: 0
+                  Returned: 1
+                Response:
+                  Value: Success
         '400':
           description: Bad property
           content:
@@ -101,56 +236,121 @@ paths:
             schema:
               $ref: '#/components/schemas/InvoiceCreateBody'
             example:
-              AccountCode: ABCDEFG.P
-              ClientReference: '5879101647'
-              CurrencyCode: EUR
-              DocumentDate: '2025-07-14T00:00:00Z'
-              ValueDate: '2025-08-14T00:00:00Z'
-              Name: Coolblue N.V.
-              VatRegistrationNo: NL823619357Z08
-              EInvoiceId: 0478493179
-              TotalInvoiceAmount: 729.17
-              TotalInvoiceLinesExVatAmount: 745.91
-              TotalVatAmount: 16.74
-              InvoicePayableAmount: 719.27
-              IBAN: UKBMGB22
-              BIC: HBUKGB4B
-              OrderNumber: Order 1
-              TaxScheme: VAT
-              SchemeId: '9944'
-              DocumentType: '123'
-              Notes: Received ready for processing
-              InvoiceType: Contract
-              BuyerOrderNo: BuyOrder1
-              BuyerSwiftAddress: SWFTBUY123
-              BuyerVatRegistrationNo: VATBUY4546
-              ClientAddress1: 1 Downer Road
-              ClientAddress3: Southend
-              ClientAddress4: Essex
-              ClientCountryCode: GB
-              ClientFiscalRegistrationNo: CLIFIS789
-              ClientPaymentTerms: 10 Days
-              ClientTitle: I AM CLIENT
-              ClientVatRegistrationNo: CLIVAT753
-              ClientZipCode: SS2 3FF
-              DeliveryClientAddress1: 16 Del Road
-              DeliveryClientAddress3: Highgate
-              DeliveryClientAddress4: London
-              DeliveryClientCountryCode: GB
-              DeliveryClientTitle: I AM DEL CLIENT
-              DeliveryClientZipCode: N16 1JJ
-              DeliveryDate: '2025-07-30T00:00:00Z'
-              PaymentMethod: PAYMENT
-              PaymentModeDescription: TRANSFER
-              SupplierAddress3: 22 Supplier Ave
-              SupplierAddress4: Dudley
-              SupplierCountryCode: GB
-              SupplierFiscalRegistrationNo: SUPPFIS951
-              SupplierSwiftAddress: SUPSWFT357
-              SupplierTitle: I AM SUPPLIER
-              SupplierZipCode: MI7 9UU
+              AccountCode: string
+              ClientReference: string
+              CurrencyCode: string
+              DocumentDate: string
+              ValueDate: string
+              Name: string
+              VatRegistrationNo: string
+              EInvoiceId: string
+              TotalInvoiceAmount: string
+              TotalInvoiceLinesExVatAmount: string
+              TotalVatAmount: string
+              InvoicePayableAmount: string
+              IBAN: string
+              BIC: string
+              OrderNumber: string
+              TaxScheme: string
+              SchemeId: string
+              DocumentType: string
+              Notes: string
+              InvoiceType: string
+              BuyerOrderNo: string
+              BuyerSwiftAddress: string
+              BuyerVatRegistrationNo: string
+              ClientAddress1: string
+              ClientAddress3: string
+              ClientAddress4: string
+              ClientCountryCode: string
+              ClientFiscalRegistrationNo: string
+              ClientPaymentTerms: string
+              ClientTitle: string
+              ClientVatRegistrationNo: string
+              ClientZipCode: string
+              DeliveryClientAddress1: string
+              DeliveryClientAddress3: string
+              DeliveryClientAddress4: string
+              DeliveryClientCountryCode: string
+              DeliveryClientTitle: string
+              DeliveryClientZipCode: string
+              PaymentMethod: string
+              PaymentModeDescription: string
+              SupplierAddress3: string
+              SupplierAddress4: string
+              SupplierCountryCode: string
+              SupplierFiscalRegistrationNo: string
+              SupplierSwiftAddress: string
+              SupplierTitle: string
+              SupplierZipCode: string
               Source: eInvoice
               IncomingOrOutgoing: Incoming
+              InvoiceRecordLegs:
+              - Quantity: 440
+                WeightCode: MT
+                Value: 22000
+                Price: 50
+                VatRatePercentage: 21
+                InvoiceRecordLegDescription: SGR 1234
+                VatRateCode: E
+                RateTypeCode: A
+                PriceTypeCode: PKG
+                PaymentModeCode: I
+                PaymentId: Payment 1
+                BuyerOrderIdentifier: XX01
+                StartPeriod: '2025-07-14T00:00:00Z'
+                EndPeriod: '2025-07-28T00:00:00Z'
+                FreeFormatNote: Notes section
+                BaseQuantity: 300
+                ValueType: Contract
+                CostHeadingCode: CSP
+                DocumentReference: SI2600001
+                InvoiceCurrencyCode: GBP
+                PhysicalTradeId: S00001.001
+                CostUniqueId: 1
+                VatAmount: 441
+              - Quantity: 200
+                WeightCode: MT
+                Value: 12000
+                Price: 60
+                VatRatePercentage: 21
+                InvoiceRecordLegDescription: MLS 8523
+                VatRateCode: E
+                RateTypeCode: A
+                PriceTypeCode: PKG
+                PaymentModeCode: I
+                PaymentId: Payment 1
+                BuyerOrderIdentifier: XX01
+                StartPeriod: '2025-07-14T00:00:00Z'
+                EndPeriod: '2025-07-28T00:00:00Z'
+                FreeFormatNote: Notes section
+                BaseQuantity: 100
+                ValueType: Cost
+                CostHeadingCode: CSP
+                DocumentReference: SI2600001
+                InvoiceCurrencyCode: GBP
+                PhysicalTradeId: S00001.001
+                CostUniqueId: 2
+                VatAmount: 2400
+              InvoiceVatRecords:
+              - ExternalVatCode: S5
+                VatPercentage: 5
+                VatableAmount: 500
+                VatAmount: 25
+                ItasVatCode: B
+                ExemptionReasonCode: EX02
+                ExemptionReasonDescription: Exempt for internal
+                InvoiceAmount: 525
+                VatCurrencyCode: GBP
+              - ExternalVatCode: T21
+                VatPercentage: 21
+                VatableAmount: 400
+                VatAmount: 84
+                ItasVatCode: C
+                ExemptionReasonCode: EX02
+                ExemptionReasonDescription: Exempt for internal
+                InvoiceAmount: 484
+                VatCurrencyCode: GBP
       responses:
         '201':
           description: Created
@@ -193,57 +393,130 @@ paths:
             schema:
               $ref: '#/components/schemas/InvoiceUpdateBody'
             example:
-              InvoiceRecordId: 1
-              AccountCode: ABCDEFG.P
-              ClientReference: '5879101647'
-              CurrencyCode: EUR
-              DocumentDate: '2025-07-14T00:00:00Z'
-              ValueDate: '2025-08-14T00:00:00Z'
-              Name: Coolblue N.V.
-              VatRegistrationNo: NL823619357Z08
-              EInvoiceId: 0478493179
-              TotalInvoiceAmount: 729.17
-              TotalInvoiceLinesExVatAmount: 745.91
-              TotalVatAmount: 16.74
-              InvoicePayableAmount: 719.27
-              IBAN: UKBMGB22
-              BIC: HBUKGB4B
-              OrderNumber: Order 1
-              TaxScheme: VAT
-              SchemeId: '9944'
-              DocumentType: '123'
-              Notes: Process with the following note
-              InvoiceType: Contract
-              BuyerOrderNo: BuyOrder1
-              BuyerSwiftAddress: SWFTBUY123
-              BuyerVatRegistrationNo: VATBUY4546
-              ClientAddress1: 1 Downer Road
-              ClientAddress3: Southend
-              ClientAddress4: Essex
-              ClientCountryCode: GB
-              ClientFiscalRegistrationNo: CLIFIS789
-              ClientPaymentTerms: 10 Days
-              ClientTitle: I AM CLIENT
-              ClientVatRegistrationNo: CLIVAT753
-              ClientZipCode: SS2 3FF
-              DeliveryClientAddress1: 16 Del Road
-              DeliveryClientAddress3: Highgate
-              DeliveryClientAddress4: London
-              DeliveryClientCountryCode: GB
-              DeliveryClientTitle: I AM DEL CLIENT
-              DeliveryClientZipCode: N16 1JJ
-              DeliveryDate: '2025-07-30T00:00:00Z'
-              PaymentMethod: PAYMENT
-              PaymentModeDescription: TRANSFER
-              SupplierAddress3: 22 Supplier Ave
-              SupplierAddress4: Dudley
-              SupplierCountryCode: GB
-              SupplierFiscalRegistrationNo: SUPPFIS951
-              SupplierSwiftAddress: SUPSWFT357
-              SupplierTitle: I AM SUPPLIER
-              SupplierZipCode: MI7 9UU
+              InvoiceRecordId: string
+              AccountCode: string
+              ClientReference: string
+              CurrencyCode: string
+              DocumentDate: string
+              ValueDate: string
+              Name: string
+              VatRegistrationNo: string
+              EInvoiceId: string
+              TotalInvoiceAmount: string
+              TotalInvoiceLinesExVatAmount: string
+              TotalVatAmount: string
+              InvoicePayableAmount: string
+              IBAN: string
+              BIC: string
+              OrderNumber: string
+              TaxScheme: string
+              SchemeId: string
+              DocumentType: string
+              Notes: string
+              InvoiceType: string
+              BuyerOrderNo: string
+              BuyerSwiftAddress: string
+              BuyerVatRegistrationNo: string
+              ClientAddress1: string
+              ClientAddress3: string
+              ClientAddress4: string
+              ClientCountryCode: string
+              ClientFiscalRegistrationNo: string
+              ClientPaymentTerms: string
+              ClientTitle: string
+              ClientVatRegistrationNo: string
+              ClientZipCode: string
+              DeliveryClientAddress1: string
+              DeliveryClientAddress3: string
+              DeliveryClientAddress4: string
+              DeliveryClientCountryCode: string
+              DeliveryClientTitle: string
+              DeliveryClientZipCode: string
+              PaymentMethod: string
+              PaymentModeDescription: string
+              SupplierAddress3: string
+              SupplierAddress4: string
+              SupplierCountryCode: string
+              SupplierFiscalRegistrationNo: string
+              SupplierSwiftAddress: string
+              SupplierTitle: string
+              SupplierZipCode: string
               Source: eInvoice
               IncomingOrOutgoing: Incoming
+              InvoiceRecordLegs:
+              - InvoiceRecordId: 1
+                InvoiceRecordLegId: 1
+                Quantity: 440
+                WeightCode: MT
+                Value: 22000
+                Price: 50
+                VatRatePercentage: 21
+                InvoiceRecordLegDescription: SGR 1234
+                VatRateCode: E
+                RateTypeCode: A
+                PriceTypeCode: PKG
+                PaymentModeCode: I
+                PaymentId: Payment 1
+                BuyerOrderIdentifier: XX01
+                StartPeriod: '2025-07-14T00:00:00Z'
+                EndPeriod: '2025-07-28T00:00:00Z'
+                FreeFormatNote: Notes section
+                BaseQuantity: 300
+                ValueType: Contract
+                CostHeadingCode: CSP
+                DocumentReference: SI2600001
+                InvoiceCurrencyCode: GBP
+                PhysicalTradeId: S00001.001
+                CostUniqueId: 1
+                VatAmount: 4400
+              - InvoiceRecordId: 1
+                InvoiceRecordLegId: 2
+                Quantity: 400
+                WeightCode: MT
+                Value: 24000
+                Price: 60
+                VatRatePercentage: 21
+                InvoiceRecordLegDescription: MLS 8523
+                VatRateCode: E
+                RateTypeCode: A
+                PriceTypeCode: PKG
+                PaymentModeCode: I
+                PaymentId: Payment 1
+                BuyerOrderIdentifier: XX01
+                StartPeriod: '2025-07-14T00:00:00Z'
+                EndPeriod: '2025-07-28T00:00:00Z'
+                FreeFormatNote: Notes section
+                BaseQuantity: 100
+                ValueType: Cost
+                CostHeadingCode: CSP
+                DocumentReference: SI2600001
+                InvoiceCurrencyCode: GBP
+                PhysicalTradeId: S00001.001
+                CostUniqueId: 2
+                VatAmount: 4410
+              InvoiceVatRecords:
+              - InvoiceRecordId: 1
+                InvoiceVatRecordId: 1
+                ExternalVatCode: S
+                VatPercentage: 5
+                VatableAmount: 500
+                VatAmount: 25
+                ItasVatCode: B
+                ExemptionReasonCode: EX02
+                ExemptionReasonDescription: Exempt for internal
+                InvoiceAmount: 525
+                VatCurrencyCode: GBP
+              - InvoiceRecordId: 1
+                InvoiceVatRecordId: 2
+                ExternalVatCode: T
+                VatPercentage: 21
+                VatableAmount: 400
+                VatAmount: 84
+                ItasVatCode: C
+                ExemptionReasonCode: EX02
+                ExemptionReasonDescription: Exempt for internal
+                InvoiceAmount: 484
+                VatCurrencyCode: GBP
       responses:
         '200':
           description: Updated
@@ -694,13 +967,15 @@ components:
         InvoiceRecordLegs:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceLegCreate'
-          description: see Invoice Leg object
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceLeg1Create'
+            - $ref: '#/components/schemas/InvoiceLeg2Create'
         InvoiceVatRecords:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceVatCreate'
-          description: see Invoice Vat Record object
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceCreateVat1'
+            - $ref: '#/components/schemas/InvoiceCreateVat2'
       required:
       - AccountCode
       - ClientReference
@@ -721,28 +996,174 @@ components:
     InvoiceReadBody:
       type: object
       properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        AccountCode:
+          type: string
+          example: ABCDEFG.P
+        ClientReference:
+          type: string
+          example: '5879101647'
+        CurrencyCode:
+          type: string
+          example: EUR
+        DocumentDate:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        ValueDate:
+          type: string
+          example: '2025-08-14T00:00:00Z'
+        Name:
+          type: string
+          example: Coolblue N.V.
+        VatRegistrationNo:
+          type: string
+          example: NL823619357Z08
+        EInvoiceId:
+          type: string
+          example: 0478493179
+        TotalInvoiceAmount:
+          type: number
+          example: 729.17
+        TotalInvoiceLinesExVatAmount:
+          type: number
+          example: 745.91
+        TotalVatAmount:
+          type: number
+          example: 16.74
+        InvoicePayableAmount:
+          type: number
+          example: 719.27
+        IBAN:
+          type: string
+          example: UKBMGB22
+        BIC:
+          type: string
+          example: HBUKGB4B
+        OrderNumber:
+          type: string
+          example: Order 1
+        IsProcessed:
+          type: boolean
+          example: false
+        TaxScheme:
+          type: string
+          example: VAT
+        SchemeId:
+          type: string
+          example: '9944'
+        DocumentType:
+          type: string
+          example: '123'
+        Notes:
+          type: string
+          example: Received ready for processing
+        InvoiceType:
+          type: string
+          example: Contract
+        BuyerOrderNo:
+          type: string
+          example: BuyOrder1
+        BuyerSwiftAddress:
+          type: string
+          example: SWFTBUY123
+        BuyerVatRegistrationNo:
+          type: string
+          example: VATBUY4546
+        ClientAddress1:
+          type: string
+          example: 1 Downer Road
+        ClientAddress3:
+          type: string
+          example: Southend
+        ClientAddress4:
+          type: string
+          example: Essex
+        ClientCountryCode:
+          type: string
+          example: GB
+        ClientFiscalRegistrationNo:
+          type: string
+          example: CLIFIS789
+        ClientPaymentTerms:
+          type: string
+          example: 10 Days
+        ClientTitle:
+          type: string
+          example: I AM CLIENT
+        ClientVatRegistrationNo:
+          type: string
+          example: CLIVAT753
+        ClientZipCode:
+          type: string
+          example: SS2 3FF
+        DeliveryClientAddress1:
+          type: string
+          example: 16 Del Road
+        DeliveryClientAddress3:
+          type: string
+          example: Highgate
+        DeliveryClientAddress4:
+          type: string
+          example: London
+        DeliveryClientCountryCode:
+          type: string
+          example: GB
+        DeliveryClientTitle:
+          type: string
+          example: I AM DEL CLIENT
+        DeliveryClientZipCode:
+          type: string
+          example: N16 1JJ
+        DeliveryDate:
+          type: string
+          example: '2025-07-30T00:00:00Z'
+        PaymentMethod:
+          type: string
+          example: PAYMENT
+        PaymentModeDescription:
+          type: string
+          example: TRANSFER
+        SupplierAddress3:
+          type: string
+          example: 22 Supplier Ave
+        SupplierAddress4:
+          type: string
+          example: Dudley
+        SupplierCountryCode:
+          type: string
+          example: GB
+        SupplierFiscalRegistrationNo:
+          type: string
+          example: SUPPFIS951
+        SupplierSwiftAddress:
+          type: string
+          example: SUPSWFT357
+        SupplierTitle:
+          type: string
+          example: I AM SUPPLIER
+        SupplierZipCode:
+          type: string
+          example: MI7 9UU
         Source:
           type: string
-          maxLength: 8
-          enum:
-          - eInvoice
-          - Email
-          default: eInvoice
+          example: eInvoice
         IncomingOrOutgoing:
           type: string
-          maxLength: 8
-          enum:
-          - Incoming
-          - Outgoing
-          default: Incoming
+          example: Incoming
         InvoiceRecordLegs:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceLegReadUpdate'
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceReadLeg1'
+            - $ref: '#/components/schemas/InvoiceReadLeg2'
         InvoiceVatRecords:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceVatReadUpdate'
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceReadVat1'
+            - $ref: '#/components/schemas/InvoiceReadVat2'
       required:
       - Name
       - InvoiceRecordLegs
@@ -956,13 +1377,15 @@ components:
         InvoiceRecordLegs:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceLegReadUpdate'
-          description: see Invoice Leg object
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceUpdateLeg1Create'
+            - $ref: '#/components/schemas/InvoiceUpdateLeg2Create'
         InvoiceVatRecords:
           type: array
           items:
-            $ref: '#/components/schemas/InvoiceVatReadUpdate'
-          description: see Invoice Vat Record object
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceReadVat1'
+            - $ref: '#/components/schemas/InvoiceReadVat2'
       required:
       - InvoiceRecordId
       - AccountCode
@@ -1102,3 +1525,625 @@ components:
               Message:
                 type: string
                 example: 'API5074 - API : The value sent in the querystring variable {Property} is not allowed.'
+    InvoiceLeg1Create:
+      type: object
+      properties:
+        Quantity:
+          type: number
+          example: 440
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 22000
+        Price:
+          type: number
+          example: 50
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: SGR 1234
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 300
+        ValueType:
+          type: string
+          example: Contract
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 1
+        VatAmount:
+          type: number
+          example: 441
+      required:
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
+    InvoiceLeg2Create:
+      type: object
+      properties:
+        Quantity:
+          type: number
+          example: 200
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 12000
+        Price:
+          type: number
+          example: 60
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: MLS 8523
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 100
+        ValueType:
+          type: string
+          example: Cost
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 2
+        VatAmount:
+          type: number
+          example: 2400
+      required:
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
+    InvoiceCreateVat1:
+      type: object
+      properties:
+        ExternalVatCode:
+          type: string
+          example: S5
+        VatPercentage:
+          type: number
+          example: 5
+        VatableAmount:
+          type: number
+          example: 500
+        VatAmount:
+          type: number
+          example: 25
+        ItasVatCode:
+          type: string
+          example: B
+        ExemptionReasonCode:
+          type: string
+          example: EX02
+        ExemptionReasonDescription:
+          type: string
+          example: Exempt for internal
+        InvoiceAmount:
+          type: number
+          example: 525
+        VatCurrencyCode:
+          type: string
+          example: GBP
+      required: []
+    InvoiceCreateVat2:
+      type: object
+      properties:
+        ExternalVatCode:
+          type: string
+          example: T21
+        VatPercentage:
+          type: number
+          example: 21
+        VatableAmount:
+          type: number
+          example: 400
+        VatAmount:
+          type: number
+          example: 84
+        ItasVatCode:
+          type: string
+          example: C
+        ExemptionReasonCode:
+          type: string
+          example: EX02
+        ExemptionReasonDescription:
+          type: string
+          example: Exempt for internal
+        InvoiceAmount:
+          type: number
+          example: 484
+        VatCurrencyCode:
+          type: string
+          example: GBP
+      required: []
+    InvoiceReadLeg1:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceRecordLegId:
+          type: number
+          example: 1
+        Quantity:
+          type: number
+          example: 440
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 22000
+        Price:
+          type: number
+          example: 50
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: SGR 1234
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 300
+        ValueType:
+          type: string
+          example: Contract
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 1
+        VatAmount:
+          type: number
+          example: 441
+      required: []
+    InvoiceReadLeg2:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceRecordLegId:
+          type: number
+          example: 2
+        Quantity:
+          type: number
+          example: 400
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 24000
+        Price:
+          type: number
+          example: 60
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: MLS 8523
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 100
+        ValueType:
+          type: string
+          example: Cost
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 2
+        VatAmount:
+          type: number
+          example: 4800
+      required: []
+    InvoiceReadVat1:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceVatRecordId:
+          type: number
+          example: 1
+        ExternalVatCode:
+          type: string
+          example: S
+        VatPercentage:
+          type: number
+          example: 5
+        VatableAmount:
+          type: number
+          example: 500
+        VatAmount:
+          type: number
+          example: 25
+        ItasVatCode:
+          type: string
+          example: B
+        ExemptionReasonCode:
+          type: string
+          example: EX02
+        ExemptionReasonDescription:
+          type: string
+          example: Exempt for internal
+        InvoiceAmount:
+          type: number
+          example: 525
+        VatCurrencyCode:
+          type: string
+          example: GBP
+      required: []
+    InvoiceReadVat2:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceVatRecordId:
+          type: number
+          example: 2
+        ExternalVatCode:
+          type: string
+          example: T
+        VatPercentage:
+          type: number
+          example: 21
+        VatableAmount:
+          type: number
+          example: 400
+        VatAmount:
+          type: number
+          example: 84
+        ItasVatCode:
+          type: string
+          example: C
+        ExemptionReasonCode:
+          type: string
+          example: EX02
+        ExemptionReasonDescription:
+          type: string
+          example: Exempt for internal
+        InvoiceAmount:
+          type: number
+          example: 484
+        VatCurrencyCode:
+          type: string
+          example: GBP
+      required: []
+    InvoiceUpdateLeg1Create:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceRecordLegId:
+          type: number
+          example: 1
+        Quantity:
+          type: number
+          example: 440
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 22000
+        Price:
+          type: number
+          example: 50
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: SGR 1234
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 300
+        ValueType:
+          type: string
+          example: Contract
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 1
+        VatAmount:
+          type: number
+          example: 4400
+      required:
+      - InvoiceRecordId
+      - InvoiceRecordLegId
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
+    InvoiceUpdateLeg2Create:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+        InvoiceRecordLegId:
+          type: number
+          example: 2
+        Quantity:
+          type: number
+          example: 400
+        WeightCode:
+          type: string
+          example: MT
+        Value:
+          type: number
+          example: 24000
+        Price:
+          type: number
+          example: 60
+        VatRatePercentage:
+          type: number
+          example: 21
+        InvoiceRecordLegDescription:
+          type: string
+          example: MLS 8523
+        VatRateCode:
+          type: string
+          example: E
+        RateTypeCode:
+          type: string
+          example: A
+        PriceTypeCode:
+          type: string
+          example: PKG
+        PaymentModeCode:
+          type: string
+          example: I
+        PaymentId:
+          type: string
+          example: Payment 1
+        BuyerOrderIdentifier:
+          type: string
+          example: XX01
+        StartPeriod:
+          type: string
+          example: '2025-07-14T00:00:00Z'
+        EndPeriod:
+          type: string
+          example: '2025-07-28T00:00:00Z'
+        FreeFormatNote:
+          type: string
+          example: Notes section
+        BaseQuantity:
+          type: number
+          example: 100
+        ValueType:
+          type: string
+          example: Cost
+        CostHeadingCode:
+          type: string
+          example: CSP
+        DocumentReference:
+          type: string
+          example: SI2600001
+        InvoiceCurrencyCode:
+          type: string
+          example: GBP
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        CostUniqueId:
+          type: number
+          example: 2
+        VatAmount:
+          type: number
+          example: 4410
+      required:
+      - InvoiceRecordId
+      - InvoiceRecordLegId
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
