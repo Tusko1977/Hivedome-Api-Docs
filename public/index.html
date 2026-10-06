@@ -14,6 +14,7 @@
   <script src="/specs.js"></script>
   <script>
     document.getElementById("list").innerHTML = Object.entries(SPECS)
+      .filter(([path, s]) => s.listed)
       .map(([path, s]) => `<li><a href="/${path}">${s.title}</a> <small>/${path}</small></li>`)
       .join("");
   </script>
