@@ -724,6 +724,12 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotRequestDelete'
   /Stocks/{TradingEntityId}/Instructions/CreateInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
     put:
       tags:
@@ -1778,6 +1784,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Lot'
+    LotRequestDelete:
+      type: object
+      properties:
+        InventoryIds:
+          type: array
+          items:
+            type: number
+          example:
+            - 123
+            - 456
+            - 789
     NetGrossWeightResponseP:
       type: object
       properties:
