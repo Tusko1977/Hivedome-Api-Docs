@@ -2,18 +2,8 @@ openapi: 3.0.3
 info:
   title: ED&FMan Custom API
   version: '1.7'
-  description: 'Converted from API Blueprint. Release notes: 5 October 2026. ITAS API does not support asynchronous or multithreaded
-    POST, PUT, PATCH or DELETE requests.'
 servers:
 - url: http://itas.apiary.io/
-tags:
-- name: General
-- name: Contract-Physical
-- name: Electronic Order Book
-- name: Invoicing
-- name: Inventory
-- name: Stocks
-- name: Data Object Definitions
 security:
 - BearerAuth: []
 paths:
@@ -22,28 +12,27 @@ paths:
       tags:
       - Contract-Physical
       summary: Update Net and Gross Weights
-      operationId: updateNetandGrossWeights
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -54,50 +43,43 @@ paths:
         required: true
         schema:
           type: string
-        example: JT
       - name: PhysicalTradeId
         in: path
         required: true
         schema:
           type: string
-        example: P00001.000
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/NetGrossWeight Update'
-            example:
-              PhysicalTradeId: P00001.000
-              GrossWeight: 21
-              Quantity: 20
   /ElectronicOrderBook/BrokerData:
     post:
       tags:
       - Electronic Order Book
       summary: Create Broker Data
-      operationId: createBrokerData
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -108,75 +90,32 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BrokerDataCreate'
-            example:
-              OrderId: 1
-              SerialNo: 123
-              TradeDate: '2015-07-01T00:00:00Z'
-              AccountCode: ABCDEF.P
-              TradeCodeId: AA
-              DepartmentCode: '5100'
-              InstrumentCode: NY11
-              PromptDate: '2015-07-01'
-              Instruction: true
-              OptionType: Call
-              OptionSeries: 123
-              BuySell: Buy
-              Lots: 100
-              PhysicalTradeCode: P00007.003
-              BrokerCode: ABCDEF.P
-              Price: 12345
-              FloorBrokerCode: ABCDEF.P
-              TraderCode: TT
-              Memo: AB CD EF
-              StrategyCode: P1
-              StrategyGroupCode: PORT
-              Memo2: GHI JKL
-              ExternalSerial: ABCD
-              CommissionCodeRateCode: 2
-              BrokerPrice: 20.2
-              BuybackReference: 1002
-              ClientOrBroker: Client
-              CommissionCurrencyCode: GBP
-              CommissionType: Percentage
-              CommissionRate: 12.5
-              CounterpartyCode: COUNT.P
-              DeclaredPrice: 53.1
-              ExchangeCode: NYFE
-              InventoryHedgeType: '2'
-              IsPhysicalFix: 'true'
-              OTCBrokerCode: OTCB.T
-              OTCBrokerCommissionCurrencyCode: USD
-              OTCCommission: 2.4
-              SecondBrokerCommissionCurrencyCode: GBP
-              TradeTime: '15:25'
-              TradingEntityId: DT
   /ElectronicOrderBook/BrokerData/{OrderId}:
     patch:
       tags:
       - Electronic Order Book
       summary: Update Broker Data
-      operationId: updateBrokerData
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -186,82 +125,38 @@ paths:
         in: path
         required: true
         schema:
-          type: number
-        example: 1
+          type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/BrokerDataUpdate'
-            example:
-              OrderId: 1
-              SerialNo: 123
-              TradeDate: '2015-07-01T00:00:00Z'
-              AccountCode: ABCDEF.P
-              TradeCodeId: AA
-              DepartmentCode: '5100'
-              InstrumentCode: NY11
-              PromptDate: '2015-07-01'
-              Instruction: true
-              OptionType: Call
-              OptionSeries: 123
-              BuySell: Buy
-              Lots: 100
-              PhysicalTradeCode: P00007.003
-              BrokerCode: ABCDEF.P
-              Price: 12345
-              FloorBrokerCode: ABCDEF.P
-              TraderCode: TT
-              Memo: AB CD EF
-              StrategyCode: P1
-              StrategyGroupCode: PORT
-              Memo2: GHI JKL
-              ExternalSerial: ABCD
-              CommissionCodeRateCode: 2
-              BrokerPrice: 20.2
-              BuybackReference: 1002
-              ClientOrBroker: Client
-              CommissionCurrencyCode: GBP
-              CommissionType: Percentage
-              CommissionRate: 12.5
-              CounterpartyCode: COUNT.P
-              DeclaredPrice: 53.1
-              ExchangeCode: NYFE
-              InventoryHedgeType: '2'
-              IsPhysicalFix: 'true'
-              OTCBrokerCode: OTCB.T
-              OTCBrokerCommissionCurrencyCode: USD
-              OTCCommission: 2.4
-              SecondBrokerCommissionCurrencyCode: GBP
-              TradeTime: '15:25'
-              TradingEntityId: DT
     delete:
       tags:
       - Electronic Order Book
       summary: Delete Broker Data
-      operationId: deleteBrokerData
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -271,35 +166,33 @@ paths:
         in: path
         required: true
         schema:
-          type: number
-        example: 1
+          type: string
   /ElectronicOrderBook/WebIceData:
     post:
       tags:
       - Electronic Order Book
       summary: Create WebIce Data
-      operationId: createWebIceData
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -310,75 +203,32 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/BrokerDataCreate'
-            example:
-              OrderId: 1
-              SerialNo: 123
-              TradeDate: '2015-07-01T00:00:00Z'
-              AccountCode: ABCDEF.P
-              TradeCodeId: AA
-              DepartmentCode: '5100'
-              InstrumentCode: NY11
-              PromptDate: '2015-07-01'
-              Instruction: true
-              OptionType: Call
-              OptionSeries: 123
-              BuySell: Buy
-              Lots: 100
-              PhysicalTradeCode: P00007.003
-              BrokerCode: ABCDEF.P
-              Price: 12345
-              FloorBrokerCode: ABCDEF.P
-              TraderCode: TT
-              Memo: AB CD EF
-              StrategyCode: P1
-              StrategyGroupCode: PORT
-              Memo2: GHI JKL
-              ExternalSerial: ABCD
-              CommissionCodeRateCode: 2
-              BrokerPrice: 20.2
-              BuybackReference: 1002
-              ClientOrBroker: Client
-              CommissionCurrencyCode: GBP
-              CommissionType: Percentage
-              CommissionRate: 12.5
-              CounterpartyCode: COUNT.P
-              DeclaredPrice: 53.1
-              ExchangeCode: NYFE
-              InventoryHedgeType: '2'
-              IsPhysicalFix: 'true'
-              OTCBrokerCode: OTCB.T
-              OTCBrokerCommissionCurrencyCode: USD
-              OTCCommission: 2.4
-              SecondBrokerCommissionCurrencyCode: GBP
-              TradeTime: '15:25'
-              TradingEntityId: DT
   /ElectronicOrderBook/WebIceData/{OrderId}:
     patch:
       tags:
       - Electronic Order Book
       summary: Update WebIce Data
-      operationId: updateWebIceData
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -388,82 +238,38 @@ paths:
         in: path
         required: true
         schema:
-          type: number
-        example: 1
+          type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/BrokerDataUpdate'
-            example:
-              OrderId: 1
-              SerialNo: 123
-              TradeDate: '2015-07-01T00:00:00Z'
-              AccountCode: ABCDEF.P
-              TradeCodeId: AA
-              DepartmentCode: '5100'
-              InstrumentCode: NY11
-              PromptDate: '2015-07-01'
-              Instruction: true
-              OptionType: Call
-              OptionSeries: 123
-              BuySell: Buy
-              Lots: 100
-              PhysicalTradeCode: P00007.003
-              BrokerCode: ABCDEF.P
-              Price: 12345
-              FloorBrokerCode: ABCDEF.P
-              TraderCode: TT
-              Memo: AB CD EF
-              StrategyCode: P1
-              StrategyGroupCode: PORT
-              Memo2: GHI JKL
-              ExternalSerial: ABCD
-              CommissionCodeRateCode: 2
-              BrokerPrice: 20.2
-              BuybackReference: 1002
-              ClientOrBroker: Client
-              CommissionCurrencyCode: GBP
-              CommissionType: Percentage
-              CommissionRate: 12.5
-              CounterpartyCode: COUNT.P
-              DeclaredPrice: 53.1
-              ExchangeCode: NYFE
-              InventoryHedgeType: '2'
-              IsPhysicalFix: 'true'
-              OTCBrokerCode: OTCB.T
-              OTCBrokerCommissionCurrencyCode: USD
-              OTCCommission: 2.4
-              SecondBrokerCommissionCurrencyCode: GBP
-              TradeTime: '15:25'
-              TradingEntityId: DT
     delete:
       tags:
       - Electronic Order Book
       summary: Delete WebIce Data
-      operationId: deleteWebIceData
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -473,41 +279,39 @@ paths:
         in: path
         required: true
         schema:
-          type: number
-        example: 1
+          type: string
   /Invoicing/{TradingEntityId}/Trade/DischargeWeights:
     post:
       tags:
       - Invoicing
       summary: Create Discharge Weights
-      operationId: createDischargeWeights
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -518,52 +322,38 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/DischargeWeightsRequest'
-            example:
-              PhysicalTradeId: S00001.001
-              LandingReportDate: '2026-08-28T00:00:00Z'
-              ControllerReference: CONTROL01
-              FirstController:
-                LandingSurveyorCode: SURV1.P
-                NetWeight: 1000
-                WeightDate: '2026-09-12T00:00:00Z'
-              SecondController:
-                LandingSurveyorCode: SURV2.P
-                NetWeight: 900
-                WeightDate: '2026-08-25T00:00:00Z'
   /Invoicing/{TradingEntityId}/Cotton/InvoiceStage:
     post:
       tags:
       - Invoicing
       summary: Create Invoice Staging Records
-      operationId: createInvoiceStagingRecords
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -574,50 +364,38 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InvoiceStageRequest'
-            example:
-              DocumentDate: '2026-08-12T00:00:00Z'
-              ValueDate: '2026-09-12T00:00:00Z'
-              Type: Warehouse
-              SupplierCode: WARH01
-              PaymentTermsCode: NET30
-              ClientReference: REF-2025-001
-              DocumentFile: ZG9jMQ==
-              DocumentName: doc1.pdf
-              Legs: []
   /Inventory/{TradingEntityId}/Grouping/CreateBaleGrouping:
     post:
       tags:
       - Inventory
       summary: Create Bale Grouping
-      operationId: createBaleGrouping
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -628,54 +406,38 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/BaleGroupingRequest'
-            example:
-              GroupType: Logistics
-              GroupSubTypeCode: SHORTS
-              GroupDescription: Short Bales
-              IsStopWeights: true
-              AllocatedSaleCode: ''
-              MarksStyle: Manual
-              Mark: ACGT
-              Prefix: ''
-              NewRecap: true
-              RecapPrefix: C1
-              RecapMark: MEMPHIS
-              RecapDescription: Grade 1 Memphis
-              RecapStatus: Valid
   /Inventory/{TradingEntityId}/Grouping/UpdateBaleGrouping/{GroupId}:
     patch:
       tags:
       - Inventory
       summary: Update Bale Grouping
-      operationId: updateBaleGrouping
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -686,57 +448,43 @@ paths:
         required: true
         schema:
           type: string
-        example: JT
       - name: GroupId
         in: path
         required: true
         schema:
-          type: number
-        example: 50
+          type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/BaleGroupingUpdateRequest'
-            example:
-              GroupId: 50
-              GroupDescription: Short Bales
-              MarksStyle: Manual
-              Mark: ACGT
-              Prefix: ''
-              NewRecap: true
-              RecapPrefix: C1
-              RecapMark: MEMPHIS
-              RecapDescription: Grade 1 Memphis
-              RecapStatus: Valid
   /Inventory/{TradingEntityId}/Grouping/RemoveBaleGrouping/{GroupId}:
     delete:
       tags:
       - Inventory
       summary: Remove Bale Grouping
-      operationId: removeBaleGrouping
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -747,40 +495,37 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       - name: GroupId
         in: path
         required: true
         schema:
-          type: number
-        example: 150
+          type: string
   /Inventory/{TradingEntityId}/LogisticsMovement/{GroupId}/{Uniqueness}:
     patch:
       tags:
       - Inventory
       summary: Update Logistics Movement
-      operationId: updateLogisticsMovement
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -791,58 +536,48 @@ paths:
         required: true
         schema:
           type: string
-        example: JT
       - name: GroupId
         in: path
         required: true
         schema:
-          type: number
-        example: 1515
+          type: string
       - name: Uniqueness
         in: path
         required: true
         schema:
-          type: number
-        example: 4
+          type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LogisticsMovement Update'
-            example:
-              GroupId: 1515
-              Uniqueness: 4
-              RequestedLoadDate: '2026-08-12T00:00:00Z'
-              ShipmentOrderRequested: true
-              DestinationWarehouse: 054205.P
   /Inventory/{TradingEntityId}/Lots/CreateLots:
     post:
       tags:
       - Inventory
       summary: Create Lots
-      operationId: createLots
       responses:
         '201':
-          description: Created
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -853,44 +588,38 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LotRequest'
-            example:
-              VesselGroup: VESGRP
-              NewVesselGroup: true
-              Lots: []
   /Inventory/{TradingEntityId}/Lots/UpdateLots:
     patch:
       tags:
       - Inventory
       summary: Update Lots
-      operationId: updateLots
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -901,44 +630,38 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LotRequest'
-            example:
-              VesselGroup: VESGRP
-              NewVesselGroup: true
-              Lots: []
   /Inventory/{TradingEntityId}/Lots/DeleteLots:
     delete:
       tags:
       - Inventory
       summary: Delete Lots
-      operationId: deleteLots
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -949,34 +672,32 @@ paths:
         required: true
         schema:
           type: string
-        example: BU
   /Stocks/{TradingEntityId}/Instructions/CreateInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
     put:
       tags:
       - Stocks
       summary: Create Instruction Sheet
-      operationId: createInstructionSheet
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -987,46 +708,42 @@ paths:
         required: true
         schema:
           type: string
-        example: NL
       - name: PhysicalTradeId
         in: path
         required: true
         schema:
           type: string
-        example: P00001.001
       - name: ReleaseId
         in: path
         required: true
         schema:
-          type: number
-        example: 123
+          type: string
   /Stocks/{TradingEntityId}/Instructions/DeleteInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
     delete:
       tags:
       - Stocks
       summary: Delete Instruction Sheet
-      operationId: deleteInstructionSheet
       responses:
         '200':
-          description: Success
+          description: '200'
           content:
             application/json:
               schema:
                 type: object
         '400':
-          description: Bad Request
+          description: '400'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/400 Response'
         '404':
-          description: Not Found
+          description: '404'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/404 Response'
         '405':
-          description: Method Not Allowed
+          description: '405'
           content:
             application/json:
               schema:
@@ -1037,19 +754,76 @@ paths:
         required: true
         schema:
           type: string
-        example: NL
       - name: PhysicalTradeId
         in: path
         required: true
         schema:
           type: string
-        example: P00001.001
       - name: ReleaseId
         in: path
         required: true
         schema:
-          type: number
-        example: 123
+          type: string
+  /Controller:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Controller
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerInput1'
+  /DischargeWeight:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Discharge Weight
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DischargeWeightsResponse1'
+  /InvoiceStageLeg:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Invoice Stage Leg
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceStageLeg'
+  /Lot:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Lot
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lot'
+  /Shipping:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Shipping
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipping'
 components:
   securitySchemes:
     BearerAuth:
@@ -1093,7 +867,7 @@ components:
         Messages:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/201 ErrorMessageDetail'
     201 ErrorMessageDetail:
       type: object
       properties:
@@ -1109,7 +883,7 @@ components:
         Messages:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/201 ErrorBllMessageDetail'
     201 ErrorBllMessageDetail:
       type: object
       properties:
@@ -1122,13 +896,16 @@ components:
     400 Response:
       type: object
       properties:
-        Value:
-          type: string
-          example: 400 Bad Request
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
         Messages:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/400 ErrorMessageDetail'
     400 ErrorMessageDetail:
       type: object
       properties:
@@ -1141,11 +918,16 @@ components:
     400 BadPropertyResponse:
       type: object
       properties:
-        Value:
-          type: string
-          example: 400 Bad Request
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
         Messages:
-          $ref: '#/components/schemas/array[400 BadPropertyErrorMessageDetail]'
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadPropertyErrorMessageDetail'
     400 BadPropertyErrorMessageDetail:
       type: object
       properties:
@@ -1158,11 +940,16 @@ components:
     400 BadReadResponse:
       type: object
       properties:
-        Value:
-          type: string
-          example: 400 Bad Request
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
         Messages:
-          $ref: '#/components/schemas/array[400 BadReadErrorMessageDetail]'
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadReadErrorMessageDetail'
     400 BadReadErrorMessageDetail:
       type: object
       properties:
@@ -1193,11 +980,16 @@ components:
     404 Response:
       type: object
       properties:
-        Value:
-          type: string
-          example: 404 Not Found
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Not Found
         Messages:
-          $ref: '#/components/schemas/array[404 ErrorMessageDetailMessage]'
+          type: array
+          items:
+            $ref: '#/components/schemas/404 ErrorMessageDetailMessage'
     404 ErrorMessageDetailMessage:
       type: object
       properties:
@@ -1210,11 +1002,16 @@ components:
     405 Response:
       type: object
       properties:
-        Value:
-          type: string
-          example: 405 Method Not Allowed
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 405 Method Not Allowed
         Messages:
-          $ref: '#/components/schemas/array[405 MethodNotAllowedMessage]'
+          type: array
+          items:
+            $ref: '#/components/schemas/405 MethodNotAllowedMessage'
     405 MethodNotAllowedMessage:
       type: object
       properties:
@@ -1224,6 +1021,9 @@ components:
         Message:
           type: string
           example: 'API5077 - API : That method is not supported, please check the ITAS API documentation.'
+    accessToken:
+      type: object
+      properties: {}
     BaleGroupingRequest:
       type: object
       properties:
@@ -1614,9 +1414,9 @@ components:
           type: string
           example: CONTROL01
         FirstController:
-          $ref: '#/components/schemas/ControllerInput1'
+          type: object
         SecondController:
-          $ref: '#/components/schemas/ControllerInput2'
+          type: object
       required:
       - PhysicalTradeId
       - LandingReportDate
@@ -1657,7 +1457,9 @@ components:
         DischargeWeights:
           type: array
           items:
-            type: object
+            oneOf:
+            - $ref: '#/components/schemas/DischargeWeightsResponse1'
+            - $ref: '#/components/schemas/DischargeWeightsResponse2'
     InvoiceStageLeg:
       type: object
       properties:
@@ -1748,7 +1550,9 @@ components:
         Legs:
           type: array
           items:
-            type: object
+            oneOf:
+            - $ref: '#/components/schemas/InvoiceStageLeg'
+            - $ref: '#/components/schemas/InvoiceStageLeg2'
       required:
       - DocumentDate
       - ValueDate
@@ -1855,7 +1659,7 @@ components:
           type: number
           example: 41
         Shipping:
-          $ref: '#/components/schemas/Shipping'
+          type: object
     LotRequest:
       type: object
       properties:
@@ -1868,7 +1672,7 @@ components:
         Lots:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/Lot'
     NetGrossWeight ResponseP:
       type: object
       properties:
