@@ -1,0 +1,634 @@
+openapi: 3.0.3
+info:
+  title: ITAS Client Services API
+  version: '1.04'
+  description: 'Release Notes 21 September 2019'
+servers:
+  - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+- BearerAuth: []
+tags:
+- name: DocMan
+- name: ITAS Data Query Service
+- name: ITAS Data Modification Service
+- name: Reporting Data
+- name: Data Object Definitions
+paths:
+  /Docman/RequiredFields/{DocumentType}:
+    get:
+      tags:
+      - DocMan
+      summary: Read Required Fields
+      operationId: readRequiredFields
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/RequiredFields'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400': &id001
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404': &id002
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+      parameters:
+      - name: DocumentType
+        in: path
+        required: true
+        schema:
+          type: string
+        example: INVOICES
+  /DocMan/Upload:
+    post:
+      tags:
+      - DocMan
+      summary: Upload Document
+      operationId: uploadDocument
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/DocmanDocumentId'
+                  Response:
+                    $ref: '#/components/schemas/CreateResponse'
+        '400': *id001
+        '404': *id002
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                File:
+                  type: string
+                  format: binary
+                Model:
+                  type: string
+                  description: JSON indexing model
+                  example: '{"TradingEntityId":"JT","DocumentType":"INVOICES","CounterpartyId":"ABCD.P","ContractId":"P00001.000","DocumentRef":"PI1900001","WipAccount":"0001.000"}'
+              required:
+              - File
+              - Model
+  /DocMan/Index:
+    post:
+      tags:
+      - DocMan
+      summary: Index Document
+      operationId: indexDocument
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/DocmanDocumentId'
+                  Response:
+                    $ref: '#/components/schemas/CreateResponse'
+        '400': *id001
+        '404': *id002
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndexDocument'
+  /DocMan/Download:
+    get:
+      tags:
+      - DocMan
+      summary: Download Document
+      operationId: downloadDocument
+      responses:
+        '200':
+          description: Streamed file download
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404': *id002
+      parameters:
+      - name: section
+        in: query
+        required: true
+        schema:
+          type: string
+          example: CompanyDocuments
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          example: 12345
+  /DocMan/Archive:
+    put:
+      tags:
+      - DocMan
+      summary: Archive Document
+      operationId: archiveDocument
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: string
+                    example: Document archived successfully
+                  Response:
+                    $ref: '#/components/schemas/UpdateResponse'
+        '400': *id001
+        '404': *id002
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveDocument'
+  /Query:
+    post:
+      tags:
+      - ITAS Data Query Service
+      summary: Query ITAS Data
+      operationId: queryItasData
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DQSDepartments'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '400': *id001
+        '404': *id002
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: "{\n  Departments(TradingEntityIds: [\"jt\", \"qa\"], Top: 200, Skip: 100) {\n    DepartmentId DepartmentDescription\
+                \ NominalCategory { NominalCategoryId NominalCategoryDescription NominalGroup } Country { CountryId CountryDescription\
+                \ } EDICode Status\n  }\n}"
+  /Modification:
+    post:
+      tags:
+      - ITAS Data Modification Service
+      summary: Create, Update or Delete ITAS Data
+      operationId: modifyItasData
+      description: The API Blueprint defines Create, Update and Delete as separate POST actions on the same /Modification
+        path. OpenAPI permits only one POST operation per path, so they are represented as one operation with three request
+        examples.
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            examples:
+              createDepartment:
+                value: 'mutation { CreateDepartment(Input: { DepartmentId: "ABCD" DepartmentDescription: "ABCD Dep" CountryCode:
+                  "GB" TradingEntityId: "JT" }) { DepartmentId DepartmentDescription } }'
+              updateDepartments:
+                value: 'mutation { UpdateDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''", Input: { DepartmentDescription:
+                  "Department ABCD" }) { DepartmentId DepartmentDescription } }'
+              deleteDepartments:
+                value: 'mutation { DeleteDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''") { DepartmentId
+                  DepartmentDescription } }'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    oneOf:
+                    - $ref: '#/components/schemas/DepartmentCreate'
+                    - $ref: '#/components/schemas/DepartmentUpdate'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400': *id001
+        '404': *id002
+  /ReportingData/DataFactoryExport:
+    post:
+      tags:
+      - Reporting Data
+      summary: Data Factory Export
+      operationId: dataFactoryExport
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/JobId'
+                  Response:
+                    $ref: '#/components/schemas/CreateResponse'
+        '400': *id001
+        '404': *id002
+      description: Schedule data exports.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataFactoryExport'
+  /ReportingData/ReportFactoryExport:
+    post:
+      tags:
+      - Reporting Data
+      summary: Report Factory Export
+      operationId: reportFactoryExport
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/JobId'
+                  Response:
+                    $ref: '#/components/schemas/CreateResponse'
+        '400': *id001
+        '404': *id002
+      description: Generate report through report factory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportFactoryExport'
+  /AccountHeader:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: AccountHeader
+      operationId: accountheader
+      responses:
+        '200':
+          description: Reference object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHeader'
+      description: Reference-only endpoint from the source API Blueprint; documented as not accessible.
+  /UserAccount:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: UserAccount
+      operationId: useraccount
+      responses:
+        '200':
+          description: Reference object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccount'
+      description: Reference-only endpoint from the source API Blueprint; documented as not accessible.
+  /WipAccount:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: WIPAccount
+      operationId: wipaccount
+      responses:
+        '200':
+          description: Reference object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WIPAccount'
+      description: Reference-only endpoint from the source API Blueprint; documented as not accessible.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    ErrorMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+    BadRequest:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+    NotFound:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Not Found
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+    RequiredFields:
+      type: array
+      items:
+        type: string
+      example:
+      - ContractId
+      - DocumentReference
+    DocmanDocumentId:
+      type: object
+      properties:
+        DocmanDocumentId:
+          type: number
+          example: 12345
+    IndexDocument:
+      type: object
+      properties:
+        Name:
+          type: string
+          maxLength: 200
+          example: 20180113_ADIL01_WHS.RTF
+        TradingEntityId:
+          type: string
+          maxLength: 2
+          example: JT
+        DocumentType:
+          type: string
+          maxLength: 30
+          example: TRADEDOCS
+        CounterpartyId:
+          type: string
+          maxLength: 10
+          example: NEWACC30.P
+        ContractId:
+          type: string
+          maxLength: 10
+          example: P00001.000
+        DocumentRef:
+          type: string
+          maxLength: 9
+          example: PI1574747
+        WIPAccountId:
+          type: string
+          maxLength: 11
+          example: '0001.000'
+        PhysicalPath:
+          type: string
+          maxLength: 200
+          example: \\hivedome-fs01\itas\Comp\DroppedFiles\JT\TRADEDOCS\P00001.000.txt
+        IsPhysicalPathEncrypted:
+          type: boolean
+          example: false
+    ArchiveDocument:
+      type: object
+      properties:
+        Path:
+          type: string
+          maxLength: 200
+          example: JT\CASHDOCS\TEST.TXT
+    JobId:
+      type: object
+      properties:
+        JobRef:
+          type: string
+          example: Job1
+    DataFactoryExport:
+      type: object
+      properties:
+        Request:
+          type: string
+      required:
+      - Request
+    ReportFactoryExport:
+      type: object
+      properties:
+        Request:
+          type: string
+      required:
+      - Request
+    Country:
+      type: object
+      properties:
+        CountryId:
+          type: string
+          example: GB
+        CountryDescription:
+          type: string
+          example: Great Britain
+    NominalCategory:
+      type: object
+      properties:
+        NominalCategoryId:
+          type: string
+          example: AA
+        NominalCategoryDescription:
+          type: string
+          example: AA Trading
+        NominalGroup:
+          type: string
+          example: BB
+    DQSDepartments:
+      type: object
+      properties:
+        TradingEntityId:
+          type: string
+          example: jt
+        DepartmentId:
+          type: string
+          example: '1111'
+        DepartmentDescription:
+          type: string
+          example: Department 1111
+        NominalCategory:
+          $ref: '#/components/schemas/NominalCategory'
+        Country:
+          $ref: '#/components/schemas/Country'
+        EDICode:
+          type: string
+          example: EDI1234
+        Status:
+          type: string
+          example: O
+    DepartmentCreate:
+      type: object
+      properties:
+        DepartmentId:
+          type: string
+          example: ABCD
+        DepartmentDescription:
+          type: string
+          example: ABCD Dep
+    DepartmentUpdate:
+      type: object
+      properties:
+        DepartmentId:
+          type: string
+          example: ABCD
+        DepartmentDescription:
+          type: string
+          example: Department ABCD
+    Pagination:
+      type: object
+      properties:
+        Total:
+          type: number
+          example: 250
+        Top:
+          type: number
+          example: 200
+        Skip:
+          type: number
+          example: 100
+        Returned:
+          type: number
+          example: 150
+    AccountHeader:
+      type: object
+      properties:
+        AccountType:
+          type: string
+          enum:
+          - C
+          - N
+          - K
+          example: C
+          maxLength: 1
+        AccountId:
+          type: string
+          maxLength: 11
+          example: 00040444.P
+        AccountDescription:
+          type: string
+          maxLength: 200
+          example: Nigeria Trading Dept
+        EDICode:
+          type: string
+          maxLength: 50
+          example: ABC1234
+        Status:
+          type: string
+          enum:
+          - O
+          - F
+          example: F
+          maxLength: 1
+    UserAccount:
+      type: object
+      properties:
+        UserAccountId:
+          type: string
+          maxLength: 3
+          example: JS
+        UserAccountName:
+          type: string
+          maxLength: 255
+          example: JSMITH
+        UserAccountDescription:
+          type: string
+          maxLength: 40
+          example: John Smith
+      required:
+      - UserAccountId
+    WIPAccount:
+      type: object
+      properties:
+        WIPAccountId:
+          type: string
+          maxLength: 11
+          example: 1111.MEP
+        WIPAccountDescription:
+          type: string
+          maxLength: 60
+          example: MEPACCRUE - East Africa Dept
+        WIPAccountType:
+          type: string
+          maxLength: 1
+          example: M
+        Status:
+          type: string
+          enum:
+          - O
+          - F
+          example: F
+          maxLength: 1
+      required:
+      - WIPAccountId

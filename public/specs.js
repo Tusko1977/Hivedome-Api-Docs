@@ -7,4 +7,6 @@ const SPECS = {
   "a1b1ced896-cofco/v1.1":  { title: "COFCO Custom API v1.1", url: "/openapi/a1b1ced896-cofco/v1.1/openapi.yaml", listed: false },
   "invoicing":   { title: "ITAS Invoicing", url: "/openapi/invoicing/openapi.yaml", listed: true,
                    description: "Manual invoices, trade invoicing, trade locking and reference data." },
+  "client-services":   { title: "ITAS Client Services API v1.04", url: "/openapi/client-services/openapi.yaml", listed: true,
+                  description: "DocMan, Data Query Service, Data Modification Service and Reporting Data" },
 };
