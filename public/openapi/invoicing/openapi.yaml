@@ -5,6 +5,10 @@ info:
   description: Release Notes 01 May 2023.
 servers:
   - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
   - url: https://{yourServer}:5720
     variables:
       yourServer:
