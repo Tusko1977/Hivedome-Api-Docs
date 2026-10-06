@@ -9,4 +9,6 @@ const SPECS = {
                    description: "Manual invoices, trade invoicing, trade locking and reference data." },
   "client-services":   { title: "ITAS Client Services API v1.04", url: "/openapi/client-services/openapi.yaml", listed: true,
                   description: "DocMan, Data Query Service, Data Modification Service and Reporting Data" },
+  "e-invoicing":   { title: "ITAS e-Invoicing Custom API v1.04", url: "/openapi/e-invoicing/openapi.yaml", listed: true,
+                  description: "Endpoints for Incoming and Outgoing e-invoice processes" },
 };

@@ -1,0 +1,614 @@
+openapi: 3.0.3
+info:
+  title: e-Invoicing Custom API
+  version: '1.4'
+  description: 'Release notes: 5 August 2026.'
+servers:
+  - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+- bearerAuth: []
+tags:
+- name: Invoices
+- name: Data Object Definitions
+paths:
+  /Invoices/{TradingEntityId}/IncomingInvoice/{Property}/{PropertyValue}:
+    get:
+      tags:
+      - Invoices
+      summary: List Incoming Invoice Records
+      operationId: listIncomingInvoiceRecords
+      parameters:
+      - &id001
+        name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+        description: Identify specific trading entity.
+      - name: Property
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - AccountCode
+          - ClientReference
+          - DocumentDate
+          - InvoiceRecordId
+          - IsProcessed
+      - name: PropertyValue
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ABCDEF.P
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InvoiceReadBody'
+                  Pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  Response:
+                    $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad property
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadPropertyResponse'
+        '404': &id002
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+        '405': &id003
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error405'
+  /Invoices/{TradingEntityId}/IncomingInvoice:
+    post:
+      tags:
+      - Invoices
+      summary: Create Incoming Invoice Record
+      operationId: createIncomingInvoiceRecord
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceCreateBody'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/InvoiceIdResponse'
+                  Response:
+                    $ref: '#/components/schemas/CreateResponse'
+        '400': &id004
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '404': *id002
+        '405': *id003
+  /Invoices/{TradingEntityId}/IncomingInvoice/{InvoiceRecordId}:
+    put:
+      tags:
+      - Invoices
+      summary: Update Incoming Invoice Record
+      operationId: updateIncomingInvoiceRecord
+      parameters:
+      - *id001
+      - &id005
+        name: InvoiceRecordId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceUpdateBody'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/InvoiceIdResponse'
+                  Response:
+                    $ref: '#/components/schemas/UpdateResponse'
+        '400': *id004
+        '404': *id002
+        '405': *id003
+    delete:
+      tags:
+      - Invoices
+      summary: Delete Incoming Invoice
+      operationId: deleteIncomingInvoice
+      parameters:
+      - *id001
+      - *id005
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/InvoiceIdResponse'
+                  Response:
+                    $ref: '#/components/schemas/DeletedResponse'
+        '400': *id004
+        '404': *id002
+        '405': *id003
+  /InvoiceLeg:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Invoice Record Leg reference
+      description: Reference-only object endpoint; source states these endpoints are not accessible.
+      responses:
+        '200':
+          description: Reference object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceLegReadUpdate'
+  /InvoiceVatRecord:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Invoice VAT Record reference
+      description: Reference-only object endpoint; source states these endpoints are not accessible.
+      responses:
+        '200':
+          description: Reference object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceVatReadUpdate'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    InvoiceLegCreate:
+      type: object
+      properties:
+        Quantity: &id006
+          type: number
+        WeightCode: &id007
+          type: string
+          maxLength: 4
+        Value: &id008
+          type: number
+        Price: &id009
+          type: number
+        VatRatePercentage: &id010
+          type: number
+        InvoiceRecordLegDescription: &id011
+          type: string
+          maxLength: 255
+        VatRateCode: &id012
+          type: string
+          maxLength: 2
+        RateTypeCode: &id013
+          type: string
+          maxLength: 1
+          enum:
+          - A
+          - R
+          - S
+          - W
+          - '%'
+          - Q
+          - C
+          - L
+          - ' '
+        PriceTypeCode: &id014
+          type: string
+          maxLength: 4
+        PaymentModeCode: &id015
+          type: string
+          maxLength: 1
+        PaymentId: &id016
+          type: string
+          maxLength: 255
+        BuyerOrderIdentifier: &id017
+          type: string
+          maxLength: 50
+        StartPeriod: &id018
+          type: string
+          format: date-time
+        EndPeriod: &id019
+          type: string
+          format: date-time
+        FreeFormatNote: &id020
+          type: string
+          maxLength: 255
+        BaseQuantity: &id021
+          type: number
+        ValueType: &id022
+          type: string
+          enum:
+          - Contract
+          - Cost
+          - Commission
+        CostHeadingCode: &id023
+          type: string
+          maxLength: 8
+        DocumentReference: &id024
+          type: string
+          maxLength: 9
+        InvoiceCurrencyCode: &id025
+          type: string
+          maxLength: 3
+        PhysicalTradeId: &id026
+          type: string
+          maxLength: 10
+        CostUniqueId: &id027
+          type: number
+        VatAmount: &id028
+          type: number
+      required:
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
+    InvoiceLegReadUpdate:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+        InvoiceRecordLegId:
+          type: number
+        Quantity: *id006
+        WeightCode: *id007
+        Value: *id008
+        Price: *id009
+        VatRatePercentage: *id010
+        InvoiceRecordLegDescription: *id011
+        VatRateCode: *id012
+        RateTypeCode: *id013
+        PriceTypeCode: *id014
+        PaymentModeCode: *id015
+        PaymentId: *id016
+        BuyerOrderIdentifier: *id017
+        StartPeriod: *id018
+        EndPeriod: *id019
+        FreeFormatNote: *id020
+        BaseQuantity: *id021
+        ValueType: *id022
+        CostHeadingCode: *id023
+        DocumentReference: *id024
+        InvoiceCurrencyCode: *id025
+        PhysicalTradeId: *id026
+        CostUniqueId: *id027
+        VatAmount: *id028
+      required:
+      - InvoiceRecordId
+      - Quantity
+      - WeightCode
+      - Value
+      - Price
+      - VatRatePercentage
+    InvoiceVatCreate:
+      type: object
+      properties:
+        ExternalVatCode: &id029
+          type: string
+        VatPercentage: &id030
+          type: number
+        VatableAmount: &id031
+          type: number
+        VatAmount: &id032
+          type: number
+        ItasVatCode: &id033
+          type: string
+          maxLength: 2
+        ExemptionReasonCode: &id034
+          type: string
+          maxLength: 50
+        ExemptionReasonDescription: &id035
+          type: string
+          maxLength: 500
+        InvoiceAmount: &id036
+          type: number
+        VatCurrencyCode: &id037
+          type: string
+          maxLength: 3
+      required:
+      - ExternalVatCode
+      - VatPercentage
+      - VatableAmount
+      - VatAmount
+    InvoiceVatReadUpdate:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+        InvoiceVatRecordId:
+          type: number
+        ExternalVatCode: *id029
+        VatPercentage: *id030
+        VatableAmount: *id031
+        VatAmount: *id032
+        ItasVatCode: *id033
+        ExemptionReasonCode: *id034
+        ExemptionReasonDescription: *id035
+        InvoiceAmount: *id036
+        VatCurrencyCode: *id037
+      required:
+      - InvoiceRecordId
+      - ExternalVatCode
+      - VatPercentage
+      - VatableAmount
+      - VatAmount
+    InvoiceCreateBody:
+      type: object
+      properties:
+        Source:
+          type: string
+          maxLength: 8
+          enum: &id038
+          - eInvoice
+          - Email
+          default: eInvoice
+        IncomingOrOutgoing:
+          type: string
+          maxLength: 8
+          enum: &id039
+          - Incoming
+          - Outgoing
+          default: Incoming
+        InvoiceRecordLegs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLegCreate'
+        InvoiceVatRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceVatCreate'
+      required:
+      - AccountCode
+      - ClientReference
+      - CurrencyCode
+      - DocumentDate
+      - ValueDate
+      - Name
+      - VatRegistrationNo
+      - EInvoiceId
+      - TotalInvoiceAmount
+      - TotalInvoiceLinesExVatAmount
+      - TotalVatAmount
+      - InvoicePayableAmount
+      - IBAN
+      - BIC
+      - InvoiceRecordLegs
+      - InvoiceVatRecords
+    InvoiceReadBody:
+      type: object
+      properties:
+        Source:
+          type: string
+          maxLength: 8
+          enum: *id038
+          default: eInvoice
+        IncomingOrOutgoing:
+          type: string
+          maxLength: 8
+          enum: *id039
+          default: Incoming
+        InvoiceRecordLegs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLegReadUpdate'
+        InvoiceVatRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceVatReadUpdate'
+      required:
+      - Name
+      - InvoiceRecordLegs
+      - InvoiceVatRecords
+    InvoiceUpdateBody:
+      type: object
+      properties:
+        Source:
+          type: string
+          maxLength: 8
+          enum: *id038
+          default: eInvoice
+        IncomingOrOutgoing:
+          type: string
+          maxLength: 8
+          enum: *id039
+          default: Incoming
+        InvoiceRecordLegs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLegReadUpdate'
+        InvoiceVatRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceVatReadUpdate'
+      required:
+      - InvoiceRecordId
+      - AccountCode
+      - ClientReference
+      - CurrencyCode
+      - DocumentDate
+      - ValueDate
+      - Name
+      - VatRegistrationNo
+      - EInvoiceId
+      - TotalInvoiceAmount
+      - TotalInvoiceLinesExVatAmount
+      - TotalVatAmount
+      - InvoicePayableAmount
+      - IBAN
+      - BIC
+      - InvoiceRecordLegs
+      - InvoiceVatRecords
+    InvoiceIdResponse:
+      type: object
+      properties:
+        InvoiceRecordId:
+          type: number
+          example: 1
+    Pagination:
+      type: object
+      properties:
+        Total:
+          type: number
+        Top:
+          type: number
+        Skip:
+          type: number
+        Returned:
+          type: number
+    SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    DeletedResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Deleted
+    CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    Error400:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            type: object
+            properties:
+              Severity:
+                type: string
+                example: Error
+              Message:
+                type: string
+                example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    Error404:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Not Found
+        Messages:
+          type: array
+          items:
+            type: object
+            properties:
+              Severity:
+                type: string
+                example: Warning
+              Message:
+                type: string
+                example: 'API5068 - Data : No records found.'
+    Error405:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 405 Method Not Allowed
+        Messages:
+          type: array
+          items:
+            type: object
+            properties:
+              Severity:
+                type: string
+                example: Error
+              Message:
+                type: string
+                example: 'API5077 - API : That method is not supported, please check the ITAS API documentation.'
+    BadPropertyResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            type: object
+            properties:
+              Severity:
+                type: string
+                example: Error
+              Message:
+                type: string
+                example: 'API5074 - API : The value sent in the querystring variable {Property} is not allowed.'
