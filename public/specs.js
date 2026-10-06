@@ -20,4 +20,6 @@ const SPECS = {
                   description: "Endpoints for Incoming and Outgoing e-invoice processes" },
    "e-invoicing/v1.4":   { title: "ITAS e-Invoicing Custom API v1.04", url: "/openapi/e-invoicing/v1.4/openapi.yaml",
                   description: "Endpoints for Incoming and Outgoing e-invoice processes" },
+  "itas-events-v2":   { title: "ITAS Events API v2.0", url: "/openapi/itas-events-v2/openapi.yaml",
+                  description: "Endpoints for Events Messaging" },
 };
