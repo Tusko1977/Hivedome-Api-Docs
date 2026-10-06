@@ -2,10 +2,20 @@ openapi: 3.0.3
 info:
   title: ITAS API
   version: '3.7'
-  description: 'Converted from API Blueprint. Release notes: 17 August 2026. ITAS API does not support asynchronous or multithreaded
-    POST, PUT, PATCH or DELETE requests.'
+  description: 'Release notes: 17 August 2026.'
 servers:
-- url: http://itas.apiary.io/
+  - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+  - bearerAuth: []
 tags:
 - name: Client Reference Data
 - name: Global Reference Data
@@ -28,8 +38,6 @@ tags:
 - name: Valuation-Physical
 - name: Data Object Definitions
 - name: Composite Key Examples
-security:
-- BearerAuth: []
 paths:
   /ReferenceData/{TradingEntityId}/ClientLedger/ClientAccount/{Property}/{PropertyValue}:
     get:
