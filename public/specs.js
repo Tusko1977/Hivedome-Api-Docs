@@ -1,16 +1,14 @@
-// URL path (without leading/trailing slash) -> OpenAPI file in /public.
-// Add a line here for each new doc or version.
-// listed: true shows the doc on the landing page; hidden docs still work at their URL.
-// description is optional and appears on the landing page card.
+// Docs shown on the landing page: URL path (without leading/trailing slash) -> OpenAPI file in /public.
+// This file is public, so only add docs everyone may see. description is optional and appears on the card.
+//
+// Hidden (client) docs are NOT listed here. They open by folder name instead:
+//   /<folder>/<version>  ->  /openapi/<folder>/<version>/openapi.yaml
+// and their "latest" short URL is a redirect in vercel.json.
 const SPECS = {
-  "a1b1ced896-cofco":       { title: "COFCO Custom API", url: "/openapi/a1b1ced896-cofco/v1.1/openapi.yaml", listed: false }, // latest
-  "a1b1ced896-cofco/v1.1":  { title: "COFCO Custom API v1.1", url: "/openapi/a1b1ced896-cofco/v1.1/openapi.yaml", listed: false },
-  "e7d6d863-edfman":       { title: "ED&FMan Custom API", url: "/openapi/e7d6d863-edfman/v1.7/openapi.yaml", listed: false }, // latest
-  "e7d6d863-edfman/v1.7":       { title: "ED&FMan Custom API", url: "/openapi/e7d6d863-edfman/v1.7/openapi.yaml", listed: false },
-  "client-services":   { title: "ITAS Client Services API v1.04", url: "/openapi/client-services/openapi.yaml", listed: true,
+  "client-services":   { title: "ITAS Client Services API v1.04", url: "/openapi/client-services/openapi.yaml",
                   description: "DocMan, Data Query Service, Data Modification Service and Reporting Data" },
-  "invoicing":   { title: "ITAS Invoicing", url: "/openapi/invoicing/openapi.yaml", listed: true,
+  "invoicing":   { title: "ITAS Invoicing", url: "/openapi/invoicing/openapi.yaml",
                    description: "Manual invoices, trade invoicing, trade locking and reference data." },
-  "e-invoicing":   { title: "ITAS e-Invoicing Custom API v1.04", url: "/openapi/e-invoicing/openapi.yaml", listed: true,
+  "e-invoicing":   { title: "ITAS e-Invoicing Custom API v1.04", url: "/openapi/e-invoicing/openapi.yaml",
                   description: "Endpoints for Incoming and Outgoing e-invoice processes" },
 };

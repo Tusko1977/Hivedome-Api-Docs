@@ -21,24 +21,27 @@
   <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script src="/specs.js"></script>
   <script>
-    window.onload = () => {
-	  // e.g. "/cofco/v1.1/" -> "cofco/v1.1"
+    window.onload = async () => {
+	  // e.g. "/invoicing/" -> "invoicing"
 	  const key = location.pathname.replace(/^\/+|\/+$/g, "");
-	  const spec = SPECS[key];
+	  // Listed docs come from specs.js; hidden docs load by folder name
+	  const url = SPECS[key] ? SPECS[key].url : `/openapi/${key}/openapi.yaml`;
 
-	  if (!spec) {
+	  const found = key && (await fetch(url, { method: "HEAD" }).then(r => r.ok, () => false));
+	  if (!found) {
 		document.getElementById("swagger-ui").innerHTML =
 		  "<p style='font-family:sans-serif;padding:2rem'>No API docs found at this URL. <a href='/'>See all docs</a></p>";
 		return;
 	  }
 
-	  document.title = spec.title;
-
 	  const ui = SwaggerUIBundle({
-		url: spec.url,
+		url: url,
 		dom_id: "#swagger-ui",
 		defaultModelsExpandDepth: -1,
 		deepLinking: true,
+		onComplete: () => {
+		  document.title = ui.specSelectors.info().get("title") || "API Docs";
+		},
 	  });
 
 	  // Scroll expanded operation to top of viewport

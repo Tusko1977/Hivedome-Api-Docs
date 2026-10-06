@@ -108,7 +108,6 @@
   <script src="/specs.js"></script>
   <script>
     document.getElementById("list").innerHTML = Object.entries(SPECS)
-      .filter(([path, s]) => s.listed)
       .map(([path, s]) => `
         <a class="card" href="/${path}">
           <h3>${s.title}</h3>
