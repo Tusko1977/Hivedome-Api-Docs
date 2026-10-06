@@ -1,0 +1,1531 @@
+openapi: 3.0.3
+info:
+  title: ITAS Events API
+  version: '2.0'
+servers:
+  - url: http://{yourServer}:4710
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5710
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+  - bearerAuth: []
+tags:
+- name: Subscribers
+- name: Topics
+- name: Subscriptions
+- name: Messages
+- name: Migrated Events v1 Endpoints
+paths:
+  /Subscribers:
+    get:
+      tags:
+      - Subscribers
+      summary: List Subscribers
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [Subscriber Detail]'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+  /Subscribers/{SubscriberId}:
+    get:
+      tags:
+      - Subscribers
+      summary: Read Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber Detail'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      tags:
+      - Subscribers
+      summary: Delete Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+  /Subscribers/{SubscriberName}:
+    post:
+      tags:
+      - Subscribers
+      summary: Create Subscriber
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberName
+        in: path
+        required: true
+        schema:
+          type: string
+  /Topics:
+    get:
+      tags:
+      - Topics
+      summary: List Topics
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [Topic Detail]'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+  /Topics/{TopicName}:
+    get:
+      tags:
+      - Topics
+      summary: Read Topic
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic Detail'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: TopicName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+      - Topics
+      summary: Create Topic
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: TopicName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      tags:
+      - Topics
+      summary: Delete Topic
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: TopicName
+        in: path
+        required: true
+        schema:
+          type: string
+  /Subscriptions:
+    get:
+      tags:
+      - Subscriptions
+      summary: List Subscriptions
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [Subscription Detail]'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+  /Subscriptions/{SubscriberId}:
+    get:
+      tags:
+      - Subscriptions
+      summary: List Subscriptions for Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [Subscription Detail]'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      tags:
+      - Subscriptions
+      summary: Delete all Subscriptions for Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [Subscription Detail]'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+  /Subscriptions/{SubscriberId}/{Topic}:
+    get:
+      tags:
+      - Subscriptions
+      summary: Read Subscription for Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription Detail'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Topic
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+      - Subscriptions
+      summary: Create Subscription for Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Topic
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      tags:
+      - Subscriptions
+      summary: Delete Subscription for Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Topic
+        in: path
+        required: true
+        schema:
+          type: string
+  /Messages/{SubscriberId}/{Timeout}:
+    get:
+      tags:
+      - Messages
+      summary: Read Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message Detail'
+        '204':
+          description: '204'
+          content:
+            application/json:
+              schema:
+                type: object
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Timeout
+        in: path
+        required: true
+        schema:
+          type: string
+  /Messages/{Topic}:
+    post:
+      tags:
+      - Messages
+      summary: Create Message
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: Topic
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageBody Create'
+  /Messages/{SubscriberId}/{MessageId}:
+    delete:
+      tags:
+      - Messages
+      summary: Delete Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: MessageId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /Messages/{SubscriberId}/{MessageId}/Reject:
+    delete:
+      tags:
+      - Messages
+      summary: Reject Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: MessageId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /Events/Register:
+    post:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Create Mailbox
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Subscribe Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberName
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/GetTopic:
+    get:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Read Topic
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Topic Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: Topic
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/AddTopic:
+    put:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Create Topic
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Topic Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: Topic
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/Subscribe:
+    post:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Create Subscription
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Subscription Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: topic
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/ViewSubscriptions:
+    get:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: List Subscriptions
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/array [V1Subscription Detail]'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /Events/Publish:
+    put:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Publish Message
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Publish Message Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: Topic
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/Peek:
+    get:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Peek Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1Peek Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Timeout
+        in: query
+        required: false
+        schema:
+          type: string
+  /Events/Receive:
+    post:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Receive Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1ReceiveMessage Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: MessageId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: LockTimeout
+        in: query
+        required: false
+        schema:
+          type: number
+  /Events/Confirm:
+    delete:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Confirm Message
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: MessageId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: LockId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /Events/Unsubscribe:
+    post:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Unsubscribe Alert Topic
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Topic
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+  /Events/Unregister:
+    delete:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Unregister Subscriber
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: SubscriberId
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /Events/UnsubscribeAll:
+    post:
+      tags:
+      - Migrated Events v1 Endpoints
+      summary: Unsubscribe All
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1UnsubscribeAll Detail'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 BadRequestResponse'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 MethodNotAllowed'
+      parameters:
+      - name: CompanyCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: Topic
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: UpdateUser
+        in: query
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    200 SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    200 CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    200 AuthoriseResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Authorised
+    200 UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    201 AuthoriseResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Authorised
+    201 CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    201 UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    400 BadRequestResponse:
+      type: object
+      properties: {}
+    400 Response:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 ErrorMessageDetail'
+    400 ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    400 BadPropertyResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadPropertyErrorMessageDetail'
+    400 BadPropertyErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5068 - API : The value sent in the querystring variable {Property} is not allowed.'
+    400 BadReadResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadReadErrorMessageDetail'
+    400 BadReadErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5075 - API : The value sent in the querystring is not allowed.'
+    400 ServiceResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          $ref: '#/components/schemas/400 ServiceResponseDetail'
+    400 ServiceResponseDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Messages:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing.'
+    400 StatusResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Failed
+        Messages:
+          $ref: '#/components/schemas/400 StatusResponseDetail'
+    400 StatusResponseDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Messages:
+          type: string
+          example: 'API5090 - API : The value {value} is not allowed for the field {FieldName}'
+    400 WarningMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API50xx - Data : The field {fieldName} was not found.'
+    400 InfoMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Information
+        Message:
+          type: string
+          example: 'API50xx - Data : Now create xyz.'
+    404 NotFoundResponse:
+      type: object
+      properties: {}
+    404 NotFound:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5067 - API : The value {inputValue} does not exist.'
+    404 Response:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Object not found
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/404 ErrorMessageDetailMessage'
+    404 ErrorMessageDetailMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5067 - API : The value {TradingEntityId} sent as the TradingEntitiyId does not exist.'
+    404 RequestIdResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Object not found
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/404 ErrorMessageRequestIdMessage'
+    404 ErrorMessageRequestIdMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5067 - API : The value {RequestId} sent as the RequestId does not exist.'
+    404 ServiceResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Object not found
+        Messages:
+          $ref: '#/components/schemas/404 ServiceResponseDetail'
+    404 ServiceResponseDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5067 - API : The value {ServiceName} does not exist.'
+    405 MethodNotAllowed:
+      type: object
+      properties: {}
+    accessToken:
+      type: object
+      properties:
+        Authorization:
+          type: string
+          example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg
+    TokenAuth:
+      type: object
+      properties:
+        Token:
+          type: string
+          example: TokenId
+        Authorised:
+          type: boolean
+          example: true
+    TokenAuthentication:
+      type: object
+      properties:
+        Token:
+          type: string
+          example: TokenId
+    Pagination:
+      type: object
+      properties: {}
+    InnerMessageBody:
+      type: object
+      properties:
+        Title:
+          type: string
+          example: Contract Created
+        Message:
+          type: string
+          example: Contract created through Image of S00001.000
+        TradingEntityId:
+          type: string
+          example: jt
+        EntityId:
+          type: string
+          example: S00001.000
+        EntityTypeID:
+          type: string
+          example: '1'
+        DisplayID:
+          type: string
+          example: '2'
+        SubmittedBy:
+          type: string
+          example: JSMITH_HDM
+    MessageBody:
+      type: object
+      properties:
+        TID:
+          type: string
+          example: TID-010
+        TopicId:
+          type: string
+          example: 2-220
+        audit_trans:
+          type: string
+          example: O
+        InnerBody:
+          $ref: '#/components/schemas/InnerMessageBody'
+    MessageBody Create:
+      type: object
+      properties:
+        TID:
+          type: string
+          example: TID-010
+        Topic:
+          type: string
+          example: 2-220
+        audit_trans:
+          type: string
+          example: O
+        InnerBody:
+          $ref: '#/components/schemas/InnerMessageBody'
+    Message Detail:
+      type: object
+      properties:
+        MessageId:
+          type: string
+          example: cca4fd86-1bcd-eb11-847b-20677cddb4f2
+        Topic:
+          type: string
+          example: 2-220
+        MessageBody:
+          $ref: '#/components/schemas/MessageBody'
+        EnqueueTime:
+          type: string
+          example: '2021-06-15T12:41:19.167'
+    Subscriber Detail:
+      type: object
+      properties:
+        SubscriberId:
+          type: string
+          example: 5611a3c1-239d-eb11-8475-20677cddb4f3
+        SubscriberName:
+          type: string
+          example: Subscriber One
+    Subscription Detail:
+      type: object
+      properties:
+        SubscriberId:
+          type: string
+          example: 5611a3c1-239d-eb11-8475-20677cddb4f3
+        Topic:
+          type: string
+          example: 2-220
+    Topic Detail:
+      type: object
+      properties:
+        TopicName:
+          type: string
+          example: 2-220
+    V1DebugMessage:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/V1DebugMessageMessage'
+        Accepted:
+          type: boolean
+          example: true
+        HasErrors:
+          type: boolean
+          example: true
+        HasWarnings:
+          type: boolean
+          example: true
+    V1DebugMessageMessage:
+      type: object
+      properties:
+        Status:
+          type: number
+          example: 0
+        MsgText:
+          type: string
+          example: Message Error
+        ErrorType:
+          type: number
+          example: 1
+        ITASError:
+          $ref: '#/components/schemas/V1DebugItasError'
+    V1DebugItasError:
+      type: object
+      properties:
+        Description:
+          type: string
+          example: Error One
+        Code:
+          type: number
+          example: 1
+        Message:
+          type: string
+          example: A Problem Exists
+    V1Message Body:
+      type: object
+      properties:
+        InnerBody:
+          $ref: '#/components/schemas/InnerMessageBody'
+    V1Peek Detail:
+      type: object
+      properties:
+        NextMessageId:
+          type: string
+          example: FC5E248A-DEBF-EB11-847B-20677CDDB4F2
+        SubscriberId:
+          type: string
+          example: 5611a3c1-239d-eb11-8475-20677cddb4f3
+        MessageCount:
+          type: number
+          example: 1
+        ServiceResult:
+          $ref: '#/components/schemas/V1ServiceResult'
+    V1Publish Message Detail:
+      type: object
+      properties:
+        Message:
+          type: string
+          example: Published
+        CompanyCode:
+          type: string
+          example: GF
+        Topic:
+          type: string
+          example: 2-220
+    V1ReceiveMessage Detail:
+      type: object
+      properties:
+        MessageId:
+          type: string
+          example: cca4fd86-1bcd-eb11-847b-20677cddb4f2
+        LockId:
+          type: string
+          example: a00c77a6-dccd-eb11-847b-20677cddb4f2
+        Topic:
+          type: string
+          example: 2-220
+        CompanyCode:
+          type: string
+          example: GF
+        MessageType:
+          type: string
+          example: '{ITASMessage}'
+        MessageBody:
+          $ref: '#/components/schemas/V1Message Body'
+        EnqueueTime:
+          type: string
+          example: '2021-06-15T12:41:19.167'
+        ServiceResult:
+          $ref: '#/components/schemas/V1ServiceResult'
+    V1ServiceResult:
+      type: object
+      properties:
+        Error:
+          type: string
+          example: Error Message
+        StatusCode:
+          type: string
+          example: '0'
+        DebugMessage:
+          $ref: '#/components/schemas/V1DebugMessage'
+    V1Subscribe Detail:
+      type: object
+      properties:
+        SubscriberId:
+          type: string
+          example: 5611a3c1-239d-eb11-8475-20677cddb4f3
+        Name:
+          type: string
+          example: Subscriber One
+        ServiceResult:
+          $ref: '#/components/schemas/V1ServiceResult'
+    V1Subscription Detail:
+      type: object
+      properties:
+        SubscriberId:
+          type: string
+          example: 5611a3c1-239d-eb11-8475-20677cddb4f3
+        Topic:
+          type: string
+          example: 2-220
+        CompanyCode:
+          type: string
+          example: GF
+        ServiceResult:
+          $ref: '#/components/schemas/V1ServiceResult'
+    V1Topic Detail:
+      type: object
+      properties:
+        TopicId:
+          type: string
+          example: 4711a3c1-239d-eb11-8475-20677cddb4f3
+        Name:
+          type: string
+          example: 2-220
+        SubscriberCount:
+          type: number
+          example: 1
+        ServiceResult:
+          $ref: '#/components/schemas/V1ServiceResult'
+    V1UnsubscribeAll Detail:
+      type: object
+      properties:
+        SubscriberCount:
+          type: string
+          example: '3'
+        CompanyCode:
+          type: string
+          example: GF
+        Topic:
+          type: string
+          example: 2-220
+    array [Subscriber Detail]:
+      type: object
+      properties: {}
+    array [Topic Detail]:
+      type: object
+      properties: {}
+    array [Subscription Detail]:
+      type: object
+      properties: {}
+    array [V1Subscription Detail]:
+      type: object
+      properties: {}
