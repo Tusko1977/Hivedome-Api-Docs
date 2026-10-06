@@ -562,6 +562,48 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LogisticsMovement Update'
+  /Inventory/{TradingEntityId}/Grouping/CreateLogisticsPlan:
+    post:
+      tags:
+      - Inventory
+      summary: Create Logistics Plan
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogisticsPlanResponse'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogisticsPlanRequest'
   /Inventory/{TradingEntityId}/Lots/CreateLots:
     post:
       tags:
@@ -1579,6 +1621,23 @@ components:
         TransactionId:
           type: number
           example: 10
+    LogisticsPlanRequest:
+      type: object
+      properties:
+        GroupIds:
+          type: array
+          items:
+            type: integer
+          example:
+            - 152116
+            - 152117
+            - 152118
+    LogisticsPlanResponse:
+      type: object
+      properties:
+        GroupIds:
+          type: number
+          example: 2456
     LogisticsMovement Update:
       type: object
       properties:
