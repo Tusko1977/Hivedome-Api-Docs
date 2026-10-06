@@ -1,21 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hivedome API Docs</title>
+  <link rel="icon" href="/images/itas-logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; max-width: 640px; margin: 3rem auto; padding: 0 1rem; }
-    li { margin: .5rem 0; }
+    :root {
+      --blue: #0071BC;
+      --blue-dark: #005A96;
+      --ink: #1B2733;
+      --muted: #5B6B7A;
+      --line: #DCE3EA;
+      --bg: #F5F7FA;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header + hero */
+    .hero { background: var(--blue); color: #fff; }
+    .topbar { border-bottom: 1px solid rgba(255, 255, 255, .3); }
+    .topbar .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; }
+    .brand-name { font-size: 1.5rem; font-weight: 600; }
+    .pill {
+      margin-left: 6px; padding: 4px 12px;
+      border: 1.5px solid rgba(255, 255, 255, .7); border-radius: 999px;
+      font-size: .85rem; font-weight: 600;
+    }
+    .nav { display: flex; gap: 40px; font-size: 1.05rem; font-weight: 500; }
+    .nav a:hover { text-decoration: underline; text-underline-offset: 6px; }
+    .intro { padding: 80px 24px 88px; }
+    .eyebrow {
+      margin: 0 0 20px;
+      font-family: "IBM Plex Mono", monospace; font-size: .95rem;
+      letter-spacing: .15em; text-transform: uppercase; opacity: .85;
+    }
+    h1 { margin: 0 0 28px; font-size: clamp(2.5rem, 6vw, 4.25rem); font-weight: 700; line-height: 1.05; }
+    .lede { margin: 0; max-width: 640px; font-size: 1.25rem; line-height: 1.6; opacity: .92; }
+
+    /* API list */
+    .apis { padding: 64px 24px 96px; }
+    .apis h2 {
+      margin: 0 0 24px;
+      font-family: "IBM Plex Mono", monospace; font-size: .95rem; font-weight: 500;
+      letter-spacing: .15em; text-transform: uppercase; color: var(--muted);
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 28px; background: #fff;
+      border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 8px;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .card:hover { box-shadow: 0 8px 24px rgba(0, 60, 100, .12); transform: translateY(-2px); }
+    .card h3 { margin: 0; font-size: 1.35rem; font-weight: 600; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .card code { font-family: "IBM Plex Mono", monospace; font-size: .85rem; color: var(--muted); }
+    .card .go { margin-top: auto; padding-top: 8px; color: var(--blue); font-weight: 600; }
+    .card:hover .go { color: var(--blue-dark); }
+
+    @media (max-width: 640px) {
+      .pill { display: none; }
+      .nav { gap: 20px; }
+      .intro { padding: 56px 24px 64px; }
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <h1>Hivedome API Docs</h1>
-  <ul id="list"></ul>
+  <header class="hero">
+    <div class="topbar">
+      <div class="container">
+        <a class="brand" href="/">
+          <img src="/images/itas-logo.jpg" alt="">
+          <span class="brand-name">Hivedome</span>
+          <span class="pill">Developer docs</span>
+        </a>
+        <nav class="nav">
+          <a href="#apis">APIs</a>
+          <a href="#">Support</a>
+        </nav>
+      </div>
+    </div>
+    <div class="container intro">
+      <p class="eyebrow">API Reference</p>
+      <h1>Hivedome API Docs</h1>
+      <p class="lede">Reference documentation for Hivedome's APIs. Choose an API below to see its endpoints, request formats and examples.</p>
+    </div>
+  </header>
+
+  <main class="container apis" id="apis">
+    <h2>Available APIs</h2>
+    <div class="grid" id="list"></div>
+  </main>
+
   <script src="/specs.js"></script>
   <script>
     document.getElementById("list").innerHTML = Object.entries(SPECS)
       .filter(([path, s]) => s.listed)
-      .map(([path, s]) => `<li><a href="/${path}">${s.title}</a> <small>/${path}</small></li>`)
+      .map(([path, s]) => `
+        <a class="card" href="/${path}">
+          <h3>${s.title}</h3>
+          ${s.description ? `<p>${s.description}</p>` : ""}
+          <code>/${path}</code>
+          <span class="go">View documentation &rarr;</span>
+        </a>`)
       .join("");
   </script>
 </body>
