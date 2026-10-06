@@ -1635,7 +1635,7 @@ components:
     LogisticsPlanResponse:
       type: object
       properties:
-        GroupIds:
+        PlanId:
           type: number
           example: 2456
     LogisticsMovement Update:
