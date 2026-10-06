@@ -108,6 +108,7 @@
   <script src="/specs.js"></script>
   <script>
     document.getElementById("list").innerHTML = Object.entries(SPECS)
+      .filter(([path]) => !path.includes("/")) // versions like "itas-api/v3.7" work by URL but get no card
       .map(([path, s]) => `
         <a class="card" href="/${path}">
           <h3>${s.title}</h3>
