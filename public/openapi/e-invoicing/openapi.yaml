@@ -2,7 +2,6 @@ openapi: 3.0.3
 info:
   title: e-Invoicing Custom API
   version: '1.4'
-  version: '1.04'
   description: 'Release Notes 21 September 2019'
 servers:
   - url: http://{yourServer}:4720
