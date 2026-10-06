@@ -2,7 +2,8 @@
   "outputDirectory": "public",
   "redirects": [
     { "source": "/a1b1ced896-cofco", "destination": "/a1b1ced896-cofco/v1.1", "permanent": false },
-    { "source": "/e7d6d863-edfman", "destination": "/e7d6d863-edfman/v1.7", "permanent": false }
+    { "source": "/e7d6d863-edfman", "destination": "/e7d6d863-edfman/v1.7", "permanent": false },
+	{ "source": "/stock-management", "destination": "/stock-management/v1.1", "permanent": false }
   ],
   "rewrites": [
     { "source": "/:doc", "destination": "/docs.html" },

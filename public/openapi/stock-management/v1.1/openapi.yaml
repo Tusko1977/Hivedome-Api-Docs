@@ -1,0 +1,1311 @@
+openapi: 3.0.3
+info:
+  title: ITAS Stock Management
+  version: '1.1'
+  description: 'Release notes: 31 October 2022.'
+servers:
+  - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+security:
+  - bearerAuth: []
+tags:
+- name: Production Schedular
+- name: Data Object Definitions
+paths:
+  /Production/{TradingEntityId}/Schedular/StockIntakePile/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Update Pile Stock Intake
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: P00001.001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PileStockIntake'
+  /Production/{TradingEntityId}/Schedular/StockIntakeNonPile:
+    post:
+      tags:
+      - Production Schedular
+      summary: Create Non Pile Stock Intake
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NonPileStockIntake'
+  /Production/{TradingEntityId}/Schedular/StockIntakeReverse/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Reverse Stock Intake
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: P00001.001
+  /Production/{TradingEntityId}/Schedular/MaintainQA/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Update Quality Approved
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '800001.000'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QualityApproved'
+  /Production/{TradingEntityId}/Schedular/MoveStockWithinTerminal/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Move Stock Within Terminal
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '800001.000'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveWithinTerminal'
+  /Production/{TradingEntityId}/Schedular/ManufacturingOrder:
+    post:
+      tags:
+      - Production Schedular
+      summary: Create Manufacturing Order
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MOCreate'
+  /Production/{TradingEntityId}/Schedular/MoveToMO/{ManufacturingOrderNo}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Move to Manufacturing Order
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ManufacturingOrderNo
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 500
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveToMO'
+  /Production/{TradingEntityId}/Schedular/CompleteMO:
+    post:
+      tags:
+      - Production Schedular
+      summary: Complete Manufacturing Order
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteMO'
+  /Production/{TradingEntityId}/Schedular/MOCompletionReverse/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Reverse Manufacturing Order Completion
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: M00001.001
+  /Production/{TradingEntityId}/Schedular/DeliveredQuantity/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Update Delivered Quantity
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: S00001.001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveredQtyEntry'
+  /Production/{TradingEntityId}/Schedular/DeliveredQuantityReverse/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Reverse Delivered Quantity
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: S00001.001
+  /Production/{TradingEntityId}/Schedular/StockWriteOff/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Update Stock Write Off
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '800001.000'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOff'
+  /Production/{TradingEntityId}/Schedular/StockWriteOn/{ContractId}:
+    put:
+      tags:
+      - Production Schedular
+      summary: Update Stock Write On
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: '405'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: ContractId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '800001.000'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOn'
+  /Costs:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Cost
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cost'
+  /WarehouseEntry:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Warehouse Entry
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehouseEntry'
+  /WarehouseOuturn:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Warehouse Outturn
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehouseOutturn'
+  /WarehouseRecord:
+    get:
+      tags:
+      - Data Object Definitions
+      summary: Warehouse Record
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehouseRecord'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    200 SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    200 UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    200 DeletedResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Deleted
+    200 AuthoriseResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Authorised
+    201 CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    201 CreateMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/201 ErrorMessageDetail'
+    201 ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - LEG : {fieldName} has a {fieldName} of {value}.'
+    201 CreateBllMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/201 ErrorBllMessageDetail'
+    201 ErrorBllMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - API : {fieldName} has a {fieldName} of {value}.'
+    400 Response:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 ErrorMessageDetail'
+    400 ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    400 BadPropertyResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadPropertyErrorMessageDetail'
+    400 BadPropertyErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5074 - API : The value sent in the querystring variable {Property} is not allowed.'
+    400 BadReadResponse:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/400 BadReadErrorMessageDetail'
+    400 BadReadErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5075 - API : The value sent in the querystring is not allowed.'
+    400 WarningMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API50xx - Data : The field {fieldName} was not found.'
+    400 InfoMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Information
+        Message:
+          type: string
+          example: 'API50xx - Data : Now create xyz.'
+    404 Response:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 404 Not Found
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/404 ErrorMessageDetailMessage'
+    404 ErrorMessageDetailMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5068 - Data : No records found.'
+    405 Response:
+      type: object
+      properties:
+        Response:
+          type: object
+          properties:
+            Value:
+              type: string
+              example: 405 Method Not Allowed
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/405 MethodNotAllowedMessage'
+    405 MethodNotAllowedMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5077 - API : That method is not supported, please check the ITAS API documentation.'
+    accessToken:
+      type: object
+      properties: {}
+    CompleteMO:
+      type: object
+      properties:
+        ManufacturingOrderNo:
+          type: number
+          example: 500
+        UniqueId:
+          type: number
+          example: 2
+        Units:
+          type: number
+          example: 1000
+        CompletionDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+        WarehouseCode:
+          type: string
+          example: SISWHRS.P
+        ShedCode:
+          type: string
+          example: W1
+        FactoryNumber:
+          type: string
+          example: A1
+        CypherNumber:
+          type: string
+          example: BB10
+        ProductLine:
+          type: string
+          example: A
+        WarehouseOutturns:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseOutturn'
+        Costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+      required:
+      - ManufacturingOrderNo
+      - Units
+      - WarehouseOutturns
+    ContractSplitResponseFalse:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: P00001.001
+        IsSplit:
+          type: boolean
+          example: false
+    Contract8SplitResponseFalse:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.001'
+        IsSplit:
+          type: boolean
+          example: false
+    Contract8HeaderSplitResponseFalse:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.000'
+        IsSplit:
+          type: boolean
+          example: false
+    ContractSplitSaleResponseFalse:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: S00001.001
+        IsSplit:
+          type: boolean
+          example: false
+    ContractSplitResponseTrue:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: P00001.002
+        IsSplit:
+          type: boolean
+          example: true
+    Contract8SplitResponseTrue:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.002'
+        IsSplit:
+          type: boolean
+          example: true
+    ContractSplitSaleResponseTrue:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: S00001.001
+        IsSplit:
+          type: boolean
+          example: true
+    Cost:
+      type: object
+      properties:
+        CostCode:
+          type: string
+          example: INS
+        CurrencyCode:
+          type: string
+          example: GBP
+        RateType:
+          type: string
+          example: Amount
+        PayableOrReceivable:
+          type: string
+          example: R
+        Rate:
+          type: number
+          example: 12
+        PriceTypeCode:
+          type: string
+          example: PMT
+    DeliveredQtyEntry:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: S00001.001
+        Quantity:
+          type: number
+          example: 100
+        EntryDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+        Units:
+          type: number
+          example: 50
+      required:
+      - ContractId
+      - Quantity
+    MOCompleteResponse:
+      type: object
+      properties:
+        WarehouseRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseRecordMContract'
+    MOCreate:
+      type: object
+      properties:
+        TerminalCode:
+          type: string
+          example: SIS
+        CommodityCodePart1:
+          type: string
+          example: LGI
+        CommodityCodePart2:
+          type: string
+          example: LGIWHT
+        CommodityCodePart3:
+          type: string
+          example: B25
+        PackingTypeCode:
+          type: string
+          example: B25
+        Units:
+          type: number
+          example: 100
+        Quantity:
+          type: number
+          example: 50
+        WarehouseCode:
+          type: string
+          example: SISWHRS.P
+        PreAllocationCode:
+          type: string
+          example: AS003.S
+        TargetDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+        OrderDate:
+          type: string
+          example: '2022-06-20T00:00:00Z'
+        Memorandum:
+          type: string
+          example: Memo
+        StatusCode:
+          type: string
+          example: CUBE
+      required:
+      - TerminalCode
+      - CommodityCodePart1
+      - PackingTypeCode
+      - Units
+    MoveToMO:
+      type: object
+      properties:
+        ManufacturingOrderNo:
+          type: number
+          example: 500
+        ContractId:
+          type: string
+          example: '800001.000'
+        Quantity:
+          type: number
+          example: 5
+        ShedCode:
+          type: string
+          example: W1
+        Units:
+          type: number
+          example: 50
+      required:
+      - ManufacturingOrderNo
+      - ContractId
+      - Quantity
+      - ShedCode
+    MoveWithinTerminal:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.000'
+        Quantity:
+          type: number
+          example: 5
+        Units:
+          type: number
+          example: 50
+        WarehouseCode:
+          type: string
+          example: SISWHRS.P
+        ShedCode:
+          type: string
+          example: W1
+        WipAccountCode:
+          type: string
+          example: WIPACC.000
+        Cost:
+          type: number
+          example: 10
+      required:
+      - ContractId
+      - Quantity
+      - Units
+      - WarehouseCode
+    NonPileStockIntake:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: P00001.001
+        Quantity:
+          type: number
+          example: 100
+        WarehouseCode:
+          type: string
+          example: SISWHRS.P
+        Units:
+          type: number
+          example: 1000
+        IntakeDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+        WarehouseEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseEntry'
+      required:
+      - ContractId
+      - Quantity
+      - WarehouseEntries
+    NonPileStockIntakeResponse:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: P00001.002
+        IsSplit:
+          type: boolean
+          example: true
+        WarehouseRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseRecord'
+    PileStockIntake:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: P00001.001
+        StockTankId:
+          type: string
+          example: SISSILO.000
+        Quantity:
+          type: number
+          example: 1000
+        IntakeDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+      required:
+      - ContractId
+      - StockTankId
+      - Quantity
+    QualityApproved:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.000'
+        QACode:
+          type: string
+          example: A
+      required:
+      - ContractId
+      - QACode
+    WarehouseEntry:
+      type: object
+      properties:
+        Quantity:
+          type: number
+          example: 100
+        Units:
+          type: number
+          example: 1000
+        ShedCode:
+          type: string
+          example: W1
+        Container:
+          type: string
+          example: UNIT7
+        DateOfManufacture:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+        CypherNumber:
+          type: string
+          example: BB10
+        UnitNumber:
+          type: string
+          example: '202'
+        FactoryNumber:
+          type: string
+          example: A1
+        DamagedMissingBags:
+          type: number
+          example: 2
+      required:
+      - Quantity
+    WarehouseOutturn:
+      type: object
+      properties:
+        Units:
+          type: number
+          example: 1000
+        UnitNumber:
+          type: string
+          example: '2'
+    WarehouseRecord:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800002.000'
+        ReleaseId:
+          type: number
+          example: 500
+    WarehouseRecordMContract:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: M00001.000
+        ReleaseId:
+          type: number
+          example: 1
+    WriteOff:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.000'
+        Quantity:
+          type: number
+          example: 5
+        Units:
+          type: number
+          example: 50
+        WriteOffDate:
+          type: string
+          example: '2022-06-22T00:00:00Z'
+      required:
+      - ContractId
+      - Quantity
+      - Units
+    WriteOn:
+      type: object
+      properties:
+        ContractId:
+          type: string
+          example: '800001.000'
+        QuantityIncrease:
+          type: number
+          example: 10
+      required:
+      - ContractId
+      - QuantityIncrease
