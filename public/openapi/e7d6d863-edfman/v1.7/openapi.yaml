@@ -2,10 +2,20 @@ openapi: 3.0.3
 info:
   title: ED&FMan Custom API
   version: '1.7'
+  description: 'Release notes: 5 October 2026.'
 servers:
-- url: http://itas.apiary.io/
+  - url: http://{yourServer}:4720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
+  - url: https://{yourServer}:5720
+    variables:
+      yourServer:
+        default: localhost
+        description: Hostname or IP address of the ITAS server
 security:
-- BearerAuth: []
+  - bearerAuth: []
 paths:
   /Contracts/{TradingEntityId}/Traffic/NetAndGrossWeights/{PhysicalTradeId}:
     patch:
