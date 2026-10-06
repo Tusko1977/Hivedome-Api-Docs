@@ -2,7 +2,8 @@ openapi: 3.0.3
 info:
   title: e-Invoicing Custom API
   version: '1.4'
-  description: 'Release notes: 5 August 2026.'
+  version: '1.04'
+  description: 'Release Notes 21 September 2019'
 servers:
   - url: http://{yourServer}:4720
     variables:
@@ -100,6 +101,57 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/InvoiceCreateBody'
+            example:
+              AccountCode: ABCDEFG.P
+              ClientReference: '5879101647'
+              CurrencyCode: EUR
+              DocumentDate: '2025-07-14T00:00:00Z'
+              ValueDate: '2025-08-14T00:00:00Z'
+              Name: Coolblue N.V.
+              VatRegistrationNo: NL823619357Z08
+              EInvoiceId: 0478493179
+              TotalInvoiceAmount: 729.17
+              TotalInvoiceLinesExVatAmount: 745.91
+              TotalVatAmount: 16.74
+              InvoicePayableAmount: 719.27
+              IBAN: UKBMGB22
+              BIC: HBUKGB4B
+              OrderNumber: Order 1
+              TaxScheme: VAT
+              SchemeId: '9944'
+              DocumentType: '123'
+              Notes: Received ready for processing
+              InvoiceType: Contract
+              BuyerOrderNo: BuyOrder1
+              BuyerSwiftAddress: SWFTBUY123
+              BuyerVatRegistrationNo: VATBUY4546
+              ClientAddress1: 1 Downer Road
+              ClientAddress3: Southend
+              ClientAddress4: Essex
+              ClientCountryCode: GB
+              ClientFiscalRegistrationNo: CLIFIS789
+              ClientPaymentTerms: 10 Days
+              ClientTitle: I AM CLIENT
+              ClientVatRegistrationNo: CLIVAT753
+              ClientZipCode: SS2 3FF
+              DeliveryClientAddress1: 16 Del Road
+              DeliveryClientAddress3: Highgate
+              DeliveryClientAddress4: London
+              DeliveryClientCountryCode: GB
+              DeliveryClientTitle: I AM DEL CLIENT
+              DeliveryClientZipCode: N16 1JJ
+              DeliveryDate: '2025-07-30T00:00:00Z'
+              PaymentMethod: PAYMENT
+              PaymentModeDescription: TRANSFER
+              SupplierAddress3: 22 Supplier Ave
+              SupplierAddress4: Dudley
+              SupplierCountryCode: GB
+              SupplierFiscalRegistrationNo: SUPPFIS951
+              SupplierSwiftAddress: SUPSWFT357
+              SupplierTitle: I AM SUPPLIER
+              SupplierZipCode: MI7 9UU
+              Source: eInvoice
+              IncomingOrOutgoing: Incoming
       responses:
         '201':
           description: Created
@@ -141,6 +193,58 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/InvoiceUpdateBody'
+            example:
+              InvoiceRecordId: 1
+              AccountCode: ABCDEFG.P
+              ClientReference: '5879101647'
+              CurrencyCode: EUR
+              DocumentDate: '2025-07-14T00:00:00Z'
+              ValueDate: '2025-08-14T00:00:00Z'
+              Name: Coolblue N.V.
+              VatRegistrationNo: NL823619357Z08
+              EInvoiceId: 0478493179
+              TotalInvoiceAmount: 729.17
+              TotalInvoiceLinesExVatAmount: 745.91
+              TotalVatAmount: 16.74
+              InvoicePayableAmount: 719.27
+              IBAN: UKBMGB22
+              BIC: HBUKGB4B
+              OrderNumber: Order 1
+              TaxScheme: VAT
+              SchemeId: '9944'
+              DocumentType: '123'
+              Notes: Process with the following note
+              InvoiceType: Contract
+              BuyerOrderNo: BuyOrder1
+              BuyerSwiftAddress: SWFTBUY123
+              BuyerVatRegistrationNo: VATBUY4546
+              ClientAddress1: 1 Downer Road
+              ClientAddress3: Southend
+              ClientAddress4: Essex
+              ClientCountryCode: GB
+              ClientFiscalRegistrationNo: CLIFIS789
+              ClientPaymentTerms: 10 Days
+              ClientTitle: I AM CLIENT
+              ClientVatRegistrationNo: CLIVAT753
+              ClientZipCode: SS2 3FF
+              DeliveryClientAddress1: 16 Del Road
+              DeliveryClientAddress3: Highgate
+              DeliveryClientAddress4: London
+              DeliveryClientCountryCode: GB
+              DeliveryClientTitle: I AM DEL CLIENT
+              DeliveryClientZipCode: N16 1JJ
+              DeliveryDate: '2025-07-30T00:00:00Z'
+              PaymentMethod: PAYMENT
+              PaymentModeDescription: TRANSFER
+              SupplierAddress3: 22 Supplier Ave
+              SupplierAddress4: Dudley
+              SupplierCountryCode: GB
+              SupplierFiscalRegistrationNo: SUPPFIS951
+              SupplierSwiftAddress: SUPSWFT357
+              SupplierTitle: I AM SUPPLIER
+              SupplierZipCode: MI7 9UU
+              Source: eInvoice
+              IncomingOrOutgoing: Incoming
       responses:
         '200':
           description: Updated
@@ -388,17 +492,203 @@ components:
     InvoiceCreateBody:
       type: object
       properties:
+        AccountCode:
+          type: string
+          description: Account Code
+          maxLength: 10
+        ClientReference:
+          type: string
+          description: Client Reference
+          maxLength: 255
+        CurrencyCode:
+          type: string
+          description: Currency Code
+          maxLength: 3
+        DocumentDate:
+          type: string
+          description: Document Date
+          format: date-time
+        ValueDate:
+          type: string
+          description: Value Date
+          format: date-time
+        Name:
+          type: string
+          description: Name
+          maxLength: 40
+        VatRegistrationNo:
+          type: string
+          description: Vat Registration Number
+          maxLength: 20
+        EInvoiceId:
+          type: string
+          description: e Invoice Id
+          maxLength: 50
+        TotalInvoiceAmount:
+          type: number
+          description: Total Invoice Amount
+        TotalInvoiceLinesExVatAmount:
+          type: number
+          description: Total Invoice Lines Excluding Vat Amount
+        TotalVatAmount:
+          type: number
+          description: Total Vat Amount
+        InvoicePayableAmount:
+          type: number
+          description: Invoice Payable Amount
+        IBAN:
+          type: string
+          description: IBAN
+          maxLength: 255
+        BIC:
+          type: string
+          description: BIC
+          maxLength: 255
+        OrderNumber:
+          type: string
+          description: Order Number
+          maxLength: 255
+        TaxScheme:
+          type: string
+          description: Tax Scheme
+          maxLength: 5
+        SchemeId:
+          type: string
+          description: Scheme Id
+          maxLength: 5
+        DocumentType:
+          type: string
+          description: Document Type
+          maxLength: 10
+        Notes:
+          type: string
+          description: Notes
+          maxLength: 4000
+        InvoiceType:
+          type: string
+          description: InvoiceType
+          maxLength: 60
+        BuyerOrderNo:
+          type: string
+          description: Buyer Order Number
+          maxLength: 50
+        BuyerSwiftAddress:
+          type: string
+          description: Buyer SwiftAddress
+          maxLength: 60
+        BuyerVatRegistrationNo:
+          type: string
+          description: Buyer Vat Registration No
+          maxLength: 20
+        ClientAddress1:
+          type: string
+          description: Client Address 1
+          maxLength: 60
+        ClientAddress3:
+          type: string
+          description: Client Address 3
+          maxLength: 60
+        ClientAddress4:
+          type: string
+          description: Client Address 4
+          maxLength: 60
+        ClientCountryCode:
+          type: string
+          description: Client Country Code
+          maxLength: 3
+        ClientFiscalRegistrationNo:
+          type: string
+          description: Client Fiscal Registration No
+          maxLength: 18
+        ClientPaymentTerms:
+          type: string
+          description: Client Payment Terms
+          maxLength: 99
+        ClientTitle:
+          type: string
+          description: Client Title
+          maxLength: 200
+        ClientVatRegistrationNo:
+          type: string
+          description: Client Vat Registration No
+          maxLength: 20
+        ClientZipCode:
+          type: string
+          description: Client Zip Code
+          maxLength: 40
+        DeliveryClientAddress1:
+          type: string
+          description: Delivery Client Address 1
+          maxLength: 60
+        DeliveryClientAddress3:
+          type: string
+          description: Delivery Client Address 3
+          maxLength: 60
+        DeliveryClientAddress4:
+          type: string
+          description: Delivery Client Address 4
+          maxLength: 60
+        DeliveryClientCountryCode:
+          type: string
+          description: Delivery Client Country Code
+          maxLength: 3
+        DeliveryClientTitle:
+          type: string
+          description: Delivery Client Title
+          maxLength: 200
+        DeliveryClientZipCode:
+          type: string
+          description: Delivery Client Zip Code
+          maxLength: 40
+        PaymentMethod:
+          type: string
+          description: Payment Method
+          maxLength: 50
+        PaymentModeDescription:
+          type: string
+          description: Payment Mode Description
+          maxLength: 50
+        SupplierAddress3:
+          type: string
+          description: Supplier Address 3
+          maxLength: 60
+        SupplierAddress4:
+          type: string
+          description: Supplier Address 4
+          maxLength: 60
+        SupplierCountryCode:
+          type: string
+          description: Supplier Country Code
+          maxLength: 3
+        SupplierFiscalRegistrationNo:
+          type: string
+          description: Supplier Fiscal Registration No
+          maxLength: 18
+        SupplierSwiftAddress:
+          type: string
+          description: Supplier Swift Address
+          maxLength: 50
+        SupplierTitle:
+          type: string
+          description: Supplier Title
+          maxLength: 200
+        SupplierZipCode:
+          type: string
+          description: Supplier Zip Code
+          maxLength: 40
         Source:
           type: string
+          description: Source
           maxLength: 8
-          enum: &id038
+          enum:
           - eInvoice
           - Email
           default: eInvoice
         IncomingOrOutgoing:
           type: string
+          description: Incoming or Outgoing
           maxLength: 8
-          enum: &id039
+          enum:
           - Incoming
           - Outgoing
           default: Incoming
@@ -406,10 +696,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceLegCreate'
+          description: see Invoice Leg object
         InvoiceVatRecords:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceVatCreate'
+          description: see Invoice Vat Record object
       required:
       - AccountCode
       - ClientReference
@@ -433,12 +725,16 @@ components:
         Source:
           type: string
           maxLength: 8
-          enum: *id038
+          enum:
+          - eInvoice
+          - Email
           default: eInvoice
         IncomingOrOutgoing:
           type: string
           maxLength: 8
-          enum: *id039
+          enum:
+          - Incoming
+          - Outgoing
           default: Incoming
         InvoiceRecordLegs:
           type: array
@@ -455,24 +751,219 @@ components:
     InvoiceUpdateBody:
       type: object
       properties:
+        InvoiceRecordId:
+          type: number
+          description: Invoice Record Id
+        AccountCode:
+          type: string
+          description: Account Code
+          maxLength: 10
+        ClientReference:
+          type: string
+          description: Client Reference
+          maxLength: 255
+        CurrencyCode:
+          type: string
+          description: Currency Code
+          maxLength: 3
+        DocumentDate:
+          type: string
+          description: Document Date
+          format: date-time
+        ValueDate:
+          type: string
+          description: Value Date
+          format: date-time
+        Name:
+          type: string
+          description: Name
+          maxLength: 40
+        VatRegistrationNo:
+          type: string
+          description: Vat Registration Number
+          maxLength: 20
+        EInvoiceId:
+          type: string
+          description: e Invoice Id
+          maxLength: 50
+        TotalInvoiceAmount:
+          type: number
+          description: Total Invoice Amount
+        TotalInvoiceLinesExVatAmount:
+          type: number
+          description: Total Invoice Lines Excluding Vat Amount
+        TotalVatAmount:
+          type: number
+          description: Total Vat Amount
+        InvoicePayableAmount:
+          type: number
+          description: Invoice Payable Amount
+        IBAN:
+          type: string
+          description: IBAN
+          maxLength: 255
+        BIC:
+          type: string
+          description: BIC
+          maxLength: 255
+        OrderNumber:
+          type: string
+          description: Order Number
+          maxLength: 255
+        TaxScheme:
+          type: string
+          description: Tax Scheme
+          maxLength: 5
+        SchemeId:
+          type: string
+          description: Scheme Id
+          maxLength: 5
+        DocumentType:
+          type: string
+          description: Document Type
+          maxLength: 10
+        Notes:
+          type: string
+          description: Notes
+          maxLength: 4000
+        InvoiceType:
+          type: string
+          description: InvoiceType
+          maxLength: 60
+        BuyerOrderNo:
+          type: string
+          description: Buyer Order Number
+          maxLength: 50
+        BuyerSwiftAddress:
+          type: string
+          description: Buyer SwiftAddress
+          maxLength: 60
+        BuyerVatRegistrationNo:
+          type: string
+          description: Buyer Vat Registration No
+          maxLength: 20
+        ClientAddress1:
+          type: string
+          description: Client Address 1
+          maxLength: 60
+        ClientAddress3:
+          type: string
+          description: Client Address 3
+          maxLength: 60
+        ClientAddress4:
+          type: string
+          description: Client Address 4
+          maxLength: 60
+        ClientCountryCode:
+          type: string
+          description: Client Country Code
+          maxLength: 3
+        ClientFiscalRegistrationNo:
+          type: string
+          description: Client Fiscal Registration No
+          maxLength: 18
+        ClientPaymentTerms:
+          type: string
+          description: Client Payment Terms
+          maxLength: 99
+        ClientTitle:
+          type: string
+          description: Client Title
+          maxLength: 200
+        ClientVatRegistrationNo:
+          type: string
+          description: Client Vat Registration No
+          maxLength: 20
+        ClientZipCode:
+          type: string
+          description: Client Zip Code
+          maxLength: 40
+        DeliveryClientAddress1:
+          type: string
+          description: Delivery Client Address 1
+          maxLength: 60
+        DeliveryClientAddress3:
+          type: string
+          description: Delivery Client Address 3
+          maxLength: 60
+        DeliveryClientAddress4:
+          type: string
+          description: Delivery Client Address 4
+          maxLength: 60
+        DeliveryClientCountryCode:
+          type: string
+          description: Delivery Client Country Code
+          maxLength: 3
+        DeliveryClientTitle:
+          type: string
+          description: Delivery Client Title
+          maxLength: 200
+        DeliveryClientZipCode:
+          type: string
+          description: Delivery Client Zip Code
+          maxLength: 40
+        PaymentMethod:
+          type: string
+          description: Payment Method
+          maxLength: 50
+        PaymentModeDescription:
+          type: string
+          description: Payment Mode Description
+          maxLength: 50
+        SupplierAddress3:
+          type: string
+          description: Supplier Address 3
+          maxLength: 60
+        SupplierAddress4:
+          type: string
+          description: Supplier Address 4
+          maxLength: 60
+        SupplierCountryCode:
+          type: string
+          description: Supplier Country Code
+          maxLength: 3
+        SupplierFiscalRegistrationNo:
+          type: string
+          description: Supplier Fiscal Registration No
+          maxLength: 18
+        SupplierSwiftAddress:
+          type: string
+          description: Supplier Swift Address
+          maxLength: 50
+        SupplierTitle:
+          type: string
+          description: Supplier Title
+          maxLength: 200
+        SupplierZipCode:
+          type: string
+          description: Supplier Zip Code
+          maxLength: 40
         Source:
           type: string
+          description: Source
           maxLength: 8
-          enum: *id038
+          enum:
+          - eInvoice
+          - Email
           default: eInvoice
         IncomingOrOutgoing:
           type: string
+          description: Incoming or Outgoing
           maxLength: 8
-          enum: *id039
+          enum:
+          - Incoming
+          - Outgoing
           default: Incoming
         InvoiceRecordLegs:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceLegReadUpdate'
+          description: see Invoice Leg object
         InvoiceVatRecords:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceVatReadUpdate'
+          description: see Invoice Vat Record object
       required:
       - InvoiceRecordId
       - AccountCode
