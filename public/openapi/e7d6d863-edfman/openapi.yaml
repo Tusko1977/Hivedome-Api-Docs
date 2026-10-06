@@ -1,0 +1,1934 @@
+openapi: 3.0.3
+info:
+  title: ED&FMan Custom API
+  version: '1.7'
+  description: 'Converted from API Blueprint. Release notes: 5 October 2026. ITAS API does not support asynchronous or multithreaded
+    POST, PUT, PATCH or DELETE requests.'
+servers:
+- url: http://itas.apiary.io/
+tags:
+- name: General
+- name: Contract-Physical
+- name: Electronic Order Book
+- name: Invoicing
+- name: Inventory
+- name: Stocks
+- name: Data Object Definitions
+security:
+- BearerAuth: []
+paths:
+  /Contracts/{TradingEntityId}/Traffic/NetAndGrossWeights/{PhysicalTradeId}:
+    patch:
+      tags:
+      - Contract-Physical
+      summary: Update Net and Gross Weights
+      operationId: updateNetandGrossWeights
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: PhysicalTradeId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: P00001.000
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetGrossWeight Update'
+            example:
+              PhysicalTradeId: P00001.000
+              GrossWeight: 21
+              Quantity: 20
+  /ElectronicOrderBook/BrokerData:
+    post:
+      tags:
+      - Electronic Order Book
+      summary: Create Broker Data
+      operationId: createBrokerData
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrokerDataCreate'
+            example:
+              OrderId: 1
+              SerialNo: 123
+              TradeDate: '2015-07-01T00:00:00Z'
+              AccountCode: ABCDEF.P
+              TradeCodeId: AA
+              DepartmentCode: '5100'
+              InstrumentCode: NY11
+              PromptDate: '2015-07-01'
+              Instruction: true
+              OptionType: Call
+              OptionSeries: 123
+              BuySell: Buy
+              Lots: 100
+              PhysicalTradeCode: P00007.003
+              BrokerCode: ABCDEF.P
+              Price: 12345
+              FloorBrokerCode: ABCDEF.P
+              TraderCode: TT
+              Memo: AB CD EF
+              StrategyCode: P1
+              StrategyGroupCode: PORT
+              Memo2: GHI JKL
+              ExternalSerial: ABCD
+              CommissionCodeRateCode: 2
+              BrokerPrice: 20.2
+              BuybackReference: 1002
+              ClientOrBroker: Client
+              CommissionCurrencyCode: GBP
+              CommissionType: Percentage
+              CommissionRate: 12.5
+              CounterpartyCode: COUNT.P
+              DeclaredPrice: 53.1
+              ExchangeCode: NYFE
+              InventoryHedgeType: '2'
+              IsPhysicalFix: 'true'
+              OTCBrokerCode: OTCB.T
+              OTCBrokerCommissionCurrencyCode: USD
+              OTCCommission: 2.4
+              SecondBrokerCommissionCurrencyCode: GBP
+              TradeTime: '15:25'
+              TradingEntityId: DT
+  /ElectronicOrderBook/BrokerData/{OrderId}:
+    patch:
+      tags:
+      - Electronic Order Book
+      summary: Update Broker Data
+      operationId: updateBrokerData
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: OrderId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrokerDataUpdate'
+            example:
+              OrderId: 1
+              SerialNo: 123
+              TradeDate: '2015-07-01T00:00:00Z'
+              AccountCode: ABCDEF.P
+              TradeCodeId: AA
+              DepartmentCode: '5100'
+              InstrumentCode: NY11
+              PromptDate: '2015-07-01'
+              Instruction: true
+              OptionType: Call
+              OptionSeries: 123
+              BuySell: Buy
+              Lots: 100
+              PhysicalTradeCode: P00007.003
+              BrokerCode: ABCDEF.P
+              Price: 12345
+              FloorBrokerCode: ABCDEF.P
+              TraderCode: TT
+              Memo: AB CD EF
+              StrategyCode: P1
+              StrategyGroupCode: PORT
+              Memo2: GHI JKL
+              ExternalSerial: ABCD
+              CommissionCodeRateCode: 2
+              BrokerPrice: 20.2
+              BuybackReference: 1002
+              ClientOrBroker: Client
+              CommissionCurrencyCode: GBP
+              CommissionType: Percentage
+              CommissionRate: 12.5
+              CounterpartyCode: COUNT.P
+              DeclaredPrice: 53.1
+              ExchangeCode: NYFE
+              InventoryHedgeType: '2'
+              IsPhysicalFix: 'true'
+              OTCBrokerCode: OTCB.T
+              OTCBrokerCommissionCurrencyCode: USD
+              OTCCommission: 2.4
+              SecondBrokerCommissionCurrencyCode: GBP
+              TradeTime: '15:25'
+              TradingEntityId: DT
+    delete:
+      tags:
+      - Electronic Order Book
+      summary: Delete Broker Data
+      operationId: deleteBrokerData
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: OrderId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1
+  /ElectronicOrderBook/WebIceData:
+    post:
+      tags:
+      - Electronic Order Book
+      summary: Create WebIce Data
+      operationId: createWebIceData
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrokerDataCreate'
+            example:
+              OrderId: 1
+              SerialNo: 123
+              TradeDate: '2015-07-01T00:00:00Z'
+              AccountCode: ABCDEF.P
+              TradeCodeId: AA
+              DepartmentCode: '5100'
+              InstrumentCode: NY11
+              PromptDate: '2015-07-01'
+              Instruction: true
+              OptionType: Call
+              OptionSeries: 123
+              BuySell: Buy
+              Lots: 100
+              PhysicalTradeCode: P00007.003
+              BrokerCode: ABCDEF.P
+              Price: 12345
+              FloorBrokerCode: ABCDEF.P
+              TraderCode: TT
+              Memo: AB CD EF
+              StrategyCode: P1
+              StrategyGroupCode: PORT
+              Memo2: GHI JKL
+              ExternalSerial: ABCD
+              CommissionCodeRateCode: 2
+              BrokerPrice: 20.2
+              BuybackReference: 1002
+              ClientOrBroker: Client
+              CommissionCurrencyCode: GBP
+              CommissionType: Percentage
+              CommissionRate: 12.5
+              CounterpartyCode: COUNT.P
+              DeclaredPrice: 53.1
+              ExchangeCode: NYFE
+              InventoryHedgeType: '2'
+              IsPhysicalFix: 'true'
+              OTCBrokerCode: OTCB.T
+              OTCBrokerCommissionCurrencyCode: USD
+              OTCCommission: 2.4
+              SecondBrokerCommissionCurrencyCode: GBP
+              TradeTime: '15:25'
+              TradingEntityId: DT
+  /ElectronicOrderBook/WebIceData/{OrderId}:
+    patch:
+      tags:
+      - Electronic Order Book
+      summary: Update WebIce Data
+      operationId: updateWebIceData
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: OrderId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrokerDataUpdate'
+            example:
+              OrderId: 1
+              SerialNo: 123
+              TradeDate: '2015-07-01T00:00:00Z'
+              AccountCode: ABCDEF.P
+              TradeCodeId: AA
+              DepartmentCode: '5100'
+              InstrumentCode: NY11
+              PromptDate: '2015-07-01'
+              Instruction: true
+              OptionType: Call
+              OptionSeries: 123
+              BuySell: Buy
+              Lots: 100
+              PhysicalTradeCode: P00007.003
+              BrokerCode: ABCDEF.P
+              Price: 12345
+              FloorBrokerCode: ABCDEF.P
+              TraderCode: TT
+              Memo: AB CD EF
+              StrategyCode: P1
+              StrategyGroupCode: PORT
+              Memo2: GHI JKL
+              ExternalSerial: ABCD
+              CommissionCodeRateCode: 2
+              BrokerPrice: 20.2
+              BuybackReference: 1002
+              ClientOrBroker: Client
+              CommissionCurrencyCode: GBP
+              CommissionType: Percentage
+              CommissionRate: 12.5
+              CounterpartyCode: COUNT.P
+              DeclaredPrice: 53.1
+              ExchangeCode: NYFE
+              InventoryHedgeType: '2'
+              IsPhysicalFix: 'true'
+              OTCBrokerCode: OTCB.T
+              OTCBrokerCommissionCurrencyCode: USD
+              OTCCommission: 2.4
+              SecondBrokerCommissionCurrencyCode: GBP
+              TradeTime: '15:25'
+              TradingEntityId: DT
+    delete:
+      tags:
+      - Electronic Order Book
+      summary: Delete WebIce Data
+      operationId: deleteWebIceData
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: OrderId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1
+  /Invoicing/{TradingEntityId}/Trade/DischargeWeights:
+    post:
+      tags:
+      - Invoicing
+      summary: Create Discharge Weights
+      operationId: createDischargeWeights
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DischargeWeightsRequest'
+            example:
+              PhysicalTradeId: S00001.001
+              LandingReportDate: '2026-08-28T00:00:00Z'
+              ControllerReference: CONTROL01
+              FirstController:
+                LandingSurveyorCode: SURV1.P
+                NetWeight: 1000
+                WeightDate: '2026-09-12T00:00:00Z'
+              SecondController:
+                LandingSurveyorCode: SURV2.P
+                NetWeight: 900
+                WeightDate: '2026-08-25T00:00:00Z'
+  /Invoicing/{TradingEntityId}/Cotton/InvoiceStage:
+    post:
+      tags:
+      - Invoicing
+      summary: Create Invoice Staging Records
+      operationId: createInvoiceStagingRecords
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceStageRequest'
+            example:
+              DocumentDate: '2026-08-12T00:00:00Z'
+              ValueDate: '2026-09-12T00:00:00Z'
+              Type: Warehouse
+              SupplierCode: WARH01
+              PaymentTermsCode: NET30
+              ClientReference: REF-2025-001
+              DocumentFile: ZG9jMQ==
+              DocumentName: doc1.pdf
+              Legs: []
+  /Inventory/{TradingEntityId}/Grouping/CreateBaleGrouping:
+    post:
+      tags:
+      - Inventory
+      summary: Create Bale Grouping
+      operationId: createBaleGrouping
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaleGroupingRequest'
+            example:
+              GroupType: Logistics
+              GroupSubTypeCode: SHORTS
+              GroupDescription: Short Bales
+              IsStopWeights: true
+              AllocatedSaleCode: ''
+              MarksStyle: Manual
+              Mark: ACGT
+              Prefix: ''
+              NewRecap: true
+              RecapPrefix: C1
+              RecapMark: MEMPHIS
+              RecapDescription: Grade 1 Memphis
+              RecapStatus: Valid
+  /Inventory/{TradingEntityId}/Grouping/UpdateBaleGrouping/{GroupId}:
+    patch:
+      tags:
+      - Inventory
+      summary: Update Bale Grouping
+      operationId: updateBaleGrouping
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: GroupId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 50
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaleGroupingUpdateRequest'
+            example:
+              GroupId: 50
+              GroupDescription: Short Bales
+              MarksStyle: Manual
+              Mark: ACGT
+              Prefix: ''
+              NewRecap: true
+              RecapPrefix: C1
+              RecapMark: MEMPHIS
+              RecapDescription: Grade 1 Memphis
+              RecapStatus: Valid
+  /Inventory/{TradingEntityId}/Grouping/RemoveBaleGrouping/{GroupId}:
+    delete:
+      tags:
+      - Inventory
+      summary: Remove Bale Grouping
+      operationId: removeBaleGrouping
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      - name: GroupId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 150
+  /Inventory/{TradingEntityId}/LogisticsMovement/{GroupId}/{Uniqueness}:
+    patch:
+      tags:
+      - Inventory
+      summary: Update Logistics Movement
+      operationId: updateLogisticsMovement
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: JT
+      - name: GroupId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 1515
+      - name: Uniqueness
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogisticsMovement Update'
+            example:
+              GroupId: 1515
+              Uniqueness: 4
+              RequestedLoadDate: '2026-08-12T00:00:00Z'
+              ShipmentOrderRequested: true
+              DestinationWarehouse: 054205.P
+  /Inventory/{TradingEntityId}/Lots/CreateLots:
+    post:
+      tags:
+      - Inventory
+      summary: Create Lots
+      operationId: createLots
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotRequest'
+            example:
+              VesselGroup: VESGRP
+              NewVesselGroup: true
+              Lots: []
+  /Inventory/{TradingEntityId}/Lots/UpdateLots:
+    patch:
+      tags:
+      - Inventory
+      summary: Update Lots
+      operationId: updateLots
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotRequest'
+            example:
+              VesselGroup: VESGRP
+              NewVesselGroup: true
+              Lots: []
+  /Inventory/{TradingEntityId}/Lots/DeleteLots:
+    delete:
+      tags:
+      - Inventory
+      summary: Delete Lots
+      operationId: deleteLots
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BU
+  /Stocks/{TradingEntityId}/Instructions/CreateInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
+    put:
+      tags:
+      - Stocks
+      summary: Create Instruction Sheet
+      operationId: createInstructionSheet
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: NL
+      - name: PhysicalTradeId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: P00001.001
+      - name: ReleaseId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 123
+  /Stocks/{TradingEntityId}/Instructions/DeleteInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
+    delete:
+      tags:
+      - Stocks
+      summary: Delete Instruction Sheet
+      operationId: deleteInstructionSheet
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400 Response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404 Response'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405 Response'
+      parameters:
+      - name: TradingEntityId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: NL
+      - name: PhysicalTradeId
+        in: path
+        required: true
+        schema:
+          type: string
+        example: P00001.001
+      - name: ReleaseId
+        in: path
+        required: true
+        schema:
+          type: number
+        example: 123
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    200 SuccessResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Success
+    200 UpdateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Updated
+    200 DeletedResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Deleted
+    200 AuthoriseResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Authorised
+    201 CreateResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: Created
+    201 CreateMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            type: object
+    201 ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - API : {fieldName} has a {fieldName} of {value}.'
+    201 CreateBllMessages:
+      type: object
+      properties:
+        Messages:
+          type: array
+          items:
+            type: object
+    201 ErrorBllMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5084 - API : {fieldName} has a {fieldName} of {value}.'
+    400 Response:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: 400 Bad Request
+        Messages:
+          type: array
+          items:
+            type: object
+    400 ErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5058 - Data : The mandatory field {fieldName} was missing in the request body.'
+    400 BadPropertyResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: 400 Bad Request
+        Messages:
+          $ref: '#/components/schemas/array[400 BadPropertyErrorMessageDetail]'
+    400 BadPropertyErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5074 - API : The value sent in the querystring variable {Property} is not allowed.'
+    400 BadReadResponse:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: 400 Bad Request
+        Messages:
+          $ref: '#/components/schemas/array[400 BadReadErrorMessageDetail]'
+    400 BadReadErrorMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5075 - API : The value sent in the querystring is not allowed.'
+    400 WarningMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API50xx - Data : The field {fieldName} was not found.'
+    400 InfoMessageDetail:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Information
+        Message:
+          type: string
+          example: 'API50xx - Data : Now create xyz.'
+    404 Response:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: 404 Not Found
+        Messages:
+          $ref: '#/components/schemas/array[404 ErrorMessageDetailMessage]'
+    404 ErrorMessageDetailMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Warning
+        Message:
+          type: string
+          example: 'API5068 - Data : No records found.'
+    405 Response:
+      type: object
+      properties:
+        Value:
+          type: string
+          example: 405 Method Not Allowed
+        Messages:
+          $ref: '#/components/schemas/array[405 MethodNotAllowedMessage]'
+    405 MethodNotAllowedMessage:
+      type: object
+      properties:
+        Severity:
+          type: string
+          example: Error
+        Message:
+          type: string
+          example: 'API5077 - API : That method is not supported, please check the ITAS API documentation.'
+    BaleGroupingRequest:
+      type: object
+      properties:
+        GroupType:
+          type: string
+          example: Logistics
+        GroupSubTypeCode:
+          type: string
+          example: SHORTS
+        GroupDescription:
+          type: string
+          example: Short Bales
+        IsStopWeights:
+          type: boolean
+          example: true
+        AllocatedSaleCode:
+          type: string
+          example: ''
+        MarksStyle:
+          type: string
+          example: Manual
+        Mark:
+          type: string
+          example: ACGT
+        Prefix:
+          type: string
+          example: ''
+        NewRecap:
+          type: boolean
+          example: true
+        RecapPrefix:
+          type: string
+          example: C1
+        RecapMark:
+          type: string
+          example: MEMPHIS
+        RecapDescription:
+          type: string
+          example: Grade 1 Memphis
+        RecapStatus:
+          type: string
+          example: Valid
+    BaleGroupingUpdateRequest:
+      type: object
+      properties:
+        GroupId:
+          type: number
+          example: 50
+        GroupDescription:
+          type: string
+          example: Short Bales
+        MarksStyle:
+          type: string
+          example: Manual
+        Mark:
+          type: string
+          example: ACGT
+        Prefix:
+          type: string
+          example: ''
+        NewRecap:
+          type: boolean
+          example: true
+        RecapPrefix:
+          type: string
+          example: C1
+        RecapMark:
+          type: string
+          example: MEMPHIS
+        RecapDescription:
+          type: string
+          example: Grade 1 Memphis
+        RecapStatus:
+          type: string
+          example: Valid
+    BaleGroupingInventoryId1:
+      type: object
+      properties:
+        InventoryId:
+          type: number
+          example: 150
+    BaleGroupingInventoryId2:
+      type: object
+      properties:
+        InventoryId:
+          type: number
+          example: 151
+    BaleGroupingResponse:
+      type: object
+      properties:
+        GroupId:
+          type: number
+          example: 50
+    BrokerDataCreate:
+      type: object
+      properties:
+        OrderId:
+          type: number
+          example: 1
+        SerialNo:
+          type: number
+          example: 123
+        TradeDate:
+          type: string
+          example: '2015-07-01T00:00:00Z'
+        AccountCode:
+          type: string
+          example: ABCDEF.P
+        TradeCodeId:
+          type: string
+          example: AA
+        DepartmentCode:
+          type: string
+          example: '5100'
+        InstrumentCode:
+          type: string
+          example: NY11
+        PromptDate:
+          type: string
+          example: '2015-07-01'
+        Instruction:
+          type: boolean
+          example: true
+        OptionType:
+          type: string
+          example: Call
+        OptionSeries:
+          type: number
+          example: 123
+        BuySell:
+          type: string
+          example: Buy
+        Lots:
+          type: number
+          example: 100
+        PhysicalTradeCode:
+          type: string
+          example: P00007.003
+        BrokerCode:
+          type: string
+          example: ABCDEF.P
+        Price:
+          type: number
+          example: 12345
+        FloorBrokerCode:
+          type: string
+          example: ABCDEF.P
+        TraderCode:
+          type: string
+          example: TT
+        Memo:
+          type: string
+          example: AB CD EF
+        StrategyCode:
+          type: string
+          example: P1
+        StrategyGroupCode:
+          type: string
+          example: PORT
+        Memo2:
+          type: string
+          example: GHI JKL
+        ExternalSerial:
+          type: string
+          example: ABCD
+        CommissionCodeRateCode:
+          type: number
+          example: 2
+        BrokerPrice:
+          type: number
+          example: 20.2
+        BuybackReference:
+          type: number
+          example: 1002
+        ClientOrBroker:
+          type: string
+          example: Client
+        CommissionCurrencyCode:
+          type: string
+          example: GBP
+        CommissionType:
+          type: string
+          example: Percentage
+        CommissionRate:
+          type: number
+          example: 12.5
+        CounterpartyCode:
+          type: string
+          example: COUNT.P
+        DeclaredPrice:
+          type: number
+          example: 53.1
+        ExchangeCode:
+          type: string
+          example: NYFE
+        InventoryHedgeType:
+          type: string
+          example: '2'
+        IsPhysicalFix:
+          type: string
+          example: 'true'
+        OTCBrokerCode:
+          type: string
+          example: OTCB.T
+        OTCBrokerCommissionCurrencyCode:
+          type: string
+          example: USD
+        OTCCommission:
+          type: number
+          example: 2.4
+        SecondBrokerCommissionCurrencyCode:
+          type: string
+          example: GBP
+        TradeTime:
+          type: string
+          example: '15:25'
+        TradingEntityId:
+          type: string
+          example: DT
+    BrokerDataUpdate:
+      type: object
+      properties:
+        OrderId:
+          type: number
+          example: 1
+        SerialNo:
+          type: number
+          example: 123
+        TradeDate:
+          type: string
+          example: '2015-07-01T00:00:00Z'
+        AccountCode:
+          type: string
+          example: ABCDEF.P
+        TradeCodeId:
+          type: string
+          example: AA
+        DepartmentCode:
+          type: string
+          example: '5100'
+        InstrumentCode:
+          type: string
+          example: NY11
+        PromptDate:
+          type: string
+          example: '2015-07-01'
+        Instruction:
+          type: boolean
+          example: true
+        OptionType:
+          type: string
+          example: Call
+        OptionSeries:
+          type: number
+          example: 123
+        BuySell:
+          type: string
+          example: Buy
+        Lots:
+          type: number
+          example: 100
+        PhysicalTradeCode:
+          type: string
+          example: P00007.003
+        BrokerCode:
+          type: string
+          example: ABCDEF.P
+        Price:
+          type: number
+          example: 12345
+        FloorBrokerCode:
+          type: string
+          example: ABCDEF.P
+        TraderCode:
+          type: string
+          example: TT
+        Memo:
+          type: string
+          example: AB CD EF
+        StrategyCode:
+          type: string
+          example: P1
+        StrategyGroupCode:
+          type: string
+          example: PORT
+        Memo2:
+          type: string
+          example: GHI JKL
+        ExternalSerial:
+          type: string
+          example: ABCD
+        CommissionCodeRateCode:
+          type: number
+          example: 2
+        BrokerPrice:
+          type: number
+          example: 20.2
+        BuybackReference:
+          type: number
+          example: 1002
+        ClientOrBroker:
+          type: string
+          example: Client
+        CommissionCurrencyCode:
+          type: string
+          example: GBP
+        CommissionType:
+          type: string
+          example: Percentage
+        CommissionRate:
+          type: number
+          example: 12.5
+        CounterpartyCode:
+          type: string
+          example: COUNT.P
+        DeclaredPrice:
+          type: number
+          example: 53.1
+        ExchangeCode:
+          type: string
+          example: NYFE
+        InventoryHedgeType:
+          type: string
+          example: '2'
+        IsPhysicalFix:
+          type: string
+          example: 'true'
+        OTCBrokerCode:
+          type: string
+          example: OTCB.T
+        OTCBrokerCommissionCurrencyCode:
+          type: string
+          example: USD
+        OTCCommission:
+          type: number
+          example: 2.4
+        SecondBrokerCommissionCurrencyCode:
+          type: string
+          example: GBP
+        TradeTime:
+          type: string
+          example: '15:25'
+        TradingEntityId:
+          type: string
+          example: DT
+    ControllerInput1:
+      type: object
+      properties:
+        LandingSurveyorCode:
+          type: string
+          example: SURV1.P
+        NetWeight:
+          type: number
+          example: 1000
+        WeightDate:
+          type: string
+          example: '2026-09-12T00:00:00Z'
+      required:
+      - LandingSurveyorCode
+      - NetWeight
+      - WeightDate
+    ControllerInput2:
+      type: object
+      properties:
+        LandingSurveyorCode:
+          type: string
+          example: SURV2.P
+        NetWeight:
+          type: number
+          example: 900
+        WeightDate:
+          type: string
+          example: '2026-08-25T00:00:00Z'
+      required:
+      - LandingSurveyorCode
+      - NetWeight
+      - WeightDate
+    DischargeWeightsRequest:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        LandingReportDate:
+          type: string
+          example: '2026-08-28T00:00:00Z'
+        ControllerReference:
+          type: string
+          example: CONTROL01
+        FirstController:
+          $ref: '#/components/schemas/ControllerInput1'
+        SecondController:
+          $ref: '#/components/schemas/ControllerInput2'
+      required:
+      - PhysicalTradeId
+      - LandingReportDate
+      - ControllerReference
+    DischargeWeightsResponse1:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        WeightCode:
+          type: string
+          example: LBS
+        GrossWeight:
+          type: number
+          example: 1100
+        RecordType:
+          type: string
+          example: Discharge
+    DischargeWeightsResponse2:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: S00001.001
+        WeightCode:
+          type: string
+          example: LBS
+        GrossWeight:
+          type: number
+          example: 1000
+        RecordType:
+          type: string
+          example: NetLandedTwo
+    DischargeWeightsResponse:
+      type: object
+      properties:
+        DischargeWeights:
+          type: array
+          items:
+            type: object
+    InvoiceStageLeg:
+      type: object
+      properties:
+        GroupNumber:
+          type: number
+          example: 1
+        HaulId:
+          type: number
+          example: 101
+        CostCode:
+          type: string
+          example: CC-100
+        PercentActualised:
+          type: number
+          example: 100
+        InvoiceValue:
+          type: number
+          example: 110
+        VatCode:
+          type: string
+          example: S1
+        NominalAccountCode:
+          type: string
+          example: NOM-100
+        ExpenseCode:
+          type: string
+          example: EXP- 10
+        Narrative:
+          type: string
+          example: Invoice Leg 1
+    InvoiceStageLeg2:
+      type: object
+      properties:
+        GroupNumber:
+          type: number
+          example: 2
+        HaulId:
+          type: number
+          example: 102
+        CostCode:
+          type: string
+          example: CC-200
+        PercentActualised:
+          type: number
+          example: 100
+        InvoiceValue:
+          type: number
+          example: 120
+        VatCode:
+          type: string
+          example: S1
+        NominalAccountCode:
+          type: string
+          example: NOM-200
+        ExpenseCode:
+          type: string
+          example: EXP- 20
+        Narrative:
+          type: string
+          example: Invoice Leg 2
+    InvoiceStageRequest:
+      type: object
+      properties:
+        DocumentDate:
+          type: string
+          example: '2026-08-12T00:00:00Z'
+        ValueDate:
+          type: string
+          example: '2026-09-12T00:00:00Z'
+        Type:
+          type: string
+          example: Warehouse
+        SupplierCode:
+          type: string
+          example: WARH01
+        PaymentTermsCode:
+          type: string
+          example: NET30
+        ClientReference:
+          type: string
+          example: REF-2025-001
+        DocumentFile:
+          type: string
+          example: ZG9jMQ==
+        DocumentName:
+          type: string
+          example: doc1.pdf
+        Legs:
+          type: array
+          items:
+            type: object
+      required:
+      - DocumentDate
+      - ValueDate
+    InvoiceStageResponse:
+      type: object
+      properties:
+        TransactionId:
+          type: number
+          example: 10
+    LogisticsMovement Update:
+      type: object
+      properties:
+        GroupId:
+          type: number
+          example: 1515
+        Uniqueness:
+          type: number
+          example: 4
+        RequestedLoadDate:
+          type: string
+          example: '2026-08-12T00:00:00Z'
+        ShipmentOrderRequested:
+          type: boolean
+          example: true
+        DestinationWarehouse:
+          type: string
+          example: 054205.P
+    Lot:
+      type: object
+      properties:
+        InventoryId:
+          type: number
+          example: 123
+        WarehouseDate:
+          type: string
+          example: '2026-09-30T00:00:00Z'
+        WarehouseReference:
+          type: string
+          example: '0146645'
+        FuturesLotNumber:
+          type: string
+          example: '10'
+        BillOfLadingNumber:
+          type: string
+          example: '9785'
+        FarmTract:
+          type: string
+          example: Tract 1
+        GrossWeight:
+          type: number
+          example: 25000.5
+        Tare:
+          type: number
+          example: 500
+        NetWeight:
+          type: number
+          example: 24500.5
+        Quantity:
+          type: number
+          example: 100
+        WeightCode:
+          type: string
+          example: MT
+        ShippingDate:
+          type: string
+          example: '2026-09-30T00:00:00Z'
+        PurchaseContractCode:
+          type: string
+          example: P00001.000
+        PurchaseGrade:
+          type: string
+          example: GM
+        StapleLength32ndsInch:
+          type: number
+          example: 35
+        StapleLength100thsInch:
+          type: number
+          example: 1.07
+        Micronaire:
+          type: number
+          example: 4.2
+        Strength:
+          type: number
+          example: 30.5
+        ShortFibreContent:
+          type: number
+          example: 5.2
+        UniformityInLength:
+          type: number
+          example: 82.5
+        Extraneous:
+          type: string
+          example: '01'
+        LeafGrade:
+          type: string
+          example: '2'
+        ColourGrade:
+          type: string
+          example: '31'
+        Comments:
+          type: string
+          example: Example cotton lot
+        InstColourGradeGreyness:
+          type: number
+          example: 41
+        Shipping:
+          $ref: '#/components/schemas/Shipping'
+    LotRequest:
+      type: object
+      properties:
+        VesselGroup:
+          type: string
+          example: VESGRP
+        NewVesselGroup:
+          type: boolean
+          example: true
+        Lots:
+          type: array
+          items:
+            type: object
+    NetGrossWeight ResponseP:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: P00001.000
+        UnitOfMeasurementCode:
+          type: string
+          example: MT
+        Quantity:
+          type: number
+          example: 20
+    NetGrossWeight ResponseS:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: S00001.000
+        UnitOfMeasurementCode:
+          type: string
+          example: MT
+        Quantity:
+          type: number
+          example: 20
+    NetGrossWeight Update:
+      type: object
+      properties:
+        PhysicalTradeId:
+          type: string
+          example: P00001.000
+        GrossWeight:
+          type: number
+          example: 21
+        Quantity:
+          type: number
+          example: 20
+    Shipping:
+      type: object
+      properties:
+        VesselReference:
+          type: string
+          example: Vessel 001
+        JourneyNumber:
+          type: string
+          example: JRN-001
+        OrderStatusCode:
+          type: string
+          example: D
+        OrderStatusDate:
+          type: string
+          example: '2026-10-25T00:00:00Z'
+        EstimatedArrivalDate:
+          type: string
+          example: '2026-10-30T00:00:00Z'
+        PortOfDestinationCode:
+          type: string
+          example: AACHEN
+        ShippingLineCode:
+          type: string
+          example: MSC.P
+        EstimatedShipmentDate:
+          type: string
+          example: '2026-09-30T00:00:00Z'
