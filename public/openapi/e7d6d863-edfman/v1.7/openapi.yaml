@@ -1514,19 +1514,19 @@ components:
       type: object
       properties:
         PhysicalTradeId:
-        type: string
-        example: S00001.001
+          type: string
+          example: S00001.001
         LandingReportDate:
-        type: string
-        format: date-time
+          type: string
+          format: date-time
         example: '2026-08-28T00:00:00Z'
         ControllerReference:
-        type: string
-        example: CONTROL001
+          type: string
+          example: CONTROL001
         FirstController:
-        $ref: '#/components/schemas/DischargeWeightsResponse1'
+          $ref: '#/components/schemas/DischargeWeightsResponse1'
         SecondController:
-        $ref: '#/components/schemas/DischargeWeightsResponse2'
+          $ref: '#/components/schemas/DischargeWeightsResponse2'
     InvoiceStageLeg:
       type: object
       properties:
