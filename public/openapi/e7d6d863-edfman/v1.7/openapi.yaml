@@ -7,10 +7,10 @@ info:
 
     ## New Endpoints
 
-    - Inventory **Lots Create**: Create Lots, #/Inventory/post_Inventory__TradingEntityId__Lots_CreateLots
-    - Inventory **Lots Update**: Update Lots, #/Inventory/patch_Inventory__TradingEntityId__Lots_UpdateLots
-    - Inventory **Lots Delete**: Delete Lots, #/Inventory/delete_Inventory__TradingEntityId__Lots_DeleteLots
-    - Inventory **Logistics Plan Create**: Create Logistics Plan, #/Inventory/post_Inventory__TradingEntityId__Grouping_CreateLogisticsPlan
+    - Inventory **Lots Create**: Create Lots, #/Inventory/CreateLots
+    - Inventory **Lots Update**: Update Lots, #/Inventory/UpdateLots
+    - Inventory **Lots Delete**: Delete Lots, #/Inventory/DeleteLots
+    - Inventory **Logistics Plan Create**: Create Logistics Plan, #/Inventory/CreateLogisticsPlan
 servers:
   - url: http://{yourServer}:4720
     variables:
@@ -572,6 +572,7 @@ paths:
               $ref: '#/components/schemas/LogisticsMovement Update'
   /Inventory/{TradingEntityId}/Grouping/CreateLogisticsPlan:
     post:
+      operationId: CreateLogisticsPlan
       tags:
       - Inventory
       summary: Create Logistics Plan
@@ -614,6 +615,7 @@ paths:
               $ref: '#/components/schemas/LogisticsPlanRequest'
   /Inventory/{TradingEntityId}/Lots/CreateLots:
     post:
+      operationId: CreateLots
       tags:
       - Inventory
       summary: Create Lots
@@ -656,6 +658,7 @@ paths:
               $ref: '#/components/schemas/LotRequest'
   /Inventory/{TradingEntityId}/Lots/UpdateLots:
     patch:
+      operationId: UpdateLots
       tags:
       - Inventory
       summary: Update Lots
@@ -698,6 +701,7 @@ paths:
               $ref: '#/components/schemas/LotRequest'
   /Inventory/{TradingEntityId}/Lots/DeleteLots:
     delete:
+      operationId: DeleteLots
       tags:
       - Inventory
       summary: Delete Lots
