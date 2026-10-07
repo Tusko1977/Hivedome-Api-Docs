@@ -7,12 +7,10 @@ info:
 
     ## New Endpoints
 
-    <large>
     - Inventory **Lots Create**: Create Lots, [Link](#/Inventory/CreateLots)
     - Inventory **Lots Update**: Update Lots, [Link](#/Inventory/UpdateLots)
     - Inventory **Lots Delete**: Delete Lots, [Link](#/Inventory/DeleteLots)
     - Inventory **Logistics Plan Create**: Create Logistics Plan, [Link](#/Inventory/CreateLogisticsPlan)
-    </large>
 servers:
   - url: https://{yourServer}:5720
     variables:
@@ -29,6 +27,7 @@ security:
 paths:
   /Contracts/{TradingEntityId}/Traffic/NetAndGrossWeights/{PhysicalTradeId}:
     patch:
+      operationId: UpdateNetandGrossWeights
       tags:
       - Contract-Physical
       summary: Update Net and Gross Weights
@@ -76,6 +75,7 @@ paths:
               $ref: '#/components/schemas/NetGrossWeightUpdate'
   /ElectronicOrderBook/BrokerData:
     post:
+      operationId: CreateBrokerData
       tags:
       - Electronic Order Book
       summary: Create Broker Data
@@ -112,6 +112,7 @@ paths:
               $ref: '#/components/schemas/BrokerDataCreate'
   /ElectronicOrderBook/BrokerData/{OrderId}:
     patch:
+      operationId: UpdateBrokerData
       tags:
       - Electronic Order Book
       summary: Update Broker Data
@@ -153,6 +154,7 @@ paths:
             schema:
               $ref: '#/components/schemas/BrokerDataUpdate'
     delete:
+      operationId: DeleteBrokerData
       tags:
       - Electronic Order Book
       summary: Delete Broker Data
@@ -189,6 +191,7 @@ paths:
           type: string
   /ElectronicOrderBook/WebIceData:
     post:
+      operationId: CreateWebIceData
       tags:
       - Electronic Order Book
       summary: Create WebIce Data
@@ -225,6 +228,7 @@ paths:
               $ref: '#/components/schemas/BrokerDataCreate'
   /ElectronicOrderBook/WebIceData/{OrderId}:
     patch:
+      operationId: UpdateWebIceData
       tags:
       - Electronic Order Book
       summary: Update WebIce Data
@@ -266,6 +270,7 @@ paths:
             schema:
               $ref: '#/components/schemas/BrokerDataUpdate'
     delete:
+      operationId: DeleteWebIceData
       tags:
       - Electronic Order Book
       summary: Delete WebIce Data
@@ -302,6 +307,7 @@ paths:
           type: string
   /Invoicing/{TradingEntityId}/Trade/DischargeWeights:
     post:
+      operationId: CreateDischargeWeights
       tags:
       - Invoicing
       summary: Create Discharge Weights
@@ -350,6 +356,7 @@ paths:
               $ref: '#/components/schemas/DischargeWeightsRequest'
   /Invoicing/{TradingEntityId}/Cotton/InvoiceStage:
     post:
+      operationId: CreateInvoiceStagingRecords
       tags:
       - Invoicing
       summary: Create Invoice Staging Records
@@ -392,6 +399,7 @@ paths:
               $ref: '#/components/schemas/InvoiceStageRequest'
   /Inventory/{TradingEntityId}/Grouping/CreateBaleGrouping:
     post:
+      operationId: CreateBaleGrouping
       tags:
       - Inventory
       summary: Create Bale Grouping
@@ -434,6 +442,7 @@ paths:
               $ref: '#/components/schemas/BaleGroupingRequest'
   /Inventory/{TradingEntityId}/Grouping/UpdateBaleGrouping/{GroupId}:
     patch:
+      operationId: UpdateBaleGrouping
       tags:
       - Inventory
       summary: Update Bale Grouping
@@ -481,6 +490,7 @@ paths:
               $ref: '#/components/schemas/BaleGroupingUpdateRequest'
   /Inventory/{TradingEntityId}/Grouping/RemoveBaleGrouping/{GroupId}:
     delete:
+      operationId: RemoveBaleGrouping
       tags:
       - Inventory
       summary: Remove Bale Grouping
@@ -522,6 +532,7 @@ paths:
           type: string
   /Inventory/{TradingEntityId}/LogisticsMovement/{GroupId}/{Uniqueness}:
     patch:
+      operationId: UpdateLogisticsMovement
       tags:
       - Inventory
       summary: Update Logistics Movement
@@ -746,6 +757,7 @@ paths:
               $ref: '#/components/schemas/LotRequestDelete'
   /Stocks/{TradingEntityId}/Instructions/CreateInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
     put:
+      operationId: CreateInstructionSheet
       tags:
       - Stocks
       summary: Create Instruction Sheet
@@ -792,6 +804,7 @@ paths:
           type: string
   /Stocks/{TradingEntityId}/Instructions/DeleteInstructionSheet/{PhysicalTradeId}/{ReleaseId}:
     delete:
+      operationId: DeleteInstructionSheet
       tags:
       - Stocks
       summary: Delete Instruction Sheet
@@ -838,6 +851,7 @@ paths:
           type: string
   /Controller:
     get:
+      operationId: Controller
       tags:
       - Data Object Definitions
       summary: Controller
@@ -850,6 +864,7 @@ paths:
                 $ref: '#/components/schemas/ControllerInput1'
   /DischargeWeight:
     get:
+      operationId: DischargeWeight
       tags:
       - Data Object Definitions
       summary: Discharge Weight
@@ -862,6 +877,7 @@ paths:
                 $ref: '#/components/schemas/DischargeWeightsResponse1'
   /InvoiceStageLeg:
     get:
+      operationId: InvoiceStageLeg
       tags:
       - Data Object Definitions
       summary: Invoice Stage Leg
@@ -874,6 +890,7 @@ paths:
                 $ref: '#/components/schemas/InvoiceStageLeg'
   /Lot:
     get:
+      operationId: Lot
       tags:
       - Data Object Definitions
       summary: Lot
@@ -886,6 +903,7 @@ paths:
                 $ref: '#/components/schemas/Lot'
   /Shipping:
     get:
+      operationId: Shipping
       tags:
       - Data Object Definitions
       summary: Shipping
