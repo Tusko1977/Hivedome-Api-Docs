@@ -4023,7 +4023,7 @@ paths:
                   Data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/F&OTradeList'
+                      $ref: '#/components/schemas/FandOTradeList'
                   Pagination:
                     $ref: '#/components/schemas/Pagination'
                   Response:
@@ -4090,7 +4090,7 @@ paths:
                 type: object
                 properties:
                   Data:
-                    $ref: '#/components/schemas/F&OTrade'
+                    $ref: '#/components/schemas/FandOTrade'
                   Response:
                     $ref: '#/components/schemas/200 SuccessResponse'
         '400':
@@ -9106,7 +9106,7 @@ components:
         MaxLoadWeight:
           type: number
           example: 123
-    F&OTrade:
+    FandOTrade:
       type: object
       properties:
         UniqueId:
@@ -9246,7 +9246,7 @@ components:
         ExternalSerial:
           type: string
           example: ABCD
-    F&OTradeList:
+    FandOTradeList:
       type: object
       properties:
         UniqueId:
