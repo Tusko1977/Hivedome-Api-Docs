@@ -971,21 +971,31 @@ components:
     ContractSplitSaleResponseFalse:
       type: object
       properties:
-        ContractId:
-          type: string
-          example: S00001.001
-        IsSplit:
-          type: boolean
-          example: false
+        Data:
+          type: object
+          properties:
+            ContractId:
+              type: string
+              example: S00001.001
+            IsSplit:
+              type: boolean
+              example: false
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
     ContractSplitResponseTrue:
       type: object
       properties:
-        ContractId:
-          type: string
-          example: P00001.002
-        IsSplit:
-          type: boolean
-          example: true
+        Data:
+          type: object
+          properties:
+            ContractId:
+              type: string
+              example: P00001.002
+            IsSplit:
+              type: boolean
+              example: true
+        Response:
+          $ref: '#/components/schemas/201 CreateResponse'
     Contract8SplitResponseTrue:
       type: object
       properties:
