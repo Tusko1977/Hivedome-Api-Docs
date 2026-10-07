@@ -7,10 +7,12 @@ info:
 
     ## New Endpoints
 
+    <large>
     - Inventory **Lots Create**: Create Lots, [Link](#/Inventory/CreateLots)
     - Inventory **Lots Update**: Update Lots, [Link](#/Inventory/UpdateLots)
     - Inventory **Lots Delete**: Delete Lots, [Link](#/Inventory/DeleteLots)
     - Inventory **Logistics Plan Create**: Create Logistics Plan, [Link](#/Inventory/CreateLogisticsPlan)
+    </large>
 servers:
   - url: https://{yourServer}:5720
     variables:
