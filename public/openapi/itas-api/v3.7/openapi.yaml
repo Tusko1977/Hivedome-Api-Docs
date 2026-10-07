@@ -4005,7 +4005,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/F&OTradeCreate'
+              $ref: '#/components/schemas/FandOTradeCreate'
   /Contract/{TradingEntityId}/FuturesAndOptions/Trade/{Property}/{PropertyValue}:
     get:
       tags:
@@ -9174,7 +9174,7 @@ components:
         ExternalSerial:
           type: string
           example: ABCD
-    F&OTradeCreate:
+    FandOTradeCreate:
       type: object
       properties:
         SerialNo:
