@@ -431,6 +431,120 @@ components:
       - ExpenseCode
       - DepartmentCode
       - AmountInDocumentCurrency
+    AccountDetailsJournalOut:
+      type: object
+      properties:
+        AccountCode:
+          type: string
+          maxLength: 11
+          example: POSTEIT.P
+        AccountLedgerType:
+          type: string
+          maxLength: 1
+          enum:
+          - C
+          - N
+          - K
+          example: C
+        ExpenseCode:
+          type: string
+          maxLength: 7
+          example: MISC
+        DepartmentCode:
+          type: string
+          maxLength: 4
+          example: GEN
+        AmountInDocumentCurrency:
+          type: number
+          format: double
+          example: -1.02
+        AmountInFunctionalCurrency:
+          type: number
+          format: double
+          example: -1.02
+        Narrative:
+          type: string
+          maxLength: 30
+          example: STAMPA POSTA 4ONLINE GIU22
+        SecondaryReference:
+          type: string
+          maxLength: 10
+          example: '3220336229'
+        Memo:
+          type: string
+          maxLength: 100
+          example: Add Memo Here
+        FreeField:
+          type: string
+          maxLength: 10
+          example: 0123456789
+        PersonalInits:
+          type: string
+          maxLength: 3
+          example: RDG
+      required:
+      - AccountCode
+      - AccountLedgerType
+      - ExpenseCode
+      - DepartmentCode
+      - AmountInDocumentCurrency
+    AccountDetailsJournalIn:
+      type: object
+      properties:
+        AccountCode:
+          type: string
+          maxLength: 11
+          example: RECACC.P
+        AccountLedgerType:
+          type: string
+          maxLength: 1
+          enum:
+          - C
+          - N
+          - K
+          example: C
+        ExpenseCode:
+          type: string
+          maxLength: 7
+          example: MISC
+        DepartmentCode:
+          type: string
+          maxLength: 4
+          example: GEN
+        AmountInDocumentCurrency:
+          type: number
+          format: double
+          example: 1.02
+        AmountInFunctionalCurrency:
+          type: number
+          format: double
+          example: 1.02
+        Narrative:
+          type: string
+          maxLength: 30
+          example: STAMPA POSTA 4ONLINE GIU22
+        SecondaryReference:
+          type: string
+          maxLength: 10
+          example: '3220336229'
+        Memo:
+          type: string
+          maxLength: 100
+          example: Add Memo Here
+        FreeField:
+          type: string
+          maxLength: 10
+          example: 0123456789
+        PersonalInits:
+          type: string
+          maxLength: 3
+          example: RDG
+      required:
+      - AccountCode
+      - AccountLedgerType
+      - ExpenseCode
+      - DepartmentCode
+      - AmountInDocumentCurrency
     AccountDetailsNominal:
       type: object
       properties:
@@ -690,7 +804,9 @@ components:
         AccountDetails:
           type: array
           items:
-            $ref: '#/components/schemas/AccountDetails'
+            oneOf:
+            - $ref: '#/components/schemas/AccountDetailsJournalOut'
+            - $ref: '#/components/schemas/AccountDetailsJournalIn'
       required:
       - DocumentBody
       - AccountDetails
