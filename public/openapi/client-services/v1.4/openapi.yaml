@@ -521,6 +521,7 @@ components:
       properties:
         Request:
           type: string
+          example: <?xml version="1.0"?><PackageInput DFname="TestPackage" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://itashelp.hivedome.net/media/inpTestPackage.xsd"> <TradingEntityCode>xx</TradingEntityCode><CutOffDate>2018-04-30</CutOffDate></PackageInput>
       required:
       - Request
     ReportFactoryExport:
@@ -528,6 +529,7 @@ components:
       properties:
         Request:
           type: string
+          example: <?xml version="1.0"?><ITASReportInput RFname="TestReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://itashelp.hivedome.net/media/inpTestReport.xsd"><TradingEntityCode>xx</TradingEntityCode><AccountInitials>zz</AccountInitials><DataSourceConnectionString>abcdefghijklmnopqrstuvwxyz</DataSourceConnectionString><OutputSchemaName>TestSchema</OutputSchemaName><OutputSchemaVersion>1</OutputSchemaVersion><OutputSchemaAddress>https://itashelp.hivedome.net/media/outTestReport.xsd</OutputSchemaAddress><OutputStyle></OutputStyle><OutputFolder></OutputFolder><OutputFilename></OutputFilename><SilentMode>true</SilentMode><DbDate>0</DbDate><ReportType>Standard Report</ReportType></ITASReportInput>
       required:
       - Request
     Country:
