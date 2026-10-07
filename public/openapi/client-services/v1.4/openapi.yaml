@@ -262,25 +262,25 @@ paths:
                   }
               updateDepartments:
                 value: |
-                mutation { 
-                  UpdateDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''", Input: 
-                  { 
-                    DepartmentDescription: "Department ABCD" 
-                  }) 
-                  { 
-                    DepartmentId 
-                    DepartmentDescription 
-                  } 
-                }
+                  mutation { 
+                    UpdateDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''", Input: 
+                    { 
+                      DepartmentDescription: "Department ABCD" 
+                    }) 
+                    { 
+                      DepartmentId 
+                      DepartmentDescription 
+                    } 
+                  }
               deleteDepartments:
                 value: | 
-                mutation { 
-                  DeleteDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''") 
-                  { 
-                    DepartmentId
-                    DepartmentDescription 
-                  } 
-                }
+                  mutation { 
+                    DeleteDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''") 
+                    { 
+                      DepartmentId
+                      DepartmentDescription 
+                    } 
+                  }
       responses:
         '200':
           description: Success
