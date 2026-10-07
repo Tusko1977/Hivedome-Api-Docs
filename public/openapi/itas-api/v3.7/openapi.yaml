@@ -2,7 +2,20 @@ openapi: 3.0.3
 info:
   title: ITAS API
   version: '3.7'
-  description: 'Release notes: 17 August 2026.'
+  description: |
+    **Release notes (17th August 2026.)**
+
+    ## New Endpoints
+
+    - Finance-Banking **Letter Of Credit Create - Company Validation**: POST Create Letter Of Credit - Company Validation, [Link](#/Finance-Banking/createLetterOfCreditCompanyValidation)
+    - Finance-Banking **Letter Of Credit Update**: PATCH Update Letter Of Credit, [Link](#/Finance-Banking/updateLetterOfCredit)
+
+    ## Updated Endpoints
+
+    - Finance-Banking **Letter Of Credit**: Additional Properties: BeneficiaryCode, IssuingBankCode, AdvisingBankCode,
+      OpenDate, ExpiryDate, LatestShipDate, DepartmentCode, ConfirmedToBankDate, FullyReceivedDate, BriefReceivedDate,
+      InOrOut, LcType, Key41A, Key42D , [Link](#/Finance-Banking/createLetterOfCredit)
+    
 servers:
   - url: https://{yourServer}:5720
     variables:
