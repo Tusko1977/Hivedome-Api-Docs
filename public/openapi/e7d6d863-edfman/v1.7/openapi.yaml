@@ -7,7 +7,7 @@ info:
 
     ## New Endpoints
 
-    - Inventory **Lots Create**: Create Lots, #/Inventory/CreateLots
+    - Inventory **Lots Create**: [Create Lots], {#/Inventory/CreateLots}
     - Inventory **Lots Update**: Update Lots, #/Inventory/UpdateLots
     - Inventory **Lots Delete**: Delete Lots, #/Inventory/DeleteLots
     - Inventory **Logistics Plan Create**: Create Logistics Plan, #/Inventory/CreateLogisticsPlan
