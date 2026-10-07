@@ -32,6 +32,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContractSplitResponseTrue'
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractSplitResponseFalse'
         '400':
           description: '400'
           content:
