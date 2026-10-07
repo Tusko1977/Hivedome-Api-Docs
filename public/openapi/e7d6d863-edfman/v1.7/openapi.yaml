@@ -2,7 +2,15 @@ openapi: 3.0.3
 info:
   title: ED&FMan Custom API
   version: '1.7'
-  description: 'Release notes: 5 October 2026.'
+  description: |
+    **Release notes (5th October 2026.)**
+
+    ## New Endpoints
+    
+    - Inventory **Lots Create**: [/Inventory/post_Inventory__TradingEntityId__Lots_CreateLots
+    - Inventory **Lots Update**: [Update Lots](#/h_Inventory__TradingEntityId__Lots_UpdateLots
+    - Inventory **Lots Delete**: #/Inventory/delete_Inventory__TradingEntityId__Lots_DeleteLots
+    - Inventory **Logistics Plan Create**: [Create Logistics Plan](#y__TradingEntityId__Grouping_CreateLogisticsPlan
 servers:
   - url: http://{yourServer}:4720
     variables:
