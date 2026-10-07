@@ -31,7 +31,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/ContractSplitResponseTrue'
         '200':
           description: '200'
           content:
