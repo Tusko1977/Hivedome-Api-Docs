@@ -8217,7 +8217,13 @@ components:
           example: House Account
     CodeRename:
       type: object
-      properties: {}
+      properties:
+        OldValue:
+          type: string
+          example: CAN||INDIA||GMP||EXP||ABC
+        NewValue:
+          type: string
+          example: CAN||INDIA||ORGANI||EXP||ABC
     Commodity:
       type: object
       properties:
