@@ -31,13 +31,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContractSplitResponseTrue'
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/ContractSplitResponseTrue'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '200':
           description: '200'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContractSplitResponseFalse'
+                type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/ContractSplitResponseFalse'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -87,6 +97,11 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/NonPileStockIntakeResponse'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '400':
           description: '400'
           content:
@@ -130,6 +145,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ContractId:
+                        type: string
+                        example: P00001.001
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -173,6 +197,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ContractId:
+                        type: string
+                        example: '800001.000'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -222,12 +255,22 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8SplitResponseTrue'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '200':
           description: '200'
           content:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8SplitResponseFalse'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -277,6 +320,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ManufacturingOrderNo:
+                        type: number
+                        example: 500
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '400':
           description: '400'
           content:
@@ -320,12 +372,22 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8SplitResponseTrue'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '200':
           description: '200'
           content:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8SplitResponseFalse'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -375,6 +437,11 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/MOCompleteResponse'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '400':
           description: '400'
           content:
@@ -418,6 +485,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ContractId:
+                        type: string
+                        example: M00001.001
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -461,12 +537,22 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/ContractSplitSaleResponseTrue'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '200':
           description: '200'
           content:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/ContractSplitSaleResponseFalse'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -516,6 +602,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ContractId:
+                        type: string
+                        example: S00001.001
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -559,12 +654,22 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8SplitResponseTrue'
+                  Response:
+                    $ref: '#/components/schemas/201 CreateResponse'
         '200':
           description: '200'
           content:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    $ref: '#/components/schemas/Contract8HeaderSplitResponseFalse'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -614,6 +719,15 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  Data:
+                    type: object
+                    properties:
+                      ContractId:
+                        type: string
+                        example: '800001.000'
+                  Response:
+                    $ref: '#/components/schemas/200 UpdateResponse'
         '400':
           description: '400'
           content:
@@ -971,31 +1085,21 @@ components:
     ContractSplitSaleResponseFalse:
       type: object
       properties:
-        Data:
-          type: object
-          properties:
-            ContractId:
-              type: string
-              example: S00001.001
-            IsSplit:
-              type: boolean
-              example: false
-        Response:
-          $ref: '#/components/schemas/201 CreateResponse'
+        ContractId:
+          type: string
+          example: S00001.001
+        IsSplit:
+          type: boolean
+          example: false
     ContractSplitResponseTrue:
       type: object
       properties:
-        Data:
-          type: object
-          properties:
-            ContractId:
-              type: string
-              example: P00001.002
-            IsSplit:
-              type: boolean
-              example: true
-        Response:
-          $ref: '#/components/schemas/201 CreateResponse'
+        ContractId:
+          type: string
+          example: P00001.002
+        IsSplit:
+          type: boolean
+          example: true
     Contract8SplitResponseTrue:
       type: object
       properties:
