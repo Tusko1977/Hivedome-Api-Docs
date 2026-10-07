@@ -208,9 +208,27 @@ paths:
           text/plain:
             schema:
               type: string
-              example: "{\n  Departments(TradingEntityIds: [\"jt\", \"qa\"], Top: 200, Skip: 100) {\n    DepartmentId DepartmentDescription\
-                \ NominalCategory { NominalCategoryId NominalCategoryDescription NominalGroup } Country { CountryId CountryDescription\
-                \ } EDICode Status\n  }\n}"
+              example: | 
+                {  
+                  Departments(TradingEntityIds: [\"jt\", \"qa\"], Top: 200, Skip: 100) 
+                    {    
+                      DepartmentId 
+                      DepartmentDescription
+                      NominalCategory 
+                        { 
+                          NominalCategoryId
+                          NominalCategoryDescription
+                          NominalGroup 
+                        } 
+                      Country 
+                        { 
+                          CountryId 
+                          CountryDescription
+                        } 
+                      EDICode 
+                      Status
+                    }
+                  }
   /Modification:
     post:
       tags:
@@ -228,14 +246,41 @@ paths:
               type: string
             examples:
               createDepartment:
-                value: 'mutation { CreateDepartment(Input: { DepartmentId: "ABCD" DepartmentDescription: "ABCD Dep" CountryCode:
-                  "GB" TradingEntityId: "JT" }) { DepartmentId DepartmentDescription } }'
+                value: |
+                 mutation { 
+                  CreateDepartment(Input: 
+                    { 
+                      DepartmentId: "ABCD" 
+                      DepartmentDescription: "ABCD Dep" 
+                      CountryCode: "GB" 
+                      TradingEntityId: "JT" 
+                    }) 
+                    { 
+                      DepartmentId 
+                      DepartmentDescription 
+                    } 
+                  }
               updateDepartments:
-                value: 'mutation { UpdateDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''", Input: { DepartmentDescription:
-                  "Department ABCD" }) { DepartmentId DepartmentDescription } }'
+                value: |
+                mutation { 
+                  UpdateDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''", Input: 
+                  { 
+                    DepartmentDescription: "Department ABCD" 
+                  }) 
+                  { 
+                    DepartmentId 
+                    DepartmentDescription 
+                  } 
+                }
               deleteDepartments:
-                value: 'mutation { DeleteDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''") { DepartmentId
-                  DepartmentDescription } }'
+                value: | 
+                mutation { 
+                  DeleteDepartments(TradingEntityId: "JT", Filter: "DepartmentId eq ''ABCD''") 
+                  { 
+                    DepartmentId
+                    DepartmentDescription 
+                  } 
+                }
       responses:
         '200':
           description: Success
