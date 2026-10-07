@@ -4,12 +4,12 @@ info:
   version: '1.1'
   description: 'Release notes: 31 October 2022.'
 servers:
-  - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
@@ -22,6 +22,7 @@ tags:
 paths:
   /Production/{TradingEntityId}/Schedular/StockIntakePile/{ContractId}:
     put:
+      operationId: UpdatePileStockIntake
       tags:
       - Production Schedular
       summary: Update Pile Stock Intake
@@ -87,6 +88,7 @@ paths:
               $ref: '#/components/schemas/PileStockIntake'
   /Production/{TradingEntityId}/Schedular/StockIntakeNonPile:
     post:
+      operationId: CreateNonPileStockIntake
       tags:
       - Production Schedular
       summary: Create Non Pile Stock Intake
@@ -135,6 +137,7 @@ paths:
               $ref: '#/components/schemas/NonPileStockIntake'
   /Production/{TradingEntityId}/Schedular/StockIntakeReverse/{ContractId}:
     put:
+      operationId: ReverseStockIntake
       tags:
       - Production Schedular
       summary: Reverse Stock Intake
@@ -187,6 +190,7 @@ paths:
         example: P00001.001
   /Production/{TradingEntityId}/Schedular/MaintainQA/{ContractId}:
     put:
+      operationId: UpdateQualityApproved
       tags:
       - Production Schedular
       summary: Update Quality Approved
@@ -245,6 +249,7 @@ paths:
               $ref: '#/components/schemas/QualityApproved'
   /Production/{TradingEntityId}/Schedular/MoveStockWithinTerminal/{ContractId}:
     put:
+      operationId: MoveStockWithinTerminal
       tags:
       - Production Schedular
       summary: Move Stock Within Terminal
@@ -310,6 +315,7 @@ paths:
               $ref: '#/components/schemas/MoveWithinTerminal'
   /Production/{TradingEntityId}/Schedular/ManufacturingOrder:
     post:
+      operationId: CreateManufacturingOrder
       tags:
       - Production Schedular
       summary: Create Manufacturing Order
@@ -362,6 +368,7 @@ paths:
               $ref: '#/components/schemas/MOCreate'
   /Production/{TradingEntityId}/Schedular/MoveToMO/{ManufacturingOrderNo}:
     put:
+      operationId: MoveToManufacturingOrder
       tags:
       - Production Schedular
       summary: Move to Manufacturing Order
@@ -427,6 +434,7 @@ paths:
               $ref: '#/components/schemas/MoveToMO'
   /Production/{TradingEntityId}/Schedular/CompleteMO:
     post:
+      operationId: CompleteManufacturingOrder
       tags:
       - Production Schedular
       summary: Complete Manufacturing Order
@@ -475,6 +483,7 @@ paths:
               $ref: '#/components/schemas/CompleteMO'
   /Production/{TradingEntityId}/Schedular/MOCompletionReverse/{ContractId}:
     put:
+      operationId: ReverseManufacturingOrderCompletion
       tags:
       - Production Schedular
       summary: Reverse Manufacturing Order Completion
@@ -527,6 +536,7 @@ paths:
         example: M00001.001
   /Production/{TradingEntityId}/Schedular/DeliveredQuantity/{ContractId}:
     put:
+      operationId: UpdateDeliveredQuantity
       tags:
       - Production Schedular
       summary: Update Delivered Quantity
@@ -592,6 +602,7 @@ paths:
               $ref: '#/components/schemas/DeliveredQtyEntry'
   /Production/{TradingEntityId}/Schedular/DeliveredQuantityReverse/{ContractId}:
     put:
+      operationId: ReverseDeliveredQuantity
       tags:
       - Production Schedular
       summary: Reverse Delivered Quantity
@@ -644,6 +655,7 @@ paths:
         example: S00001.001
   /Production/{TradingEntityId}/Schedular/StockWriteOff/{ContractId}:
     put:
+      operationId: UpdateStockWriteOff
       tags:
       - Production Schedular
       summary: Update Stock Write Off
@@ -709,6 +721,7 @@ paths:
               $ref: '#/components/schemas/WriteOff'
   /Production/{TradingEntityId}/Schedular/StockWriteOn/{ContractId}:
     put:
+      operationId: UpdateStockWriteOn
       tags:
       - Production Schedular
       summary: Update Stock Write On
@@ -767,6 +780,7 @@ paths:
               $ref: '#/components/schemas/WriteOn'
   /Costs:
     get:
+      operationId: Costs
       tags:
       - Data Object Definitions
       summary: Cost
@@ -779,6 +793,7 @@ paths:
                 $ref: '#/components/schemas/Cost'
   /WarehouseEntry:
     get:
+      operationId: WarehouseEntry
       tags:
       - Data Object Definitions
       summary: Warehouse Entry
@@ -791,6 +806,7 @@ paths:
                 $ref: '#/components/schemas/WarehouseEntry'
   /WarehouseOuturn:
     get:
+      operationId: WarehouseOutturn
       tags:
       - Data Object Definitions
       summary: Warehouse Outturn
@@ -803,6 +819,7 @@ paths:
                 $ref: '#/components/schemas/WarehouseOutturn'
   /WarehouseRecord:
     get:
+      operationId: WarehouseRecord
       tags:
       - Data Object Definitions
       summary: Warehouse Record

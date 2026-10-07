@@ -4,12 +4,12 @@ info:
   version: '1.0'
   description: Release Notes 01 May 2023.
 servers:
-  - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
@@ -24,6 +24,7 @@ tags:
 paths:
   /Invoicing/{TradingEntityId}/Manual/Invoice:
     post:
+      operationId: CreateManualInvoice
       tags:
       - Manual
       summary: Create Manual Invoice
@@ -75,6 +76,7 @@ paths:
               $ref: '#/components/schemas/CreateManualInvoice'
   /Invoicing/{TradingEntityId}/Manual/Journal:
     post:
+      operationId: CreateManualJournal
       tags:
       - Manual
       summary: Create Manual Journal
@@ -120,6 +122,7 @@ paths:
               $ref: '#/components/schemas/CreateManualJournal'
   /Invoicing/{TradingEntityId}/Trade/Sales:
     post:
+      operationId: CreateSalesInvoice
       tags:
       - Trade Invoicing
       summary: Create Sales Invoice
@@ -165,6 +168,7 @@ paths:
               $ref: '#/components/schemas/CreateInvSales'
   /Locking/{TradingEntityId}/Trade/Lock:
     post:
+      operationId: CreateTradeLock
       tags:
       - Trade Locking
       summary: Create Trade Lock
@@ -210,6 +214,7 @@ paths:
               $ref: '#/components/schemas/LockCreateBody'
   /Locking/{TradingEntityId}/Trade/Refresh/{LockId}:
     put:
+      operationId: RefreshTradeLock
       tags:
       - Trade Locking
       summary: Refresh Trade Lock
@@ -256,6 +261,7 @@ paths:
       - AccessToken: []
   /Locking/{TradingEntityId}/Trade/Remove/{LockId}:
     put:
+      operationId: RemoveTradeLock
       tags:
       - Trade Locking
       summary: Remove Trade Lock
@@ -296,6 +302,7 @@ paths:
       - AccessToken: []
   /Invoicing/{TradingEntityId}/ReferenceData/VatSequencees/{VatCode}/{PaymentTermsCode}/{InvoiceType}/{InvoiceDate}:
     get:
+      operationId: ListVatSequences
       tags:
       - Reference Data
       summary: List Vat Sequences

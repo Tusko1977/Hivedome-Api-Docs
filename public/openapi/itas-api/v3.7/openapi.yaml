@@ -4,12 +4,12 @@ info:
   version: '3.7'
   description: 'Release notes: 17 August 2026.'
 servers:
-  - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
@@ -4661,7 +4661,7 @@ paths:
       tags:
       - Finance-Cash
       summary: AuthoriseForPosting
-      operationId: authoriseForPosting
+      operationId: authoriseCashForPosting
       responses:
         '200':
           description: Success
@@ -6550,7 +6550,7 @@ paths:
       tags:
       - Data Object Definitions
       summary: DocumentDetails
-      operationId: documentDetails
+      operationId: documentDetailsPOA
       responses:
         '200':
           description: Success

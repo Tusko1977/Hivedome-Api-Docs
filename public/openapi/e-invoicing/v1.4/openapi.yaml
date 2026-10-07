@@ -4,12 +4,12 @@ info:
   version: '1.4'
   description: 'Release notes: 5 August 2026.'
 servers:
-  - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
@@ -557,6 +557,7 @@ paths:
         '405': *id003
   /InvoiceLeg:
     get:
+      operationId: InvoiceLeg
       tags:
       - Data Object Definitions
       summary: Invoice Record Leg reference
@@ -570,6 +571,7 @@ paths:
                 $ref: '#/components/schemas/InvoiceLegReadUpdate'
   /InvoiceVatRecord:
     get:
+      operationId: InvoiceVatRecord
       tags:
       - Data Object Definitions
       summary: Invoice VAT Record reference

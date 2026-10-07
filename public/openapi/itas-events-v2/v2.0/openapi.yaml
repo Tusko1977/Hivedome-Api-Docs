@@ -3,12 +3,12 @@ info:
   title: ITAS Events API
   version: '2.0'
 servers:
-  - url: http://{yourServer}:4710
+  - url: https://{yourServer}:5710
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5710
+  - url: http://{yourServer}:4710
     variables:
       yourServer:
         default: localhost
@@ -24,6 +24,7 @@ tags:
 paths:
   /Subscribers:
     get:
+      operationId: ListSubscribers
       tags:
       - Subscribers
       summary: List Subscribers
@@ -42,6 +43,7 @@ paths:
                 $ref: '#/components/schemas/405 MethodNotAllowed'
   /Subscribers/{SubscriberId}:
     get:
+      operationId: ReadSubscriber
       tags:
       - Subscribers
       summary: Read Subscriber
@@ -66,6 +68,7 @@ paths:
           type: string
           format: uuid
     delete:
+      operationId: DeleteSubscriber
       tags:
       - Subscribers
       summary: Delete Subscriber
@@ -96,6 +99,7 @@ paths:
           type: string
   /Subscribers/{SubscriberName}:
     post:
+      operationId: CreateSubscriber
       tags:
       - Subscribers
       summary: Create Subscriber
@@ -126,6 +130,7 @@ paths:
           type: string
   /Topics:
     get:
+      operationId: ListTopics
       tags:
       - Topics
       summary: List Topics
@@ -144,6 +149,7 @@ paths:
                 $ref: '#/components/schemas/405 MethodNotAllowed'
   /Topics/{TopicName}:
     get:
+      operationId: ReadTopic
       tags:
       - Topics
       summary: Read Topic
@@ -167,6 +173,7 @@ paths:
         schema:
           type: string
     put:
+      operationId: CreateTopic
       tags:
       - Topics
       summary: Create Topic
@@ -196,6 +203,7 @@ paths:
         schema:
           type: string
     delete:
+      operationId: DeleteTopic
       tags:
       - Topics
       summary: Delete Topic
@@ -226,6 +234,7 @@ paths:
           type: string
   /Subscriptions:
     get:
+      operationId: ListSubscriptions
       tags:
       - Subscriptions
       summary: List Subscriptions
@@ -244,6 +253,7 @@ paths:
                 $ref: '#/components/schemas/405 MethodNotAllowed'
   /Subscriptions/{SubscriberId}:
     get:
+      operationId: ListSubscriptionsForSubscriber
       tags:
       - Subscriptions
       summary: List Subscriptions for Subscriber
@@ -274,6 +284,7 @@ paths:
           type: string
           format: uuid
     delete:
+      operationId: DeleteAllSubscriptionsForSubscriber
       tags:
       - Subscriptions
       summary: Delete all Subscriptions for Subscriber
@@ -304,6 +315,7 @@ paths:
           type: string
   /Subscriptions/{SubscriberId}/{Topic}:
     get:
+      operationId: ReadSubscriptionForSubscriber
       tags:
       - Subscriptions
       summary: Read Subscription for Subscriber
@@ -333,6 +345,7 @@ paths:
         schema:
           type: string
     put:
+      operationId: CreateSubscriptionForSubscriber
       tags:
       - Subscriptions
       summary: Create Subscription for Subscriber
@@ -368,6 +381,7 @@ paths:
         schema:
           type: string
     delete:
+      operationId: DeleteSubscriptionForSubscriber
       tags:
       - Subscriptions
       summary: Delete Subscription for Subscriber
@@ -404,6 +418,7 @@ paths:
           type: string
   /Messages/{SubscriberId}/{Timeout}:
     get:
+      operationId: ReadMessage
       tags:
       - Messages
       summary: Read Message
@@ -436,6 +451,7 @@ paths:
           type: string
   /Messages/{Topic}:
     post:
+      operationId: CreateMessage
       tags:
       - Messages
       summary: Create Message
@@ -468,6 +484,7 @@ paths:
               $ref: '#/components/schemas/MessageBody Create'
   /Messages/{SubscriberId}/{MessageId}:
     delete:
+      operationId: DeleteMessage
       tags:
       - Messages
       summary: Delete Message
@@ -501,6 +518,7 @@ paths:
           format: uuid
   /Messages/{SubscriberId}/{MessageId}/Reject:
     delete:
+      operationId: RejectMessage
       tags:
       - Messages
       summary: Reject Message
@@ -540,6 +558,7 @@ paths:
               $ref: '#/components/schemas/RejectMessage Body'
   /Events/Register:
     post:
+      operationId: CreateMailboxV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Create Mailbox
@@ -570,6 +589,7 @@ paths:
           type: string
   /Events/GetTopic:
     get:
+      operationId: ReadTopicV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Read Topic
@@ -605,6 +625,7 @@ paths:
           type: string
   /Events/AddTopic:
     put:
+      operationId: CreateTopicV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Create Topic
@@ -640,6 +661,7 @@ paths:
           type: string
   /Events/Subscribe:
     post:
+      operationId: CreateSubscriptionV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Create Subscription
@@ -681,6 +703,7 @@ paths:
           type: string
   /Events/ViewSubscriptions:
     get:
+      operationId: ListSubscriptionsV1
       tags:
       - Migrated Events v1 Endpoints
       summary: List Subscriptions
@@ -712,6 +735,7 @@ paths:
           format: uuid
   /Events/Publish:
     put:
+      operationId: PublishMessageV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Publish Message
@@ -753,6 +777,7 @@ paths:
               $ref: '#/components/schemas/MessageBody Create'
   /Events/Peek:
     get:
+      operationId: PeekMessageV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Peek Message
@@ -789,6 +814,7 @@ paths:
           type: string
   /Events/Receive:
     post:
+      operationId: ReceiveMessageV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Receive Message
@@ -831,6 +857,7 @@ paths:
           type: number
   /Events/Confirm:
     delete:
+      operationId: ConfirmMessageV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Confirm Message
@@ -874,6 +901,7 @@ paths:
           format: uuid
   /Events/Unsubscribe:
     post:
+      operationId: UnsubscribeAlertTopicV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Unsubscribe Alert Topic
@@ -911,6 +939,7 @@ paths:
           type: string
   /Events/Unregister:
     delete:
+      operationId: UnregisterSubscriberV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Unregister Subscriber
@@ -938,6 +967,7 @@ paths:
           format: uuid
   /Events/UnsubscribeAll:
     post:
+      operationId: UnsubscribeAllV1
       tags:
       - Migrated Events v1 Endpoints
       summary: Unsubscribe All

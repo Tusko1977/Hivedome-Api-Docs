@@ -4,12 +4,12 @@ info:
   version: '1.04'
   description: 'Release Notes 21 September 2019'
 servers:
-  - url: http://{yourServer}:4730
+  - url: https://{yourServer}:5730
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5730
+  - url: http://{yourServer}:4730
     variables:
       yourServer:
         default: localhost
