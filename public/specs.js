@@ -10,6 +10,8 @@
 const SPECS = {
   "itas-api":   { title: "ITAS API v3.7", url: "/openapi/itas-api/v3.7/openapi.yaml",
                   description: "ITAS API is to provide external access to the ITAS system, both in terms of data and functionality" },
+  "itas-api/v3.6":   { title: "ITAS API v3.6", url: "/openapi/itas-api/v3.6/openapi.yaml",
+                  description: "ITAS API is to provide external access to the ITAS system, both in terms of data and functionality" },
   "itas-api/v3.7":   { title: "ITAS API v3.7", url: "/openapi/itas-api/v3.7/openapi.yaml",
                   description: "ITAS API is to provide external access to the ITAS system, both in terms of data and functionality" },
   "client-services":   { title: "ITAS Client Services API v1.4", url: "/openapi/client-services/v1.4/openapi.yaml",
