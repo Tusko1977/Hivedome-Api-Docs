@@ -7,17 +7,17 @@ info:
 
     ## New Endpoints
 
-    - Inventory **Lots Create**: [Create Lots], {#/Inventory/CreateLots}
-    - Inventory **Lots Update**: Update Lots, #/Inventory/UpdateLots
-    - Inventory **Lots Delete**: Delete Lots, #/Inventory/DeleteLots
-    - Inventory **Logistics Plan Create**: Create Logistics Plan, #/Inventory/CreateLogisticsPlan
+    - Inventory **Lots Create**: Create Lots, [Link](#/Inventory/CreateLots)
+    - Inventory **Lots Update**: Update Lots, [Link](#/Inventory/UpdateLots)
+    - Inventory **Lots Delete**: Delete Lots, [Link](#/Inventory/DeleteLots)
+    - Inventory **Logistics Plan Create**: Create Logistics Plan, [Link](#/Inventory/CreateLogisticsPlan)
 servers:
-  - url: http://{yourServer}:4720
+  - url: https://{yourServer}:5720
     variables:
       yourServer:
         default: localhost
         description: Hostname or IP address of the ITAS server
-  - url: https://{yourServer}:5720
+  - url: http://{yourServer}:4720
     variables:
       yourServer:
         default: localhost
